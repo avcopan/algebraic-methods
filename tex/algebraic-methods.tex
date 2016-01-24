@@ -1,18 +1,542 @@
 \documentclass[11pt,fleqn]{article}
 \usepackage[cm]{fullpage}
-
+%%AVC PACKAGES
 \usepackage{avcgreek}
 \usepackage{avcfonts}
-\usepackage{avcthm}
 \usepackage{avcmath}
+\usepackage[numberby=section]{avcthm} % 
 \usepackage{qcmacros}
 \usepackage{goldstone}
+%%MACROS FOR THIS DOCUMENT
+\numberwithin{equation}{section}
+\usepackage{titlesec}
+\titleformat{\section}{\LARGE\bfseries\mathversion{bold}}{\thesection.}{5pt}{}
+\titleformat{\subsection}{\Large\bfseries\mathversion{bold}}{\thesubsection}{5pt}{}
+\titleformat{\subsubsection}{\large\bfseries\mathversion{bold}}{\thesubsubsection}{5pt}{}
+
+
 
 %%%DOCUMENT%%%
 \begin{document}
 
-\begin{equation}
-  1+1=2
-\end{equation}
+\tableofcontents
+
+%%TENSORS
+\section{Tensors}\label{sec-tensors}
+
+\begin{dfn}
+\thmtitle{Covariance, contravariance, invariance}
+Let \f be an arbitrary linear function of a vector space $V$ and consider a change of basis $\{e_1,\cd,e_n\}\rightarrow\{\tl{e}_1,\cd,\tl{e}_n\}$ defined by $\tl{e}_j = \sum_ie_i\,[\bo{T}]_{ij}$ where $\bo{T}$ is an invertible matrix.
+If \f obeys the same transformation law as the basis elements, it is a \textit{covariant} quantity.
+If it obeys the opposite transformation law, it is a \textit{contravariant} quatntity.
+\begin{align}
+&&
+  \f(\tl{e}_j)=\sum_i\f(e_i)\,[\bo{T}]_{ij}
+\sp\text{\textit{(covariant)}}
+&&
+  \f(\tl{e}_i)=\sum_j[\bo{T}^{-1}]_{ij}\,\f(e_j)
+\sp\text{\textit{(contravariant)}}
+\end{align}
+\textit{Covariant} quantities are typically denoted with subscript indices, $\f_i=\f(e_i)$, whereas \textit{contravariant} quantities are denoted with superscript indices, $\f^i=\f(e_i)$.
+Abstract quantities such as vectors and operators are called \textit{invariant}, since they do not depend on the choice of basis.
+\end{dfn}
+
+\begin{ex}\label{vector-coordinates-are-contravariant}
+\thmtitle{Vector coordinates are contravariant}
+Let $\{v_i\}$ be the coordinates of a vector $v$ in the basis $\{e_i\}$, and let $\{\tl{v}_j\}$ be its coordinates in $\{\tl{e}_j=\sum_ie_i\,[\bo{T}]_{ij}\}$.
+Then the invariance of $v$ implies that the coordinates are contravariant:
+\begin{align*}
+  \sum_ie_iv_i=v=\sum_j\tl{e}_j\tl{v}_j
+=
+  \sum_ie_i\sum_j[\bo{T}]_{ij}\tl{v}_j
+\implies
+  v_i
+=
+  \sum_j[\bo{T}]_{ij}\tl{v}_j
+\implies
+  \tl{v}_j
+=
+  \sum_i[\bo{T}^{-1}]_{ji}v_i
+\end{align*}
+Therefore, vector coordinates should be written with superscript indices $v_i\mapsto v^i$.
+\end{ex}
+
+\begin{dfn}
+\thmtitle{Linear functional}
+A \textit{linear functional} $f:V\rightarrow\mb{C}$ is a scalar-valued function on $V$ that satisfies $f(v+w)=f(v)+f(w)$ and $f(cv)=cf(v)$ for all $c\in\mb{C}$ and all $v,w\in V$.
+The \textit{null functional} is given by $f_0(v)=0\ \forall v\in V$.
+\end{dfn}
+
+\begin{dfn}
+\thmtitle{Dual space $V^*$}
+The \textit{dual space} of $V$, denoted $V^*$, is the space of linear functionals on $V$, which itself forms a vector space with respect to vector addition $(f+g)\in V^*$ and scalar multiplication $(cf)\in V^*$ defined by
+\begin{align}
+&&
+  (f+g)(v)
+\equiv
+  f(v) + g(v)
+&&
+  (cf)(v)
+\equiv
+  cf(v)
+\end{align}
+for all $f,g\in V^*$, $v\in V$, and $c\in\mb{C}$.
+Its dimension is $\dim V^*=\dim V$, which follows from \Cref{canonical-dual-basis}.
+\end{dfn}
+
+\begin{pro}\label{canonical-dual-basis}
+\thmtitle{The canonical dual basis}
+\thmstatement{If $\{e_1,\cd,e_n\}$ is a basis for $V$ then $\{e^1,\cd,e^n\}\subset V^*$, defined by $e^i(e_j)=\d^i_j$, is a basis for $V^*$.
+This ``canonical dual basis'' transforms contravariantly relative to $\{e_1,\cd,e_n\}$. }
+\thmproof{
+  First, note that $e^j(v)=e^j(\sum_ie_iv^i)=\sum_ie^j(e_i)v^i=v^j$ for any $v\in V$.
+  Therefore, $f(v)=f(\sum_ie_iv^i)=\sum_if(e_i)v^i=\sum_if(e_i)e^i(v)$ holds for all $f\in V^*$ and all $v\in V$, which implies that $f=\sum_if(e_i)e^i$.
+  This shows that $\spn\{e^1,\cd,e^n\}=V^*$.
+  Second, assume there exist $c_j\in\mb{C}$ such that $\sum_jc_je^j=f_0$, where $f_0$ is the null functional.
+  Then $0=f_0(e_i)=\sum_jc_je^j(e_i)=c_i$ and all of the coefficients must be zero, showing that $\{e^1,\cd,e^n\}$ is linearly independent.
+  Since both sets have $n$ elements, $\dim V=\dim V^*$.
+  Since $v^j=e^j(v)$, the dual basis is contravariant.
+}
+\end{pro}
+
+\begin{rmk}
+If $\ip{\cdot|\cdot}$ is an inner product on $V$ and $\bo{S}$ is the matrix of overlaps, $\ip{e_i|e_j}=[\bo{S}]_{ij}$, then the canonical dual basis is given by $e^i(\cdot)=\sum_j[\bo{S}^{-1}]_{ij}\,\ip{e_j|\cdot}$, which simplifies to $e^i(\cdot)=\ip{e_i|\cdot}$ when $\{e_1,\cd,e_n\}$ is orthonormal.
+\end{rmk}
+
+\begin{dfn}
+\thmtitle{Linear operator}
+A \textit{linear operator} $\op{T}:V\rightarrow V$ is a vector-valued function on $V$ that satisfies $\op{T}(v+w)=\op{T}v + \op{T}w$ and $\op{T}(cv)=c\op{T}v$.
+The \textit{identity operator} is given by $\op{1}v=v$ and the \textit{null operator} is given by $\op{0}v=v$.
+\end{dfn}
+
+\begin{pro}\label{resolution-of-the-identity}
+\thmtitle{Resolution of the identity}
+\thmstatement{Given a basis $\{e_i\}$, the identity operator can be expressed as $\op{1}=\sum_ie_ie^i$.}
+\thmproof{
+  $\op{1}(v)=v=\sum_ie_iv^i=\sum_ie_ie^i(v)$ holds for all $v\in V$ (see \Cref{canonical-dual-basis}), so $\op{1}=\sum_ie_ie^i$.
+}
+\end{pro}
+
+\begin{rmk}
+Using \Cref{resolution-of-the-identity}, we can identify the matrix of a linear operator, $\op{T}e_j=\sum_ie_i\,[\bo{T}]_{ij}$, with $[\bo{T}]_{ij}=e^i(\op{T}e_j)$.
+Therefore, the row index of $\bo{T}$ should be written as a superscript index, $[\bo{T}]_{ij}\mapsto[\bo{T}]^i_j$.
+Using two resolutions of the identity, $\op{T}$ can be expressed as $\op{T}=\sum_{ij}[\bo{T}]_j^ie_ie^j$, which identifies $\bo{T}$ as its coordinates in $V\times V^*=\spn\{e_ie^j\}$.
+\end{rmk}
+
+\begin{rmk}
+The formula for matrix multiplication also follows from \Cref{resolution-of-the-identity}:
+the matrix of $\op{T}\op{T}'$ is $e^i(\op{T}\op{T}'e_j)=\sum_ke^i(\op{T}e_k)e^k(\op{T}'e_j)=\sum_k[\bo{T}]^i_k[\bo{T}']^k_j$.
+\end{rmk}
+
+\begin{dfn}\label{direct-sum-v-oplus-v'}
+\thmtitle{Direct sum $V\oplus V'$}
+A \textit{direct sum} of vector spaces $V$ and $V'$ is $V\oplus V'\equiv\{v\oplus v'\,|\,v\in V,\,v'\in V'\}$, a new vector space with vector addition and scalar multiplication defined by
+\begin{align}
+&&
+  v_1\oplus v_1'
++
+  v_2\oplus v_2'
+=
+  (v_1 + v_2)
+\oplus
+  (v_1' + v_2')
+&&
+  c(v\oplus v')
+=
+  cv\oplus cv'\,.
+\end{align}
+If $\{e_i\}$ and $\{e_{i'}'\}$ are bases for $V$ and $V'$ then $\{e_i\oplus0\}\cup\{0\oplus e_{i'}'\}$ is a basis for $V\oplus V'$, which has dimension $\dim V+\dim V'$.
+\end{dfn}
+
+\begin{dfn}\label{tensor-product-v-otimes-v'}
+\thmtitle{Tensor product $V\otimes V'$}
+A \textit{tensor product} of vector spaces $V$ and $V'$ is $V\otimes V'\equiv\{\sum v\otimes v'\,|\,v\in V,\,v'\in V'\}$, a new vector space with vector addition and scalar multiplication defined by
+\begin{align}
+&&
+  v_1\otimes v'
++
+  v_2\otimes v'
+=
+  (v_1 + v_2)\otimes v'
+&&
+  v\otimes v_1'
++
+  v\otimes v_2'
+=
+  v\otimes(v_1' + v_2')
+&&
+  c(v\otimes v')
+=
+  (cv)\otimes v'
+=
+  v\otimes(cv')
+\end{align}
+If $\{e_i\}$ and $\{e_{i'}'\}$ are bases for $V$ and $V'$ then $\{e_i\otimes e_{i'}'\}$ is a basis for $V\otimes V'$, which has dimension $\dim V\cdot\,\dim V'$.
+\end{dfn}
+
+\begin{dfn}\label{tensor}
+\thmtitle{Tensor}
+A \textit{tensor} is a vector in a tensor product space.
+An \textit{n\eth order tensor} lives in a product of $n$ vector spaces, $V_1\otimes\cdots\otimes V_n$.
+A \textit{type-(m,n) tensor on $V$} lives in $\underset{\text{$m$ times}}{V\otimes\cdots\otimes V}\otimes \underset{\text{$n$ times}}{V^*\otimes\cdots \otimes V^*}$, denoted $T_n^m(V)$.
+\end{dfn}
+
+\begin{ex}
+$T_0^0(V)$ is the scalar field \mb{C},
+$T_0^1(V)$ is the vector space itself, $T_1^0(V)$ is the dual space $V^*$, and $T_1^1(V)$ is (up to isomorphism) the space of linear operators $V\otimes V^*\simeq V\times V^*$.
+\end{ex}
+
+\begin{rmk}
+A member $t$ of $T_n^m(V)$ can be expanded in the basis $\{e_1,\cd,e_n\}$ as follows.
+\begin{align}
+&&
+  t
+=
+  \sum_{\substack{i_1\cdots i_m\\j_1\cdots j_n}}
+  t_{j_1\cdots j_n}^{i_1\cdots i_m}
+  e_{i_1}\otimes\cdots\otimes e_{i_m}\otimes e^{j_1}\otimes\cdots\otimes e^{j_n}
+\end{align}
+Its coordinate array $\bo{t}=[t^{i_1\cdots i_m}_{j_1\cdots j_n}]$ is indexed by $m$ contravariant indices and $n$ covariant indices.
+\end{rmk}
+
+\begin{rmk}
+Just as people often use the term ``vector'' to refer to the basis-dependent coordinate array $v^i$ rather than $v$ itself, more often than not the word ``tensor'' refers to the coordinate array $t^{i_1\cdots i_m}_{j_1\cdots j_n}$ rather than the abstract quantity $t$.
+\end{rmk}
+
+\begin{dfn}
+\thmtitle{Tensor product $t\otimes t'$}
+The \textit{tensor product} of $t\in T_n^m(V)$ and $t'\in T_{n'}^{m'}(V)$ is $t\otimes t'\in T_{n+n'}^{m+m'}(V)$ with coordinate array $[\bo{t}\otimes \bo{t}']_{j_1\cd j_{n+n'}}^{i_1\cd i_{m+m'}} = t_{j_1\cd j_n}^{i_1\cd i_m}t_{j_{n+1}\cd j_{n+n'}}^{i_{m+1}\cd i_{m+m'}}$.
+This generalizes the \textit{matrix Kronecker product}.
+\end{dfn}
+
+\begin{dfn}
+\thmtitle{Tensor contraction}
+A \textit{(p,q) tensor contraction} is a map $\tr_{p,q}:T_n^m(V)\rightarrow T_{n-1}^{m-1}(V)$ given by tracing the $p\eth$ element in $V$ with the $q\eth$ element in $V^*$:
+\begin{align}
+&&
+  \tr_{p,q}\pr{
+    e_{i_1}\otimes\cd\otimes e_{i_p}\otimes\cd\otimes e^{j_q}\otimes\cd\otimes e^{j_n}
+  }
+=
+  \d_{i_p}^{j_q}\,
+  e_{i_1}\otimes\cd\otimes \cancel{e_{i_p}}\otimes\cd\otimes 
+  \cancel{e^{j_q}}\otimes\cd\otimes e^{j_n}
+\end{align}
+The coordinate array of $\tr_{p,q}(t)$ is $[\tr_{p,q}(\bo{t})]^{i_1\cd \cancel{i_p}\cd i_m}_{j_1\cd \cancel{j_q}\cd j_m}=\sum_{i_p,j_q}\d_{i_p}^{j_q}\,t^{i_1\cd i_m}_{j_1\cd j_m}$, generalizing the \textit{matrix trace}, $\tr(M)=\sum_i M_i^i$.
+\end{dfn}
+
+\begin{dfn}
+\thmtitle{Cross-contraction}
+A \textit{cross-contraction} traces a lower index on one tensor with an upper index on another, $\tr_{p,q'}:T_n^m(V)\otimes T_{n'}^{m'}(V)\rightarrow T^{m}_{n-1}(V)\otimes T^{m'-1}_{n'}$, generalizing the \textit{matrix product} $\tr_{1,1'}(M\otimes M')=\sum_k M^i_kM^k_j$.
+\end{dfn}
+
+\begin{ntt}
+\thmtitle{Einstein summation convention}
+In the \textit{Einstein summation convention} any index which appears twice in a product, once as a covariant index and once as a contravariant one, is implicitly summed over: $\sum_i a_i b^i\mapsto a_ib^i$.
+For most purposes, this rule suffices to dispense with summation symbols altogether.
+The basis expansion of a vector now takes the form $v=e_iv^i$, that of a tensor takes the form $t = t_{j_1\cd j_n}^{i_1\cd i_m}e_{i_1}\otimes\cd\otimes e_{i_m}\otimes e^{j_1}\otimes\cd\otimes e^{j_n}$, and resolution of the identity can be written as $\op{1}=e_ie^i$.
+The choice of symbol for a \textit{contracted index} is is arbitrary, wherease each \textit{free \emph{(uncontracted)} index} symbol must appear once in every term on the right- and left-hand sides of an equation, always with the same co- or contra-variance.
+\end{ntt}
+
+\begin{ex}
+In Einstein notation, the matrix expression $\bo{C}=\bo{A}\bo{B}$ is written as $C^i_j=A^i_kB^k_j$.
+\end{ex}
+
+\begin{ex}
+The expression
+$a_{ij}^{kl}=\tfr{1}{2}b_{ij}^{vx}c_{vx}^{kl}+\tfr{1}{6}d_{ijv}^{xyz}e_{xyz}^{klv}$ is a balanced equation with free indices $\substack{kl\\ij}$.
+Each term is an element of $T_2^2(V)$, so the addition $(+)$ and assignment $(=)$ operations are well-defined.
+\end{ex}
+
+
+
+\newpage
+\section{Fock space}
+
+\subsection{Position-space representation}
+
+\begin{dfn}
+\thmtitle{$n$-electron Hilbert space}
+If $\mc{H}$ is a complete one-electron Hilbert space and $\{\y_p\}$ is its spin-orbital basis, then $\mc{H}^{\otimes n}=\underset{\text{$n$ times}}{\mc{H}\otimes\cd\otimes\mc{H}}=\spn\{\y_{p_1}\otimes\cd\otimes\y_{p_n}\}$ is an \textit{$n$-electron Hilbert space}.
+The inner product on $\mc{H}^{\otimes n}$ is
+\begin{align}
+&&
+  \ip{\y_{p_1}\otimes\cd\otimes\y_{p_n}|\y_{q_1}\otimes\cd\y_{q_n}}
+=
+  \ip{\y_{p_1}|\y_{q_1}}\cd\ip{\y_{p_n}|\y_{q_n}}\,.
+\end{align}
+Projection onto $\br{1\otimes\cd\otimes n}$, where $\kt{i}=\kt{\bo{r}_i,s_i}$ is a space-spin electronic state, reveals that the basis states $\y_{p_1}\otimes\cd\otimes\y_{p_n}$ are abstact representations of the familiar position-space Hartree product, $\ip{1\otimes\cd\otimes n|\y_{p_1}\otimes\cd\otimes\y_{p_n}}=\y_{p_1}(1)\cd\y_{p_n}(n)$.
+\end{dfn}
+
+\begin{dfn}\label{slater-determinant}
+\thmtitle{$n$-electron Slater determinant}
+An \textit{$n$-electron Slater determinant} $\F_{(p_1\cd p_n)}$ is a normalized antisymmetric product of $n$ one-electron states $\y_{p_1},\cd,\y_{p_n}$ with $p_1<\cd<p_n$
+\begin{align}
+&&
+  \F_{(p_1\cd p_n)}
+=
+  \tfr{1}{\sqrt{n!}}
+  \sum_{\pi\in\mr{S}_n}
+  \e_{\pi}
+  \y_{p_{\pi(1)}}\otimes\cd\otimes\y_{p_{\pi(n)}}
+\end{align}
+where $\pi\in\mr{S}_n$ is a permutation of $1\cd n$ and $\e_{\pi}$ is $(-)^{\text{\# transpositions}}$.
+Projecting into position space yields its familiar form.
+\begin{align*}
+&&
+  \ip{1\otimes\cd\otimes n|\F_{(p_1\cd p_n)}}
+=
+  \F_{(p_1\cd p_n)}(1,\cd,n)
+=
+  \tfr{1}{\sqrt{n!}}
+  \det|\y_{p_{\pi(1)}}(1)\cd\y_{p_{\pi(n)}}(n)|
+\end{align*}
+\end{dfn}
+
+\begin{rmk}\label{direct-derivation-of-second-quantization}
+\thmtitle{A direct derivation of second quantization in position-space representation}
+Let $F_n$ be the space of $n$-electron Slater determinants, $\F_{(p_1\cdots p_n)}$, a subspace of $\mc{H}^{\otimes n}$.
+Consider the integral operator $\op{a}_p:F_n\rightarrow F_{n-1}$ which takes $\Y$ in $F_n$ into $(\op{a}_p\Y)(2,\cd,n)\equiv\sqrt{n}\int d(1) \y_p^*(1)\Y(1,2,\cd,n)$ in $F_{n-1}$.
+This operator acts on Slater determinants as
+\begin{align*}
+  (\op{a}_p\F_{(p_1\cd p_n)})(2,\cd,n)
+=
+  \tfr{1}{\sqrt{(n-1)!}}
+  \sum_{\pi\in\mr{S}_n}
+  \ip{\y_p|\y_{p_{\pi(1)}}}
+  \y_{p_{\pi(2)}}(2)\cd\y_{p_{\pi(n)}}(n)
+=
+\left\{
+\ar{
+  (-)^{k-1}\F_{(p_1\cd \cancel{p_k}\cd p_n)} & p=p_k\in(p_1\cd p_n)\\[5pt]
+  0 & \text{otherwise}
+}
+\right.
+\end{align*}
+i.e. it deletes the orbital $\y_p$ from $\F_{(p_1\cd p_n)}$ if exists and otherwise kills the determinant.
+The restriction of $\op{a}_p$ to the space of antisymmetric functions implies that these operators anticommute, $\op{a}_p\op{a}_q=-\op{a}_q\op{a}_p$, since
+\begin{align*}
+  \int d(1)d(2)\y_p^*(1)\y_q^*(2)\Y(1,2,\cd,n)
+=
+  \int d(1)d(2)\y_q^*(1)\y_p^*(2)\Y(2,1,\cd,n)
+=
+-
+  \int d(1)d(2)\y_q^*(1)\y_p^*(2)\Y(1,2,\cd,n)
+\end{align*}
+by changing dummy variables of integration and plugging in $\Y(2,1,\cd,n)=-\Y(1,2,\cd,n)$.
+These deletion operators provide the following decomposition of functions in $F_n$.
+\begin{align}
+&&
+  \Y(1,\cd,n)
+=
+  \tfr{1}{\sqrt{n}}
+  \sum_p^\infty\y_p(1)\pr{\op{a}_p\Y}(2,\cd,n)
+=
+  \tfr{1}{\sqrt{n(n-1)}}
+  \sum_{pq}^\infty
+  \y_p(1)\y_q(2)(\op{a}_q\op{a}_p\Y)(3,\cd,n)
+\end{align}
+Therefore, general matrix elements of the electronic Hamiltonian with respect to $\Y,\Y'\in F_n$ can be expressed as
+\begin{align*}
+  \ip{\Y|\op{H}_e\Y'}
+=
+  \sum_{i=1}^n\ip{\Y|\op{h}(i)\Y'}
++
+  \sum_{i<j}^n\ip{\Y|\op{g}(i,j)\Y'}
+=&\
+  n\ip{\Y|\op{h}(1)\Y'}
++
+  \tfr{n(n-1)}{2}
+  \ip{\Y|\op{g}(1,2)\Y'}
+\\=&\
+  \sum_{pq}^\infty
+  h_{pq}\ip{\op{a}_p\Y|\op{a}_q\Y'}
++
+  \tfr{1}{2}
+  \sum_{pqrs}^\infty
+  \ip{pq|rs}\ip{\op{a}_q\op{a}_p\Y|\op{a}_s\op{a}_r\Y'}
+\end{align*}
+where $\op{h}(i)\equiv-\tfr{1}{2}\nabla_i^2+\sum_A\tfr{Z_A}{|\bo{r}_i-\bo{R}_A|}$, $\op{g}(i,j))\equiv\tfr{1}{|\bo{r}_i-\bo{r}_j|}$, $h_{pq})\equiv\ip{\y_p(1)|\op{h}(1)\y_q(1)}$, and $\ip{pq|rs})\equiv\ip{\y_p(1)\y_q(2)|\op{g}(1,2)\y_r(1)\y_s(2)}$.
+Therefore, restricting $\op{H}_e$ to the space of physically realistic (i.e.~antisymmetric) functions, we get the following identity
+\begin{align}\label{second-quantized-hamiltonian}
+&&
+  \op{H}_e
+=
+  \sum_{pq}^\infty
+  h_{pq}
+  \op{a}_p\dg \op{a}_q
++
+  \tfr{1}{2}
+  \sum_{pqrs}^\infty
+  \ip{pq|rs}
+  \op{a}_p\dg\op{a}_q\dg\op{a}_s\op{a}_r
+\end{align}
+which is the \textit{second quantized} form of the Hamiltonian, as opposed to the \textit{first quantized} form which is not restricted to antisymmetric functions.
+A defining feature of the second quantization formalism is that $\op{H}_e$ is independent of the number of electrons.
+\end{rmk}
+
+\subsection{Abstract representation}
+
+\begin{dfn}\label{fock-space}
+\thmtitle{Fock space}
+Let $F_n(\mc{H})$ denote $\spn\{\F_{(p_1\cd p_n)}\}$, the antisymmetric subspace of $\mc{H}^{\otimes n}$.
+The fermionic \textit{Fock space} is the union of all of these spaces, $F(\mc{H})=F_0(\mc{H})\oplus F_1(\mc{H})\oplus F_2(\mc{H})\oplus\cd\oplus F_{\infty}(\mc{H})$, which comprises all possible electronic wavefunctions.
+\end{dfn}
+
+\begin{dfn}\label{occupation-number-representation}
+\thmtitle{The occupation number representation of $F(\mc{H})$}
+In the \textit{occupation number representation} of Fock space, the basis vectors are represented as lists of 1s and 0s,
+$
+  \kt{\bo{n}}
+\equiv
+  \kt{n_1,n_2,n_3,\cd,n_\infty}
+$,
+where $n_p=1$ when $\y_p$ is occupied and $n_p=0$ when $\y_p$ is unoccupied.
+The basis for $F(\mc{H})$ is given by distributing 1s and 0s over the occupation vector in all possible ways.
+The state in which no spin-orbitals are occupied is called the \textit{vacuum state}, denoted $\kt{\vac}$, which spans $F_0(\mc{H})\simeq\mb{C}$.
+\end{dfn}
+
+\begin{dfn}\label{particle-hole-operators}
+\thmtitle{Particle-hole operators}
+\textit{Particle-hole operators} change the occupation numbers of one-particle states.
+The \textit{annihilation operator} of $\y_p$ is a linear mapping $a_p:F_n(\mc{H})\rightarrow F_{n-1}(\mc{H})$ defined by
+\begin{align}
+&&\label{occ-num-annihilation-operator-action}
+  a_p\kt{\cd n_p\cd}
+=
+  (-)^{n_1+\cd+n_{p-1}}
+  \kt{\cd n_p-1\cd}
+\ \ \ \text{if $n_p=1$}
+&&
+  a_p\kt{\cd n_p\cd}
+=
+  0
+\ \ \ \text{if $n_p=0$}
+\end{align}
+and the \textit{creation operator} of $\y_p$ is a linear mapping $c_p:F_n(\mc{H})\rightarrow F_{n+1}(\mc{H})$ defined by
+\begin{align}
+&&\label{occ-num-creation-operator-action}
+  c_p\kt{\cd n_p\cd}
+=
+  (-)^{n_1+\cd+n_{p-1}}
+  \kt{\cd n_p+1\cd}
+\ \ \ \text{if $n_p=0$\ }
+&&
+  c_p\kt{\cd n_p\cd}
+=
+  0
+\ \ \ \text{if $n_p=1$.}
+\end{align}
+\end{dfn}
+
+\begin{pro}
+\thmtitle{$c_p=a_p\dg$}
+\thmstatement{Creation and annihilation operators of the same state $\y_p$ are adjoints of each other.}
+\thmproof{
+  $\ip{n_1'n_2'\cd|a_p[n_1n_2\cd]}$ vanishes unless $n_p'=0$, $n_p=1$, and $n_q'=n_q\ \forall q\neq p$.
+  Likewise for $\ip{c_p[n_1'n_2'\cd]|n_1n_2\cd}$.
+  Therefore, $\ip{\Y|a_p\Y'}=\ip{c_p\Y|\Y'}$ for all $\Y,\Y'\in F(\mc{H})$ and $c_p=a_p\dg$ by the definition of adjoint.
+}
+\end{pro}
+
+\begin{pro}\label{particle-hole-operator-anticommutator}
+\thmtitle{$[q,q']_+=\d_{q'q\dg}$}
+\thmstatement{Particle-hole operators $q$ and $q'$ anticommute unless $q'=q\dg$, for which $[q,q\dg]_+=1$.}
+\thmproof{
+  Let $q$ and $q'$ be arbitrary particle-hole operators acting on $\y_p$ and $\y_{p'}$, respectively.
+  First, suppose $p\neq p'$. Then
+  \begin{align*}
+  &
+    qq'\kt{\cd n_p\cd n_{p'}\cd}
+  =
+    (-)^{n_p+\sum_{r=p+1}^{p'}n_r}
+    \kt{\cd\ol{n_p}\cd\ol{n_{p'}}\cd}
+  \,\text{, and}
+  \\
+  &
+    q'q\kt{\cd n_p\cd n_{p'}\cd}
+  =
+    (-)^{\ol{n_p}+\sum_{r=p+1}^{p'}n_r}
+    \kt{\cd\ol{n_p}\cd\ol{n_{p'}}\cd}
+  \end{align*}
+  where $\ol{n_p}$ and $\ol{n_{p'}}$ are the occupations after applying $q$ and $q'$.
+  Since $n_p$ and $\ol{n_p}$ differ by one, $qq'=-q'q$.
+  The second case, $p=p'$, implies $q'\in\{q,q\dg\}$.
+  If $q'=q$, then $qq'=-q'q=0$.
+  If $q'=q\dg$, either $n_p=1\implies(a_p\dg a_p + a_pa_p\dg)\kt{\cd n_p\cd}=(1+0)\kt{\cd n_p\cd}$ or $n_p=0\implies(a_p\dg a_p + a_pa_p\dg)\kt{\cd n_p\cd}=(0+1)\kt{\cd n_p\cd}$.
+  Either way, $q'=q\dg\implies(qq' + q'q)=1$.
+}
+\end{pro}
+
+\begin{rmk}
+\thmtitle{Relating the determinant and occupation number representations}
+When $p_1<\cd<p_n$, $\F_{(p_1\cd p_n)}$ is equivalent to the occupation vector $\kt{\bo{n}_{(p_1\cd p_n)}}$ with 1s at $p_1,\cd,p_n$.
+Otherwise, this determinant is equivalent to $\e_{\pi}\kt{\bo{n}_{(p_1\cd p_n)}}$ for $\pi\in\mr{S}_n$ such that $p_{\pi(1)}<\cd<p_{\pi(n)}$.
+The actions of $a_p$ and $a_p\dg$ on $\F_{(p_1\cd p_n)}$ are given by
+\begin{align}
+&&\label{abstract-annihilation-operator-action}
+  a_p\F_{(p_1\cd p_n)}
+=
+  (-)^{k-1}\F_{(p_1\cd\cancel{p_k}\cd p_n)}
+  \ \text{if $p=p_k\in(p_1\cd p_n)$}
+&&
+  a_p\F_{(p_1\cd p_n)}
+=
+  0
+  \ \text{if $p\notin(p_1\cd p_n)$}
+\\\label{abstract-creation-operator-action}
+&&
+  a_p\dg\F_{(p_1\cd p_n)}
+=
+  (-)^{k-1}\F_{(p_1\cd p_{k-1}pp_k\cd p_n)}
+  \ \text{if $p\notin(p_1\cd p_n)$}
+&&
+  a_p\dg\F_{(p_1\cd p_n)}
+=
+  0
+  \ \text{if $p\in(p_1\cd p_n)$}
+\end{align}
+which follows directly from \Cref{occ-num-annihilation-operator-action,occ-num-creation-operator-action} when $p_1<\cd<p_n$.
+Other cases follow from the fact that any sign factors for permuting $(p_1\cd p_n)$ cancel on both sides of the equation, including the position of insertion or deletion, $p_k$, whose phase is tracked by $(-)^{k-1}$ on the right.
+Note that \Cref{abstract-annihilation-operator-action} was also derived in \Cref{direct-derivation-of-second-quantization} using the position-space representation of $a_p$.
+Slater determinants can also be written as strings of creation operators applied to the vacuum.
+\begin{align}
+&&
+  \kt{\F_{(p_1\cd p_n)}}
+=
+  a_{p_1}\dg\cd a_{p_n}\dg\kt{\vac}
+\end{align}
+Together with the second quantized form of the electronic Hamiltonian (\Cref{second-quantized-hamiltonian}), this boils much of the work of electronic structure theory down to particle-hole operator algebra.
+\end{rmk}
+
+\begin{dfn}
+\thmtitle{Excitation operators and excited determinants}
+Operators strings of the form $a_{p_1}\dg\cd a_{p_m}\dg a_{q_m}\cd a_{q_1}$ are called \textit{excitation operators}.
+For a given reference determinant $\F$, excited determinants can be constructed as
+\begin{align}
+&&
+  \F_{i_1\cd i_m}^{a_1\cd a_m}
+=
+  a_{a_1}\dg\cd a_{a_m}\dg a_{i_m}\cd a_{i_1}\F
+=
+  a_{a_1}\dg a_{i_1}\cd a_{a_m}\dg a_{i_m}\F
+\end{align}
+where $i_1,\cd,i_m$ are occupied and $a_1,\cd,a_m$ are virtual indices with respect to $\F$.
+\end{dfn}
+
+
+\subsection{\vac-normal ordering}
+
+\begin{dfn}
+\thmtitle{\vac-normal order}
+A string $q_1\cd q_n$ of particle-hole operators is in \textit{\vac-normal order} when all of its creation operators sit to the left of its annihilation operators.
+That is, a \vac-normal string has the form $a_{p_1}\dg\cd a_{p_m}\dg a_{r_1}\cd q_{r_{m'}}$.
+This form guarantees that the vacuum expectation value of the string goes to zero, $\ip{\vac|q_1\cd q_n|\vac}=0$.
+\end{dfn}
+
+\begin{dfn}
+\thmtitle{\vac-normal ordering}
+The \textit{\vac-normal ordering} of a string $q_1\cd q_n$ of particle-hole operators is the mapping $q_1\cd q_n\mapsto\no{q_1\cd q_n}\equiv\e_{\pi}q_{\pi(1)}\cd q_{\pi(n)}$ where $\pi\in\mr{S}_n$ is a permutation that places the string in normal order.
+\end{dfn}
 
 \end{document}
