@@ -328,7 +328,15 @@ Projecting into position space yields its familiar form.
 \begin{rmk}\label{direct-derivation-of-second-quantization}
 \thmtitle{A direct derivation of second quantization in position-space representation}
 Let $F_n$ be the space of $n$-electron Slater determinants, $\F_{(p_1\cdots p_n)}$, a subspace of $\mc{H}^{\otimes n}$.
-Consider the integral operator $\op{a}_p:F_n\rightarrow F_{n-1}$ which takes $\Y$ in $F_n$ into $(\op{a}_p\Y)(2,\cd,n)\equiv\sqrt{n}\int d(1) \y_p^*(1)\Y(1,2,\cd,n)$ in $F_{n-1}$.
+Consider the integral operator $\op{a}_p:F_n\rightarrow F_{n-1}$ given by
+\begin{align}
+&&
+  \Y(1,\cd,n)
+\mapsto
+  (\op{a}_p\Y)(2,\cd,n)
+\equiv
+  \sqrt{n}\int d(1) \y_p^*(1)\Y(1,2,\cd,n)\,.
+\end{align}
 This operator acts on Slater determinants as
 \begin{align*}
   (\op{a}_p\F_{(p_1\cd p_n)})(2,\cd,n)
@@ -388,7 +396,7 @@ Therefore, general matrix elements of the electronic Hamiltonian with respect to
   \sum_{pqrs}^\infty
   \ip{pq|rs}\ip{\op{a}_q\op{a}_p\Y|\op{a}_s\op{a}_r\Y'}
 \end{align*}
-where $\op{h}(i)\equiv-\tfr{1}{2}\nabla_i^2+\sum_A\tfr{Z_A}{|\bo{r}_i-\bo{R}_A|}$, $\op{g}(i,j))\equiv\tfr{1}{|\bo{r}_i-\bo{r}_j|}$, $h_{pq})\equiv\ip{\y_p(1)|\op{h}(1)\y_q(1)}$, and $\ip{pq|rs})\equiv\ip{\y_p(1)\y_q(2)|\op{g}(1,2)\y_r(1)\y_s(2)}$.
+where $\op{h}(i)\equiv-\tfr{1}{2}\nabla_i^2+\sum_A\tfr{Z_A}{|\bo{r}_i-\bo{R}_A|}$, $\op{g}(i,j)\equiv\tfr{1}{|\bo{r}_i-\bo{r}_j|}$, $h_{pq}\equiv\ip{\y_p(1)|\op{h}(1)\y_q(1)}$, and $\ip{pq|rs}\equiv\ip{\y_p(1)\y_q(2)|\op{g}(1,2)\y_r(1)\y_s(2)}$.
 Therefore, restricting $\op{H}_e$ to the space of physically realistic (i.e.~antisymmetric) functions, we get the following identity
 \begin{align}\label{second-quantized-hamiltonian}
 &&
@@ -806,16 +814,118 @@ The proof of this result follows in the next section (\Cref{pre-wick-lemma} and 
 }
 \end{thm}
 
-\begin{cor}
+\begin{cor}\label{wick-operator-product}
 \thmtitle{Wick's theorem for operator products}
 $\no{Q}\no{Q'}=\no{QQ'}+\no{\ctr{}{Q}{}{Q}  QQ'}$
 \thmproof{
-  T
+  By Wick's theorem $\no{Q}\no{Q'}=\no{QQ'}+\no{\pr{\ol{\no{Q}\no{Q'}}}}$ and since $\no{Q}$ and $\no{Q'}$ are in normal order their contractions vanish, leaving $\no{\pr{\ol{\no{Q}\no{Q'}}}}=\no{\ctr{}{Q}{}{Q} QQ'}$.
+}
+\end{cor}
+
+\begin{cor}\label{wick-expectation-value}
+\thmtitle{Wick's theorem for expectation values}
+$\ip{\vac|Q|\vac}=\no{\ol{\ol{Q}}}$
+\thmproof{
+  From Wick's theorem $\ip{\vac|Q|\vac}=\ip{\vac|\no{Q}|\vac}+\ip{\vac|\no{\ol{Q}}|\vac}$ and any incompletely contractioned have vanishing expectation values by the definition of normal ordering.  Therefore, $\ip{\vac|\no{Q}|\vac}=0$ and $\ip{\vac|\no{\ol{Q}}|\vac}=\no{\ol{\ol{Q}}}$.
 }
 \end{cor}
 
 \begin{prob}
+Do problem \Cref{wick-example} in reverse: use Wick's theorem to expand $a_pa_q a_s\dg a_r\dg$ as a linear combination of \vac-normal operator strings.
+Then use \Cref{wick-expectation-value} to evaluate $\ip{\vac|a_pa_q a_s\dg a_r\dg|\vac}$.
 \end{prob}
+
+\begin{prop}
+\thmtitle{Sign rule for completely contracted strings}
+\thmstatement{The phase vactor of a completely contracted string is given by $\pr{-}^c$ where $c$ is the number of crossings between contraction lines.}
+\thmproof{
+  Let
+  $\e_{\pi}
+  \no{
+    \ctr{}{q}{_{\pi(1)}}{q}     q_{\pi(1)}q_{\pi(2)}
+    \cd
+    \ctr{}{q}{_{\pi(n-1)}}{q}  q_{\pi(n-1)}q_{\pi(n)}
+  }$
+  be the disentangled form of a complete contraction of $q_1\cd q_n$, where $n$ is an even integer.
+  The phase factor for the contraction, $\e_{\pi}$, is equal to the signature of the disentangling permutation, which is equal to the signature of the inverse permutation $\pi^{-1}$, restoring the original ordering of the operators.
+  $\pi^{-1}$ can be expressed as a series of transpositions between pairs of adjacent operators that are not contracted together.
+  Since every operator has a contraction line overhead, each such transposition changes the number of crossings by exactly $\pm1$, so $\e_{\pi}=(-)^c$ where $c$ is the number of crossings in the original contraction pattern.
+}
+\end{prop}
+
+\begin{prob}
+By expanding $\kt{\F}$ as $a_{i_1}\dg\cd a_{i_n}\dg\kt{\vac}$, use \Cref{wick-expectation-value} to show, using verbal arguments where appropriate, that
+\begin{align*}
+  \ip{\F|a_p\dg a_q|\F}
+=
+  \k_{qp}
+&&
+  \ip{\F|a_p\dg a_q\dg a_sa_r|\F}
+=
+  \k_{rp}\k_{sq}
+-
+  \k_{sp}\k_{rq}
+&&
+  \k_{pq}
+\equiv
+  \left\{\ar{
+    \d_{pq} & p,q\in\{i_1,\ld,i_n\}\\
+    0       & \text{otherwise.}
+  }\right.
+\end{align*}
+Use your results to derive the first Slater-Condon rule.
+The solution of this problem will be substantially simplified in the next section by shifting from \vac-normal to \F-normal ordering.
+\end{prob}
+
+
+\section{\F-normal ordering}
+
+\begin{dfn} \label{hole-particle-isomorphism}
+\thmtitle{Hole-particle isomorphism}
+The \textit{hole-particle isomorphism} with respect to the reference determinant $\kt{\F}=\kt{\underset{\text{$n$ times}}{1\cd1}\,0\,0\cd}$ is a mapping $F(\mc{H})\rightarrow F(\mc{H})$ that inverts the bits occupied in $\F$:
+\begin{align*}
+  \kt{k_1\cd k_nk_{n+1}k_{n+1}\cd}
+\mapsto
+  \kt{\ol{k}_1\cd \ol{k}_nk_{n+1}k_{n+2}\cd}
+\sp
+  \text{where $\ol{k}_i=1-k_i$.}
+\end{align*}
+Physically, this corresponds to shift in perspective from the \textit{particle frame} to a \textit{quasiparticle frame}, where the first $n$ states are viewed as \textit{holes} rather than \textit{particles}.
+This makes $\kt{\vac}\mapsto\kt{\underset{\text{$n$ times}}{\ol{1}\cd\ol{1}}\,0\,0\cd}$ a state of $n$ holes and no particles.  $\kt{\F}\mapsto\kt{\underset{\text{$n$ times}}{\ol{0}\cd\ol{0}}\,0\,0\cd}$ becomes the \textit{quasiparticle vacuum state}, in which all hole and particle states are unoccupied.
+\end{dfn}
+
+\begin{dfn}
+\thmtitle{Quasiparticle creation and annihilation operators}
+If we apply \Cref{particle-hole-operators} to the new quasiparticle Fock space, we end up with a new system of \textit{quasiparticle-quasihole operators} $\{b_p\}\cup\{b_p\dg\}$, related to the old set via
+\begin{align}
+&&
+  a_i
+\mapsto
+  b_i\dg
+&&
+  a_i\dg
+\mapsto
+  b_i
+&&
+  a_a
+\mapsto
+  b_a
+&&
+  a_a\dg
+\mapsto
+  b_a\dg
+\end{align}
+where $i$ and $a$ are occupied and virtual indices with respect to the reference determinant $\F$.
+$\{a_i\}\cup\{a_a\}\mapsto\{b_p\}$ are therefore \textit{quasiparticle annihilation operators} and $\{a_i\}\cup\{a_a\dg\}\mapsto\{b_p\dg\}$ are \textit{quasiparticle creation operators}.
+\end{dfn}
+
+\begin{dfn}
+\thmtitle{$\F$-normal order}
+A string $q_1\cd q_n$ of particle-hole operators is in \textit{$\F$-normal order} when all of its quasiparticle creation operators lie to the left of all of its quasiparticle annihilation operators.
+That is, it must 
+\end{dfn}
+
+
 
 \newpage
 \appendix
