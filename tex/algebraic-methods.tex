@@ -31,7 +31,7 @@
 %%TENSORS
 \section{Tensors}\label{sec-tensors}
 
-\begin{dfn}
+\begin{dfn}\label{covariance-contravariance-invariance}
 \thmtitle{Covariance, contravariance, invariance}
 Let \f be an arbitrary linear function of a vector space $V$ and consider a change of basis $\{e_1,\cd,e_n\}\rightarrow\{\tl{e}_1,\cd,\tl{e}_n\}$ defined by $\tl{e}_j = \sum_ie_i\,[\bo{T}]_{ij}$ where $\bo{T}$ is an invertible matrix.
 If \f obeys the same transformation law as the basis elements, it is a \textit{covariant} quantity.
@@ -262,7 +262,7 @@ The coordinate array of $\tr_{p,q}(t)$ is $[\tr_{p,q}(\bo{t})]^{i_1\cd \cancel{i
 A \textit{cross-contraction} traces a lower index on one tensor with an upper index on another, $\tr_{p,q'}:T_n^m(V)\otimes T_{n'}^{m'}(V)\rightarrow T^{m}_{n-1}(V)\otimes T^{m'-1}_{n'}$, generalizing the \textit{matrix product} $\tr_{1,1'}(M\otimes M')=\sum_k M^i_kM^k_j$.
 \end{dfn}
 
-\begin{ntt}
+\begin{ntt}\label{einstein-summation}
 \thmtitle{Einstein summation convention}
 In the \textit{Einstein summation convention} any index which appears twice in a product, once as a covariant index and once as a contravariant one, is implicitly summed over: $\sum_i a_i b^i\mapsto a_ib^i$.
 For most purposes, this rule suffices to dispense with summation symbols altogether.
@@ -584,9 +584,10 @@ The \textit{\vac-normal ordering} of a string $q_1\cd q_n$ of particle-hole oper
 
 \begin{dfn}\label{vac-normal-contraction}
 \thmtitle{\vac-normal contraction}
-A pairwise \textit{\vac-normal contraction} of two particle particle-hole operators $q_1$ and $q_2$ is defined as $\ctr{}{q}{_1}{q}q_1q_2\equiv q_1q_2 - \no{q_1q_2}$.
-This associates a scalar value with every pair in $\{a_p\}\cup\{a_p\dg\}$, of which the only non-trivial case is $a_pa_q\dg=a_pa_q\dg - \no{a_pa_q\dg}=[a_p,a_q\dg]_+=\d_{pq}$.
-All other \vac-normal contractions, including $\ctr{}{a}{_p\dg}{a}a_p\dg a_q$, are zero.
+A \textit{\vac-normal contraction} of two particle particle-hole operators $q_1$ and $q_2$ is defined as $\ctr{}{q}{_1}{q}q_1q_2\equiv q_1q_2 - \no{q_1q_2}$.
+This associates a scalar value with every pair in $\{a_p\}\cup\{a_p\dg\}$, of which only
+$\ctr{}{a}{_p}{a} a_pa_q\dg=a_pa_q\dg - \no{a_pa_q\dg}=[a_p,a_q\dg]_+=\d_{pq}$
+is non-zero.
 \end{dfn}
 
 \begin{dfn}
@@ -853,20 +854,20 @@ Then use \Cref{wick-expectation-value} to evaluate $\ip{\vac|a_pa_q a_s\dg a_r\d
 }
 \end{prop}
 
-\begin{prob}
+\begin{prob}\label{slater-rule-1}
 By expanding $\kt{\F}$ as $a_{i_1}\dg\cd a_{i_n}\dg\kt{\vac}$, use \Cref{wick-expectation-value} to show, using verbal arguments where appropriate, that
 \begin{align*}
   \ip{\F|a_p\dg a_q|\F}
 =
-  \k_{qp}
+  \g_{qp}
 &&
   \ip{\F|a_p\dg a_q\dg a_sa_r|\F}
 =
-  \k_{rp}\k_{sq}
+  \g_{rp}\g_{sq}
 -
-  \k_{sp}\k_{rq}
+  \g_{sp}\g_{rq}
 &&
-  \k_{pq}
+  \g_{pq}
 \equiv
   \left\{\ar{
     \d_{pq} & p,q\in\{i_1,\ld,i_n\}\\
@@ -922,8 +923,640 @@ $\{a_i\}\cup\{a_a\}\mapsto\{b_p\}$ are therefore \textit{quasiparticle annihilat
 \begin{dfn}
 \thmtitle{$\F$-normal order}
 A string $q_1\cd q_n$ of particle-hole operators is in \textit{$\F$-normal order} when all of its quasiparticle creation operators lie to the left of all of its quasiparticle annihilation operators.
-That is, it must 
+That is, it must map to a string of the form $b_{p_1}\cd b_{p_m}\dg b_{r_1}\cd b_{r_m'}$ under the hole-particle isomorphism.
+This guarantees that the quasiparticle vacuum expectation value of the string goes to zero, $\ip{\F|q_1\cd q_n|\F}=0$.
 \end{dfn}
+
+\begin{dfn}
+\thmtitle{$\F$-normal ordering}
+The \textit{$\F$-normal ordering} of a string $q_1\cd q_n$ of particle-hole operators is the mapping $q_1\cd q_n\mapsto\gno{q_1\cd q_n}\equiv\e_{\pi}q_{\pi(1)}\cd q_{\pi(n)}$ where $\pi\in\mr{S}_n$ is a permutation that places the string in $\F$-normal order.
+\end{dfn}
+
+\begin{dfn}
+\thmtitle{$\F$-normal contraction}
+A \textit{$\F$-normal contraction} of two particle-hole operators $q_1$ and $q_2$ is defined as
+$\ctr{}{q}{_1}{q}  q_1q_2\equiv q_1q_2-\gno{q_1q_2}$.
+This associates a scalar value with every pair in $\{a_p\}\cup\{a_p\dg\}$, of which only only those that map to
+$
+  \ctr{}{b}{_p}{b} b_pb_q\dg
+=
+  b_p\dg b_q - \gno{b_p b_q}
+=
+  [b_p\dg, b_q]_+
+=
+  \d_{pq}
+$,
+namely
+$
+  \ctr{}{a}{_a}{a} a_aa_b\dg
+=
+  \d_{ab}
+$
+and
+$
+  \ctr{}{a}{_i\dg}{a} a_i\dg a_j
+=
+  \d_{ij}
+$,
+are non-zero.
+\end{dfn}
+
+\begin{dfn}
+\thmtitle{$\F$-normal contractions as pairwise density moments of the quasiparticle vacuum}
+$\F$-normal contractions can be identified with pairwise moments of the quasiparticle vacuum $\F$ via
+$
+  \ctr{}{q}{_1}{q} q_1q_2
+=
+  \ip{\F|q_1q_2-\gno{q_1q_2}|\F}
+=
+  \ip{\F|q_1q_2|\F}
+$
+since $\ip{\F|\gno{q_1q_2}|\F}=0$ by definition.
+The non-vanishing contractions are elements of
+the $\F$ one-hole density matrix,
+$\ctr{}{a}{_p}{a}     a_pa_q\dg  = \h_{pq}$,
+or the $\F$ one-particle density matrix,
+$\ctr{}{a}{_p\dg}{a}  a_p\dg a_q = \g_{qp}$.
+The density matrices $\h_{pq}$ and $\g_{pq}$ of a determinant are zero everywhere except the occupied and virtual blocks, respectively, where $\h_{ab}=\d_{ab}$ and $\g_{ij}=\d_{ij}$.
+\end{dfn}
+
+\begin{ntt}
+\thmtitle{\F-normal-ordered strings with contraction lines}
+As in the \vac-normal case, we define
+\begin{align}
+  \gno{
+    q_1\cd
+    \ctr{}{q}{_i\cd}{q} q_i\cd q_j
+    \cd q_n
+  }
+\equiv
+  \pr{-}^{j-i-1}
+  \ctr{}{q}{_i}{q} q_iq_j
+  \gno{q_1\cd\cancel{q_i}\cd\cancel{q_j}\cd q_n}
+\end{align}
+where the contraction line now indicates a $\F$-normal contraction rather than a \vac-normal contraction.
+\end{ntt}
+
+\begin{rmk}
+\thmtitle{Wick's theorem for $\F$-normal ordering}
+Since the particle-hole isomorphism maps $\F$-normal ordered products with $\F$-normal contractions into $\vac$-normal ordered products with $\vac$-normal contractions, Wick's theorem carries over directly as $Q=\gno{Q}+\gno{\ol{Q}}$ where $\gno{\ol{Q}}$ is a sum over all single and multiple $\F$-normal contractions.
+The corollaries $\gno{Q}\gno{Q'}=\gno{QQ'}+\gno{\ctr{}{Q}{}{Q} QQ'}$ and $\ip{\F|Q|\F}=\gno{\ol{{Q}}}$ follow.
+\end{rmk}
+
+\begin{prob}
+Do \Cref{slater-rule-1} using Wick's theorem for $\F$-normal ordering.
+\end{prob}
+
+\begin{dfn}
+\thmtitle{$\F$-normal component of an operator}
+The \textit{$\F$-normal component} of a Fock-space operator $A$ is the part of $A$ with a vanishing $\F$ expectation value, $A_{\mr{c}}\equiv A - \ip{\F|A|\F}$.
+Note that this is generally not the same as the $\F$-normal ordering $\no{A}$ of the operator.
+\end{dfn}
+
+\begin{prob}\label{deriving-phi-normal-hamiltonian}
+Using Wick's theorem for $\F$-normal ordering, show that $\vac$-normal single and double excitation operators can be expanded in $\F$-normal ordered excitation operators as follows.
+\begin{align*}
+&
+  a_p\dg a_q
+=
+  \gno{a_p\dg a_q}
++
+  \g_{qp}
+&&
+  a_p\dg a_q\dg a_sa_r
+=
+  \gno{a_p\dg a_q\dg a_sa_r}
+-
+  \g_{sp}\gno{a_q\dg a_r}
++
+  \g_{rp}\gno{a_q\dg a_s}
++
+  \g_{sq}\gno{a_p\dg a_r}
+-
+  \g_{rq}\gno{a_p\dg a_s}
++
+  \g_{rp}\g_{sq}
+-
+  \g_{sp}\g_{rq}
+\end{align*}
+Use these results to derive the following expression for $\F$-normal component of $H_e$.
+\begin{align}
+&&
+  H_\mr{c}
+\equiv
+  H_e
+-
+  \ip{\F|H_e|\F}
+=
+  \sum_{pq}^\infty
+  f_{pq}
+  \gno{a_p\dg a_q}
++
+  \tfr{1}{4}
+  \sum_{pqrs}^\infty
+  \ip{pq||rs}
+  \gno{a_p\dg a_q\dg a_sa_r}
+&&
+\begin{array}{rl}
+  f_{pq}
+\equiv&
+  h_{pq}
++
+  \ds{\sum_{rs}^{\infty}}
+  \ip{pr||qs}
+  \g_{sr}
+\\[5pt]
+  \ip{pq||rs}
+\equiv&
+  \ip{pq|rs}
+-
+  \ip{pq|sr}
+\end{array}
+\end{align} 
+\end{prob}
+
+
+\section{Kutzelnigg-Mukherjee tensor notation}
+
+\begin{ntt}
+\thmtitle{Kutzelnigg-Mukherjee tensor notation}
+In \textit{Kutzelnigg-Mukherjee (KM) tensor ntation}, indices which are covariant with respect to the spin-orbital basis $\{\y_p\}$ are written as superscripts, whereas contravariant indices are written as subscripts.
+Note that this reverses the usual convention in multilinear algebra (\Cref{covariance-contravariance-invariance}).
+Furthermore, the Einstein summation convention (\Cref{einstein-summation}) is adopted.
+As usual, indices $i,j,k,l,\ld$ count over occupied orbitals, indices $a,b,c,d,\ld$ count over virtual orbitals, and indices $p,q,r,s,\ld$ count over the full spin-orbital basis.
+Creation operators are covariant and are therefore denoted $a_p\dg \mapsto a^p$, whereas annihilation operators are contravariant and therefore keep their original notation.
+The one-particle and one-hole density matrices are written as $\g_q^p=\ip{\Y|a^pa_q|\Y}$ and $\h_p^q=\ip{\Y|a_pa^q|\Y}$, respectively.
+$\vac$-normal ordered and $\F$-normal ordered $m$-fold excitation operators are expressed as tensors in $T_m^m(\mc{H})$.
+\begin{align}
+&&
+  a^{p_1\cd p_m}_{q_1\cd q_m}
+\equiv
+  a_{p_1}\dg \cd a_{p_m}\dg a_{q_m}\cd a_{q_1}
+&&
+  \tl{a}^{p_1\cd p_m}_{q_1\cd q_m}
+\equiv
+  \gno{a_{p_1}\dg \cd a_{p_m}\dg a_{q_m}\cd a_{q_1}}
+\end{align}
+The $\vac$-normal and $\F$-normal components of the electronic Hamiltonian are therefore expressed as
+\begin{align}
+&&
+  H_e
+=
+  h_p^q
+  a^p_q
++
+  \tfr{1}{2}
+  g_{pq}^{rs}
+  a^{pq}_{rs}
+&&
+  H_\mr{c}
+=
+  f_p^q
+  \tl{a}^p_q
++
+  \tfr{1}{4}
+  \ol{g}_{pq}^{rs}
+  \tl{a}^{pq}_{rs}
+\end{align}
+where $h_p^q\equiv\ip{\y_p(1)|\op{h}(1)|\y_q(1)}$, $g_{pq}^{rs}\equiv\ip{\y_p(1)\y_q(2)|\op{g}(1,2)|\y_r(1)\y_s(2)}$, $f_p^q\equiv h_p^q+\ol{g}_{pr}^{qs}\g^r_s$, and $\ol{g}_{pq}^{rs}=g_{pq}^{rs}-g_{pq}^{sr}$.
+\end{ntt}
+
+\begin{rmk}\label{permutational-symmetries-of-km-notation-excitation-operators}
+\thmtitle{Permutational symmetries of KM notation excitation operators}
+The anticommutation relationships of particle-hole operators impart the following permutational symmetries on KM notation excitation tensors
+\begin{align}
+&&
+  a^{p_1\cd p_m}_{q_1\cd q_m}
+=
+  \e_{\pi}
+  a^{p_{\pi(1)}\cd p_{\pi(m)}}_{q_1\hphantom{_{\pi()}}\cd q_m}
+=
+  \e_{\pi}
+  a^{p_1\hphantom{_{\pi()}}\cd p_m}_{q_{\pi(1)}\cd q_{\pi(m)}}
+=
+  a^{p_{\pi(1)}\cd p_{\pi(m)}}_{q_{\pi(1)}\cd q_{\pi(m)}}
+\\
+&&
+  \tl{a}^{p_1\cd p_m}_{q_1\cd q_m}
+=
+  \e_{\pi}
+  \tl{a}^{p_{\pi(1)}\cd p_{\pi(m)}}_{q_1\hphantom{_{\pi()}}\cd q_m}
+=
+  \e_{\pi}
+  \tl{a}^{p_1\hphantom{_{\pi()}}\cd p_m}_{q_{\pi(1)}\cd q_{\pi(m)}}
+=
+  \tl{a}^{p_{\pi(1)}\cd p_{\pi(m)}}_{q_{\pi(1)}\cd q_{\pi(m)}}
+\end{align}
+for all $\pi\in\mr{S}_n$.
+Furthermore, the antisymmetry of normal-ordered operator strings permits the following rearrangements.
+\begin{align}
+&&
+  a^{p_1\cd p_m}_{q_1\cd q_m}
+=
+  \no{a^{p_1}_{q_1}\cd a^{p_m}_{q_m}}
+&&
+  \no{a^{p_1\cd p_m}_{q_1\cd q_m}a^{r_1\cd r_n}_{s_1\cd s_n}}
+=
+  \no{a^{p_1}_{q_1}\cd a^{p_m}_{q_m}a^{r_1}_{s_1}\cd a^{r_n}_{s_n}}
+=
+  a^{p_1\cd p_mr_1\cd r_n}_{q_1\cd q_ms_1\cd s_n}
+\\
+&&
+  \tl{a}^{p_1\cd p_m}_{q_1\cd q_m}
+=
+  \gno{a^{p_1}_{q_1}\cd a^{p_m}_{q_m}}
+&&
+  \gno{a^{p_1\cd p_m}_{q_1\cd q_m}a^{r_1\cd r_n}_{s_1\cd s_n}}
+=
+  \gno{a^{p_1}_{q_1}\cd a^{p_m}_{q_m}a^{r_1}_{s_1}\cd a^{r_n}_{s_n}}
+=
+  \tl{a}^{p_1\cd p_mr_1\cd r_n}_{q_1\cd q_ms_1\cd s_n}
+\end{align}
+These symmetries can be used to our advantage in algebraic manipulations of these operators.
+\end{rmk}
+
+\begin{dfn}
+\thmtitle{Bartlett's index permutation operators}
+Let $\op{P}^{(p_1/\cd/p_m)}_{(q_1/\cd/q_n)}$ denote an \textit{index permutation operator}, which sums over all permutations of the upper and lower indices $p_1\cd p_m$ and $q_1\cd q_n$ in a tensor expression, weighted by the permutational signature of each.
+\begin{align}
+&&
+  \op{P}^{(p_1/\cd/p_m)}_{(s_1/\cd/s_n)}
+  t^{p_1\cd p_m}_{s_1\cd s_n}
+\equiv
+  \sum_{\pi\in\mr{S}_m}
+  \sum_{\si\in\mr{S}_n}
+  \e_\pi\e_\si
+  t^{p_{\pi(1)}\cd p_{\pi(m)}}_{s_{\si(1)}\cd s_{\si(n)}}
+\end{align}
+Furthermore, let $\op{P}^{(P_1/\cd/P_M)}_{(S_1/\cd/S_N)}$, where $P_i=P_i(1)\cd P_i(m_i)$ is a block of indices, denote a sum over all permutations except for those that involve transpositions within one of the blocks.
+\begin{align}
+&&
+  \op{P}^{(P_1/\cd/P_M)}_{(S_1/\cd/S_N)}
+  t^{P_1(1)\cd P_M(m_M)}_{S_1(1)\cd S_N(n_N)}
+=
+  \sum_\pi
+  \sum_\si
+  \e_\pi
+  t^{\pi(P_1(1))\cd\pi(P_M(m_M))}_{\si(S_1(1))\cd\si(S_N(n_N))}
+&&
+  \begin{array}{l}
+    \pi(P_i(k))
+    \left\{\begin{array}{l}
+      = P_i(k) \\
+      \in \bigcup_{j\neq i} P_j
+    \end{array}\right.
+  \\[15pt]
+    \si(S_i(k))
+    \left\{\begin{array}{l}
+      = S_i(k) \\
+      \in \bigcup_{j\neq i} S_j
+    \end{array}\right.
+  \end{array}
+\end{align}
+That is, the value of $\pi(P_i(k))$ is allowed to be $P_i(k)$ itself or any value in the remaining blocks, $P_j$ with $j\neq i$, but it cannot be any of the other values in $P_i$, namely $P_i(1),\ld, P_i(k-1), P_i(k+1),\ld, P_i(m_i)$.
+Finally, arguments separated by vertical bars indicate indpendent sets of permutations, 
+$
+  \op{P}^{(P_1/\cd/P_M|P'_1/\cd/P'_{M'})}_{(S_1/\cd/S_N)}
+=
+  \op{P}_{(S_1/\cd/S_N)}
+  \op{P}^{(P_1/\cd/P_M)}
+  \op{P}^{(P'_1/\cd/P'_{M'})}
+$.
+\end{dfn}
+
+\begin{ntt}
+\thmtitle{Dot notation for contractions}
+To allow all of the usual Wick expansions to be expressed, we here augment the traditional KM notation with the following definitions of \textit{particle $\ptcl$ contractions} and \textit{hole $\hole$ contractions}.
+\begin{align}
+&&
+  a_{p^\ptcl}a^{q^\ptcl}
+\equiv
+  \ctr{}{a}{_p}{a} a_pa^q
+&&
+  a^{q^\ptcl}a_{p^\ptcl}
+\equiv
+-
+  \ctr{}{a}{_p}{a} a_pa^q
+&&
+  a^{q^\hole}a_{p^\hole}
+\equiv
+  \ctr{}{a}{^q}{a} a^qa_p
+&&
+  a_{p^\hole}a^{q^\hole}
+\equiv
+-
+  \ctr{}{a}{^q}{a} a^qa_p
+\end{align}
+Note that $a^{p^\ptcl}_{q^\ptcl}=-\h^p_q$ and $a^{p^\hole}_{q^\hole}=\g_q^p$.
+In $\vac$-normal ordering, the hole contractions vanish and the particle contractions become Kronecker deltas.
+This notation allows for normal ordered strings with contractions to keep all of the permutational symmetries listed in \Cref{permutational-symmetries-of-km-notation-excitation-operators}.
+\end{ntt}
+
+\begin{prob}
+Do \cref{deriving-phi-normal-hamiltonian} in KM notation by first showing that
+\begin{align*}
+  a^pa_q
+=
+  \tl{a}^p_q
++
+  \g^p_q
+&&
+  a^{pq}_{rs}
+=
+  \tl{a}^{pq}_{rs}
++
+  \op{P}^{(p/q)}_{(r/s)}\g^p_r\tl{a}^q_s
++
+  \op{P}_{(r/s)}\g^p_r\g^q_s
+\end{align*}
+and then plugging these expressions into $H_e$ to derive $H_\mr{c}$.
+\end{prob}
+
+\begin{ex}
+\thmtitle{Derivation of CIS equations in KM notation}
+A programmable expression for the CI singles Hamiltonian matrix elements, $\ip{\F_i^a|H_c|\F_j^b}$,  can be derived in KM notation as follows.
+\begin{align*}
+&
+  \ip{\F|\tl{a}_a^i\tl{a}_q^p\tl{a}_j^b|\F}
+=
+  \gno{
+    a_{a^\ptcl}^{i^\hole}
+    a_{q^{\ptcl\ptcl}}^{p^\ptcl}
+    a_{j^\hole}^{b^{\ptcl\ptcl}}
+  }
++
+  \gno{
+    a_{a^\ptcl}^{i^{\hole}}
+    a_{q^{\hole}}^{p^{\hole\hole}}
+    a_{j^{\hole\hole}}^{b^{\ptcl}}
+  }
+=
+  \g^i_j\h_a^p\h_q^b
+-
+  \g_q^i\g_j^p\h_a^b
+\\
+&
+  \ip{\F|\tl{a}_a^i\tl{a}^{pq}_{rs}\tl{a}_j^b|\F}
+=
+  \op{P}^{(p/q)}_{(r/s)}
+  \gno{
+    \tl{a}^{i^\hole}_{a^\ptcl}
+    \tl{a}^{p^\ptcl q^{\hole\hole}}_{r^\hole s^{\ptcl\ptcl}}
+    \tl{a}^{b^{\ptcl\ptcl}}_{j^{\hole\hole}}
+  }
+=
+  \op{P}^{(p/q)}_{(r/s)}
+  \g^i_r\h^p_a\g^q_j\h^b_s
+\\
+&
+\implies
+  \ip{\F_i^a|H_\mr{c}|\F_j^b}
+=
+  f_p^q\pr{
+    \g^i_j\h_a^p\h_q^b
+  -
+    \g_q^i\g_j^p\h_a^b
+  }
++
+  \tfr{1}{4}
+  \ol{g}_{pq}^{rs}\pr{
+    \op{P}^{(p/q)}_{(r/s)}
+    \g^i_r\h^p_a\g^q_j\h^b_s
+  }
+=
+  f_a^b\g_j^i
+-
+  f_j^i\h_a^b
++
+  \ol{g}^{ib}_{aj}
+\end{align*}
+which simplifies to
+$\ip{\F_i^a|H_\mr{c}|\F_j^b}=f_a^b\d_j^i-f_j^i\d_a^b+\ol{g}^{ib}_{aj}$.
+Here, we have used the fact that $\tl{a}_i^a=a_i^a$ and $\tl{a}_a^i=a_a^i$.
+\end{ex}
+
+\begin{prob}
+Derive the following results in KM notation using Wick's theorem for expectation values
+\begin{align*}
+  \ip{\F|a^p_q|\F}
+=&\
+  \g^p_q
+&
+  \ip{\F|a^p_qa^a_i|\F}
+=&\
+  \g^p_i\h^a_q
+&
+  \ip{\F|a^p_qa^{ab}_{ij}|\F}
+=&\
+  0
+&
+  \ip{\F|a^p_qa^{abc}_{ijk}|\F}
+=&\
+  0
+\\
+  \ip{\F|a^{pq}_{rs}|\F}
+=&\
+  \op{P}_{(r/s)}
+  \g^p_r\g^q_s
+&
+  \ip{\F|a^{pq}_{rs}a^a_i|\F}
+=&\
+  \op{P}^{(p/q)}_{(r/s)}
+  \g^p_r\g^q_i\h^a_s
+&
+  \ip{\F|a^{pq}_{rs}a^{ab}_{ij}|\F}
+=&\
+  \op{P}^{(p/q)}_{(r/s)}
+  \g^p_i\g^q_j\h^a_r\h^b_s
+&
+  \ip{\F|a^{pq}_{rs}a^{abc}_{ijk}|\F}
+=&\
+  0
+\end{align*}
+and plug them into $\ip{\F|H_e|\F^{abc\cd}_{ijk\cd}}$ to get the Slater-Condon rules.
+\end{prob}
+
+\begin{ex}
+\thmtitle{Derivation of CID equations in KM notation}
+Projecting the CID Schr\"odinger equation, $H_\mr{c}\Y=E_\mr{c}\Y$ with $\Y=(1+\tfr{1}{4}c_{cd}^{kl}\tl{a}_{kl}^{cd})\F$, by $\F$ and $\F_{ij}^{ab}$
+gives a system of linear equations
+\begin{align*}
+  E_\mr{c}
+=&\
+  \ip{\F|H_\mr{c}(1+\tfr{1}{4}c_{cd}^{kl}\tl{a}_{kl}^{cd})|\F}
+&&
+  \implies
+&
+  E_\mr{c}
+=&\
+  \tfrac{1}{4}
+  \ip{\F|H_c|\F_{kl}^{cd}}c_{cd}^{kl}
+\\
+  E_\mr{c}c_{ab}^{ij}
+=&\
+  \ip{\F_{ij}^{ab}|H_\mr{c}(1+\tfr{1}{4}c_{cd}^{kl}\tl{a}_{kl}^{cd})|\F}
+&&
+  \implies
+&
+  E_\mr{c}c_{ab}^{ij}
+=&\
+  \ip{\F_{ij}^{ab}|H_\mr{c}|\F}
++
+  \tfrac{1}{4}
+  \ip{\F_{ij}^{ab}|H_\mr{c}|\F_{kl}^{cd}}c_{cd}^{kl}
+\end{align*}
+which can be simplified into programmable expressions as follows.\\[5pt]
+$
+\begin{array}{rl}
+  \ip{\F|\tl{a}^{pq}_{rs}\tl{a}_{kl}^{cd}|\F}
+=&
+  \op{P}^{(p/q)}_{(r/s)}
+  \g_k^p\g_l^q\h_r^c\h_s^d
+\\
+  \ip{\F|\tl{a}_{ab}^{ij}\tl{a}_q^p\tl{a}_{kl}^{cd}|\F}
+=&
+  \op{P}^{(c/d)}
+        _{(a/b|k/l)}
+  \gno{
+    \tl{a}_{a^{\ptcl1}b^{\ptcl3}}
+          ^{i^{\hole1}j^{\hole2}}
+    \tl{a}_{q^{\ptcl2}}
+          ^{p^{\ptcl1}}
+    \tl{a}_{k^{\hole1}l^{\hole2}}
+          ^{c^{\ptcl2}d^{\ptcl3}}
+  }
++
+  \op{P}^{(i/j|c/d)}
+        _{(k/l)}
+  \gno{
+    \tl{a}_{a^{\ptcl1}b^{\ptcl2}}
+          ^{i^{\hole1}j^{\hole3}}
+    \tl{a}_{q^{\hole1}}
+          ^{p^{\hole2}}
+    \tl{a}_{k^{\hole2}l^{\hole3}}
+          ^{c^{\ptcl1}d^{\ptcl2}}
+  }
+\\=&
+  \op{P}^{(c/d)}
+        _{(a/b|k/l)}
+  \h_a^p\h_q^c\h_b^d\g_k^i\g_l^j
+-
+  \op{P}^{(i/j|c/d)}
+        _{(k/l)}
+  \g_q^i\g_k^p\g_l^j\h_a^c\h_b^d
+\\
+  \ip{\F|\tl{a}_{ab}^{ij}\tl{a}_{rs}^{pq}\tl{a}_{kl}^{cd}|\F}
+=&
+  \op{P}^{(c/d)}
+        _{(a/b|k/l)}
+  \gno{
+    \tl{a}_{a^{\ptcl1}b^{\ptcl2}}
+          ^{i^{\hole1}j^{\hole2}}
+    \tl{a}_{r^{\ptcl3}s^{\ptcl4}}
+          ^{p^{\ptcl1}q^{\ptcl2}}
+    \tl{a}_{k^{\hole1}l^{\hole2}}
+          ^{c^{\ptcl3}d^{\ptcl4}}
+  }
++
+  \op{P}^{(i/j|c/d)}
+        _{(k/l)}
+  \gno{
+    \tl{a}_{a^{\ptcl1}b^{\ptcl2}}
+          ^{i^{\hole1}j^{\hole2}}
+    \tl{a}_{r^{\hole1}s^{\hole2}}
+          ^{p^{\hole3}q^{\hole4}}
+    \tl{a}_{k^{\hole3}l^{\hole4}}
+          ^{c^{\ptcl1}d^{\ptcl2}}
+  }
++
+  \op{P}^{(p/q|i/j|c/d)}
+        _{(r/s|k/l|a/b)}
+  \gno{
+    \tl{a}_{a^{\ptcl1}b^{\ptcl3}}
+          ^{i^{\hole1}j^{\hole3}}
+    \tl{a}_{r^{\hole1}s^{\ptcl2}}
+          ^{p^{\hole2}q^{\ptcl1}}
+    \tl{a}_{k^{\hole2}l^{\hole3}}
+          ^{c^{\ptcl2}d^{\ptcl3}}
+  }
+\\=&
+  \op{P}^{(c/d)}
+        _{(a/b|k/l)}
+  \h_a^p\h_b^q\h_r^c\h_s^d
+  \g_k^i\g_l^j
++
+  \op{P}^{(i/j|c/d)}
+        _{(k/l)}
+  \g_r^i\g_s^j\g_k^p\g_l^q
+  \h_a^c\h_b^d
+-
+  \op{P}^{(p/q|i/j|c/d)}
+        _{(r/s|k/l|a/b)}
+  \g_r^i\g_k^p\g_l^j
+  \h_a^q\h_s^c\h_b^d
+\end{array}$
+\begin{align*}
+&
+  \implies
+&&
+  E_\mr{c}
+=
+  \tfr{1}{4}
+  \ol{g}_{kl}^{cd}c_{cd}^{kl}
+&&
+  E_\mr{c}c_{ab}^{ij}
+=
+  \ol{g}_{ab}^{ij}
++
+  \op{P}_{(a/b)}
+  f_a^c
+  c_{cb}^{ij}
+-
+  \op{P}^{(i/j)}
+  f_k^i
+  c_{ab}^{kj}
++
+  \tfrac{1}{2}
+  \ol{g}_{ab}^{cd}
+  c_{cd}^{ij}
++
+  \tfrac{1}{2}
+  \ol{g}_{kl}^{ij}
+  c_{ab}^{kl}
++
+  \op{P}^{(i/j)}
+        _{(a/b)}
+  \ol{g}_{ak}^{ic}
+  c_{bc}^{jk}
+\end{align*}
+\end{ex}
+
+\begin{prob}
+Derive the $\F$-normal Wick expansion for triple excitations
+\begin{align*}
+  a^{pqr}_{stu}
+=
+  \tl{a}^{pqrs}_{stu}
++
+  \op{P}^{(p/qr)}_{(s/tu)}
+  \g^p_s\tl{a}^{qr}_{tu}
++
+  \op{P}^{(pq/r)}_{(s/t/u)}
+  \g^p_s\g^q_t\tl{a}^r_u
++
+  \op{P}_{(s/t/u)}
+  \g^p_s\g^q_t\g^r_u
+\end{align*}
+where
+$\op{P}_{(p/q/r)}t_{pqr}=t_{pqr}-t_{prq}-t_{qpr}+t_{qrp}+t_{rpq}-t_{rqp}$
+and
+$\op{P}_{(p/qr)}t_{pqr}=t_{pqr}-t_{qpr}-t_{rqp}$.
+\end{prob}
+
+
+\newpage
+\section{Goldstone diagrams}
+
 
 
 
