@@ -1097,28 +1097,6 @@ $\vac$-normal ordered and $\F$-normal ordered $m$-fold excitation operators are 
 \equiv
   \gno{a_{p_1}\dg \cd a_{p_m}\dg a_{q_m}\cd a_{q_1}}
 \end{align}
-The $\vac$-normal and $\F$-normal components of the electronic Hamiltonian are therefore expressed as
-\begin{align}
-&&
-  H_e
-=
-  h_p^q
-  a^p_q
-+
-  \tfr{1}{2}
-  g_{pq}^{rs}
-  a^{pq}_{rs}
-&&
-  H_\mr{c}
-=
-  f_p^q
-  \tl{a}^p_q
-+
-  \tfr{1}{4}
-  \ol{g}_{pq}^{rs}
-  \tl{a}^{pq}_{rs}
-\end{align}
-where $h_p^q\equiv\ip{\y_p(1)|\op{h}(1)|\y_q(1)}$, $g_{pq}^{rs}\equiv\ip{\y_p(1)\y_q(2)|\op{g}(1,2)|\y_r(1)\y_s(2)}$, $f_p^q\equiv h_p^q+\ol{g}_{pr}^{qs}\g^r_s$, and $\ol{g}_{pq}^{rs}=g_{pq}^{rs}-g_{pq}^{sr}$.
 \end{ntt}
 
 \begin{rmk}\label{permutational-symmetries-of-km-notation-excitation-operators}
@@ -1174,6 +1152,33 @@ Furthermore, the antisymmetry of normal-ordered operator strings permits the fol
 \end{align}
 These symmetries can be used to our advantage in algebraic manipulations of these operators.
 \end{rmk}
+
+\begin{ex}
+
+The $\vac$-normal and $\F$-normal components of the electronic Hamiltonian are expressed as
+\begin{align}
+&&
+  H_e
+=
+  h_p^q
+  a^p_q
++
+  \tfr{1}{2}
+  g_{pq}^{rs}
+  a^{pq}_{rs}
+&&
+  H_\mr{c}
+=
+  f_p^q
+  \tl{a}^p_q
++
+  \tfr{1}{4}
+  \ol{g}_{pq}^{rs}
+  \tl{a}^{pq}_{rs}
+\end{align}
+where $h_p^q\equiv\ip{\y_p(1)|\op{h}(1)|\y_q(1)}$, $g_{pq}^{rs}\equiv\ip{\y_p(1)\y_q(2)|\op{g}(1,2)|\y_r(1)\y_s(2)}$, $f_p^q\equiv h_p^q+\ol{g}_{pr}^{qs}\g^r_s$, and $\ol{g}_{pq}^{rs}=g_{pq}^{rs}-g_{pq}^{sr}$.
+\end{ex}
+
 
 \begin{dfn}
 \thmtitle{Bartlett's index permutation operators}
@@ -1555,24 +1560,392 @@ $\op{P}_{(p/qr)}t_{pqr}=t_{pqr}-t_{qpr}-t_{rqp}$.
 
 
 \newpage
-\section{Goldstone diagrams}
+\section{Diagram notation}
 
-\begin{dfn}
-\thmtitle{Adjacent}
-Two lines which are incident with the same vertex are called \textit{adjacent}.
-\end{dfn}
+\begin{ntt}
+\thmtitle{Particle-hole operators in diagram notation}
+In diagram notation, particle-hole operators are written as oriented lines extending from a vertex.
+Particle annihilation operators enter the vertex from below, particle creation operators leave the vertex extending upward, and single-excitation operators have both creation and annihilation lines.
+Contractions of are represented by joining particle-hole lines with compatible position and orientation.
+\begin{align*}
+&&
+\diagram{
+  \node[dot=white,label=above:$p$] (p) at (0,0) {};
+  \draw[-<-] (p) to ++(0,-0.5);
+}
+\equiv
+  a_p
+&&
+\diagram{
+  \node[dot=white,label=below:$p$] (p) at (0,0) {};
+  \draw[->-] (p) to ++(0,+0.5);
+}
+\equiv
+  a_p^\dagger
+&&
+\diagram{
+  \node[dot=white] (a) at (0,0) {};
+  \draw[->-] (a) to ++(0,+0.5) node[above] {$p$};
+  \draw[-<-] (a) to ++(0,-0.5) node[below] {$q$};
+}
+\equiv
+  a_p\dg a_q
+&&
+\diagram{
+  \node[dot=white,label=above:$p$] (p) at (0,+0.5) {};
+  \node[dot=white,label=below:$q$] (q) at (0,-0.5) {};
+  \draw[->-] (q) to (p);
+}
+\equiv
+  \ctr{}{a}{_p}{a} a_p a_q\dg
+=
+  \d_{pq}
+\end{align*}
+Note that the vanishing contractions are not expressible in diagram notation.
+This has the advantage of simplifying the evaluation of Wick expansions without any loss of generality.
+\end{ntt}
 
-\begin{dfn}
-\thmtitle{Path}
-A sequence of adjacent lines is called a \textit{path}.
-Each path has either two external lines, in which case it is an \textit{open path}, or none, in which case it is a \textit{closed path}.
-A closed path is also known as a \textit{loop}.
-\end{dfn}
+\begin{rmk}
+\thmtitle{Spin-orbital labels in diagram notation}
+When using generic placeholder indices, the spin-orbital labels are dispensed with wherever possible.
+The removal of placeholder indices supports the primary objective of diagram notation:
+stripping an expression of all extraneous details to reveal its essential information content.
+\begin{align*}
+&&
+\diagram{
+  \node[dot=white] (p) at (0,0) {};
+  \draw[-<-] (p) to ++(0,-0.5);
+}
+\mapsto
+  a_p
+&&
+\diagram{
+  \node[dot=white] (p) at (0,0) {};
+  \draw[->-] (p) to ++(0,+0.5);
+}
+\mapsto
+  a_p^\dagger
+&&
+\diagram{
+  \node[dot=white] (a) at (0,0) {};
+  \draw[->-] (a) to ++(0,+0.5);
+  \draw[-<-] (a) to ++(0,-0.5);
+}
+\mapsto
+  a_p\dg a_q
+&&
+\diagram{
+  \node[dot=white] (p) at (0,+0.5) {};
+  \node[dot=white] (q) at (0,-0.5) {};
+  \draw[->-] (q) to (p);
+}
+\mapsto
+  \ctr{}{a}{_p}{a} a_p a_q\dg
+\end{align*}
+\end{rmk}
+
+\begin{ntt}
+\thmtitle{Quasiparticle-quasihole operators in diagram notation}
+Diagram notation with respect to $\F$ is expressed in the quasiparticle operator basis, which is indicated by the use of closed- rather than open-circle vertices.
+For particles, annihilation operators enter the vertex from below while creation operators leave the vertex extending upward.
+For holes, annihilation operators leave the vertex extending downward while creation operators enter from above.
+\begin{align*}
+&&
+\diagram{
+  \node[dot] (a) at (0,0) {};
+  \draw[-<-] (a) to ++(0,-0.5);
+}
+\mapsto
+  b_a
+&&
+\diagram{
+  \node[dot] (a) at (0,0) {};
+  \draw[->-] (a) to ++(0,+0.5);
+}
+\mapsto
+  b_a^\dagger
+&&
+\diagram{
+  \node[dot] (i) at (0,0) {};
+  \draw[->-] (i) to ++(0,-0.5);
+}
+\mapsto
+  b_i
+&&
+\diagram{
+  \node[dot] (i) at (0,0) {};
+  \draw[-<-] (i) to ++(0,+0.5);
+}
+\mapsto
+  b_i^\dagger
+\end{align*}
+That is, the hole operator diagrams are rotated by $180^\circ$.
+In this basis, there are two possible contractions
+\begin{align*}
+&&
+\diagram{
+  \node[dot] (a) at (0,+0.5) {};
+  \node[dot] (b) at (0,-0.5) {};
+  \draw[->-] (b) to (a);
+}
+\mapsto
+  \ctr{}{b}{_a}{b}  b_ab_b\dg
+&&
+\diagram{
+  \node[dot] (i) at (0,+0.5) {};
+  \node[dot] (j) at (0,-0.5) {};
+  \draw[-<-] (j) to (i);
+}
+\mapsto
+  \ctr{}{b}{_i}{b}  b_ib_j\dg
+\end{align*}
+and the single-excitation operator $a_p\dg a_q$ splits into four distinct parts.
+\begin{align*}
+&&
+\diagram{
+  \node[dot] (ab) at (0,0) {};
+  \draw[->-] (ab) to ++(0,+0.5);
+  \draw[-<-] (ab) to ++(0,-0.5);
+}
+\mapsto
+  b_a\dg b_b
+=
+  a_a\dg a_b
+&&
+\diagram{
+  \node[dot] (ai) at (0,0) {};
+  \draw[->-] (ai) to ++(-0.25,+0.5);
+  \draw[-<-] (ai) to ++(+0.25,+0.5);
+}
+\mapsto
+  b_a\dg b_i\dg
+=
+  a_a\dg a_i
+&&
+\diagram{
+  \node[dot] (ia) at (0,0) {};
+  \draw[->-] (ia) to ++(-0.25,-0.5);
+  \draw[-<-] (ia) to ++(+0.25,-0.5);
+}
+\mapsto
+  b_ib_a
+=
+  a_i\dg a_a
+&&
+\diagram{
+  \node[dot] (ij) at (0,0) {};
+  \draw[-<-] (ij) to ++(0,+0.5);
+  \draw[->-] (ij) to ++(0,-0.5);
+}
+\mapsto
+  b_ib_j\dg 
+=
+  a_i\dg a_j
+\end{align*}
+Double lines above and below the expression now represent $\br{\F}$ and $\kt{\F}$.
+\end{ntt}
+
+\begin{ntt}
+\thmtitle{Ordering of terms in diagram notation}
+The left-to-right ordering of an operator product translates into top-to-bottom ordering in a diagram.
+When the operator product is acting on $\br{\vac}$ or $\kt{\vac}$, this is indicated by horizontal double lines above or below the diagram.
+\begin{align*}
+&&
+\diagram{
+  \node[draw] (t1) at (0,+0.5) {term 1};
+  \node (dots) at (0,0) {\vd};
+  \node[draw] (tn) at (0,-0.5) {term $n$};
+  \padborder{7pt}
+}
+\mapsto&\
+  (\text{term 1})\cd(\text{term $n$})
+&
+\diagram[top]{
+  \node[draw] (t1) at (0,+0.5) {term 1};
+  \node (dots) at (0,0) {\vd};
+  \node[draw] (tn) at (0,-0.5) {term $n$};
+  \padborder{5pt}
+}
+\mapsto&\
+  \br{\vac}
+  (\text{term 1})\cd(\text{term $n$})
+\\[15pt]
+&&
+\diagram[bottom]{
+  \node[draw] (t1) at (0,+0.5) {term 1};
+  \node (dots) at (0,0) {\vd};
+  \node[draw] (tn) at (0,-0.5) {term $n$};
+  \padborder{5pt}
+}
+\mapsto&\
+  (\text{term 1})\cd(\text{term $n$})
+  \kt{\vac}
+&
+\diagram[top,bottom]{
+  \node[draw] (t1) at (0,+0.5) {term 1};
+  \node (dots) at (0,0) {\vd};
+  \node[draw] (tn) at (0,-0.5) {term $n$};
+  \padborder{5pt}
+}
+\mapsto&\
+  \ip{\vac|
+    (\text{term 1})\cd(\text{term $n$})
+  |\vac}
+\end{align*}
+The same notation is used for $\br{\F}$ and $\kt{\F}$ when the reference determinant $\F$ is chosen as quasiparticle vacuum.
+\end{ntt}
+
+\begin{ex}
+The \vac-normal Wick expansion of $a_pa_q\dg$ can be expressed diagram notation as follows.
+\begin{align*}
+&&
+    a_pa_q\dg
+  =
+  -
+    a_q\dg a_p
+  +
+    \ctr{}{a}{_p}{a} a_pa_q\dg
+\hspace{20pt}\mapsto\hspace{20pt}
+  \diagram{
+    \node[dot=white] (p) at (0,+0.55) {};
+    \node[dot=white] (q) at (0,-0.55) {};
+    \draw[-<-] (p) to ++(0,-0.5);
+    \draw[->-] (q) to ++(0,+0.5);
+  }
+  =
+  -
+  \diagram{
+    \node[dot=white] (pq) at (0,0) {};
+    \draw[->-] (pq) to ++(0,+0.5);
+    \draw[-<-] (pq) to ++(0,-0.5);
+  }
+  +
+  \diagram{
+    \node[dot=white] (p) at (0,+0.5) {};
+    \node[dot=white] (q) at (0,-0.5) {};
+    \draw[->-] (q) to (p);
+  }
+\end{align*}
+Note that, in translating this diagram expression into an algebraic expression, there is no ambiguity in how to assign spin-orbital labels: the incoming line (annihilation operator) must carry the same label in every term (here, $p$), and the outgoing line (creation operator) must carry the same label in every term (here, $q$).
+\end{ex}
+
+\begin{ntt}
+\thmtitle{Diagram notation for $\vac$- and $\F$-normal-ordered excitation operators}
+\vac-normal-ordered excitation operators are expressed in diagram notation as single-excitation operators connected by a line.
+\begin{align*}
+&&
+\underset{\text{$m$ times}}{
+  \underbrace{
+    \diagram{
+      \node[dot=white] (a1) at (0,0) {};
+      \node[dot=white] (a2) at (1,0) {};
+      \node (dots) at (1.75,0) {$\cdots$};
+      \node[dot=white] (an) at (2.5,0) {};
+      \draw (a1)--(a2)--(dots)--(an);
+      \draw[->-] (a1) to ++(0,+0.5);
+      \draw[->-] (a2) to ++(0,+0.5);
+      \draw[->-] (an) to ++(0,+0.5);
+      \draw[-<-] (a1) to ++(0,-0.5);
+      \draw[-<-] (a2) to ++(0,-0.5);
+      \draw[-<-] (an) to ++(0,-0.5);
+    }
+  }
+}
+\mapsto
+  \no{a_{p_1}\dg a_{q_1}a_{p_2}\dg a_{q_2}\cd a_{p_m}\dg a_{q_m}}
+\end{align*}
+$\F$-normal-ordered excitation operators are distinguished by double-circle vertices.
+\begin{align*}
+&&
+\underset{\text{$m$ times}}{
+  \underbrace{
+    \diagram{
+      \node[ddot=white] (a1) at (0,0) {};
+      \node[ddot=white] (a2) at (1,0) {};
+      \node (dots) at (1.75,0) {$\cdots$};
+      \node[ddot=white] (an) at (2.5,0) {};
+      \draw (a1)--(a2)--(dots)--(an);
+      \draw[->-] (a1) to ++(0,+0.5);
+      \draw[->-] (a2) to ++(0,+0.5);
+      \draw[->-] (an) to ++(0,+0.5);
+      \draw[-<-] (a1) to ++(0,-0.5);
+      \draw[-<-] (a2) to ++(0,-0.5);
+      \draw[-<-] (an) to ++(0,-0.5);
+    }
+  }
+}
+\mapsto
+  \gno{a_{p_1}\dg a_{q_1}a_{p_2}\dg a_{q_2}\cd a_{p_m}\dg a_{q_m}}
+\end{align*}
+\end{ntt}
+
+
+\begin{rmk}
+\thmtitle{$m$-electron operators}
+A first-quantized $m$-electron operator $\op{V}=\sum_{i_1<\cd<i_m}\op{v}(i_1\cd i_m)$ can be expressed in two equivalent second-quantized forms
+\begin{align}\label{m-electron-operator-expressions}
+  V
+=
+  \fr{1}{m!}
+  \sum_{\substack{p_1\cd p_m\\q_1\cd q_m}}
+  \ip{p_1\cd p_m|\op{v}|q_1\cd q_m}
+  a_{p_1}\dg\cd a_{p_m}\dg a_{q_m}\cd a_{q_1}
+=
+  \pr{\fr{1}{m!}}^2
+  \sum_{\substack{p_1\cd p_m\\q_1\cd q_m}}
+  \ip{p_1\cd p_m|\op{v}|q_{[1}\cd q_{m]}}\,
+  a_{p_1}\dg\cd a_{p_m}\dg
+  a_{q_m}\cd a_{q_1}
+\end{align}
+where
+$
+  \ip{p_1\cd p_m|\op{v}|q_{[1}\cd q_{m]}}
+\equiv
+  \sum
+  \e_{\pi}
+  \ip{p_1\cd p_m|\op{v}|q_{\pi(1)}\cd q_{\pi(m)}}
+$
+are antisymmetrized $m$-electron integrals
+and the original $m$-electron integrals are given by
+$\ip{p_1\cd p_m|\op{v}|q_1\cd q_m}\equiv\int d(1\cd m)\y_{p_1}^*(1)\cd \y_{p_m}^*(m)\op{v}(1\cd m)\y_{q_1}(1)\cd \y_{q_m}(m)$.
+The derivation of these both expressions for $V$ is given in \Cref{m-electron-operators-ordinary-and-antisymmetrized}.
+In KM notation, we write \Cref{m-electron-operator-expressions} as
+\begin{align}
+&&
+  V
+=
+  \tfr{1}{m!}
+  v_{p_1\cd p_m}^{q_1\cd q_m}
+  a^{p_1\cd p_m}_{q_1\cd q_m}
+=
+  \pr{\tfr{1}{m!}}^2
+  \ol{v}_{p_1\cd p_m}^{q_1\cd q_m}
+  a^{p_1\cd p_m}_{q_1\cd q_m}
+\end{align}
+where $v_{p_1\cd p_m}^{q_1\cd q_m}\equiv\ip{p_1\cd p_m|\op{v}|q_1\cd q_m}$ and
+$\ol{v}_{p_1\cd p_m}^{q_1\cd q_m}\equiv\ip{p_1\cd p_m|\op{v}|q_{[1}\cd q_{m]}}$.
+Note that both sets of $m$-electron integrals are symmetric to permutation of upper-lower index pairs, $v_{p_1\cd p_m}^{q_1\cd q_m}=v_{p_{\pi(1)}\cd p_{\pi(m)}}^{q_{\pi(1)}\cd q_{\pi(m)}}$,
+but that the antisymmetrized $m$-electron integrals are also separately antisymmetric on their upper and lower indices,
+$
+  v_{p_1\cd p_m}^{q_1\cd q_m}
+=
+  \e_{\pi}
+  v_{p_{\pi(1)}\cd p_{\pi(m)}}^{q_1\hphantom{_{\pi()}}\cd q_m}
+=
+  \e_{\pi}
+  v_{p_1\hphantom{_{\pi()}}\cd p_m}^{q_{\pi(1)}\cd q_{\pi(m)}}
+$,
+which means that they have fewer unique elements by a factor of $m!$.
+\end{rmk}
+
+\begin{ntt}
+\thmtitle{}
+\end{ntt}
 
 
 
 
-
+%% APPENDICES
 \newpage
 \appendix
 \section{Parenthetical results}
@@ -1609,6 +1982,98 @@ A closed path is also known as a \textit{loop}.
     x_1\cd[x_k,y]_{\pm}\cd x_{n+1}
   \end{align*}
   and, by induction, the result holds for all $n$.
+}
+\end{prop}
+
+\begin{prop}\label{m-electron-operators-ordinary-and-antisymmetrized}
+\thmtitle{Expressing $m$-electron operators in terms of ordinary and antisymmetrized integrals}
+\thmstatement{
+A first-quantized $m$-electron operator $\op{V}=\sum_{i_1<\cd<i_m}\op{v}(i_1\cd i_m)$ can be expressed in two equivalent second-quantized forms
+\begin{align*}
+  V
+=
+  \fr{1}{m!}
+  \sum_{\substack{p_1\cd p_m\\q_1\cd q_m}}
+  \ip{p_1\cd p_m|\op{v}|q_1\cd q_m}
+  a_{p_1}\dg\cd a_{p_m}\dg a_{q_m}\cd a_{q_1}
+=
+  \pr{\fr{1}{m!}}^2
+  \sum_{\substack{p_1\cd p_m\\q_1\cd q_m}}
+  \ip{p_1\cd p_m|\op{v}|q_{[1}\cd q_{m]}}\,
+  a_{p_1}\dg\cd a_{p_m}\dg
+  a_{q_m}\cd a_{q_1}
+\end{align*}
+where
+$
+  \ip{p_1\cd p_m|\op{v}|q_{[1}\cd q_{m]}}
+\equiv
+  \sum
+  \e_{\pi}
+  \ip{p_1\cd p_m|\op{v}|q_{\pi(1)}\cd q_{\pi(m)}}
+$
+are antisymmetrized $m$-electron integrals
+and the original $m$-electron integrals are given by
+$\ip{p_1\cd p_m|\op{v}|q_1\cd q_m}\equiv\int d(1\cd m)\y_{p_1}^*(1)\cd \y_{p_m}^*(m)\op{v}(1\cd m)\y_{q_1}(1)\cd \y_{q_m}(m)$.
+}
+\thmproof{
+  It follows from \Cref{direct-derivation-of-second-quantization} that any function $\Y$ in Fock space can be decomposed as
+  \begin{align*}
+    \Y(1,\cd,n)
+  =
+    \fr{1}{\sqrt{m!}}
+    \sum_{p_1\cd p_m}
+    \y_{p_1}(1)\cd\y_{p_m}(m)
+    (\op{a}_{p_m}\cd\op{a}_{p_1}\Y)(m,\cd,n)
+  \end{align*}
+  and therefore the following holds for all $\Y,\Y'\in F(\mc{H})$
+  \begin{align*}
+    \ip{\Y|\op{V}\Y'}
+  =
+    \sum_{i_1<\cd<i_m}^n
+    \ip{\Y|\op{v}(i_1\cd i_m)\Y'}
+  =&\
+    \fr{n!}{m!(n-m)!}
+    \ip{\Y|\op{v}(1\cd m)\Y'}
+  \\=&\
+    \fr{1}{m!}
+    \sum_{\substack{p_1\cd p_m\\q_1\cd q_m}}^\infty
+    \ip{p_1\cd p_m|\op{v}|q_1\cd q_m}
+    \ip{\op{a}_{p_m}\cd\op{a}_{p_1}\Y|\op{a}_{q_m}\cd\op{a}_{q_1}\Y'}
+  \end{align*}
+  which gives the first part of the proposition.
+  \begin{align*}
+    V
+  =
+    \fr{1}{m!}
+    \sum_{\substack{p_1\cd p_m\\q_1\cd q_m}}
+    \ip{p_1\cd p_m|\op{v}|q_1\cd q_m}
+    a_{p_1}\dg\cd a_{p_m}\dg a_{q_m}\cd a_{q_1}
+  \end{align*}
+  The antisymmetrized form can then be derived by the following rearrangement
+  \begin{align*}
+    V
+  =&\
+    \fr{1}{m!}
+    \sum_{\substack{p_1\cd p_m\\q_1\cd q_m}}
+    \ip{p_1\cd p_m|\op{v}|q_1\cd q_m}\,
+    a_{p_1}\dg\cd a_{p_m}\dg a_{q_m}\cd a_{q_1}
+  \\=&\
+    \pr{\fr{1}{m!}}^2
+    \sum_{\substack{p_1\cd p_m\\q_1\cd q_m}}
+    \sum_{\pi\in\mr{S}_m}
+    \ip{p_1\cd p_m|\op{v}|q_{\pi(1)}\cd q_{\pi(m)}}\,
+    a_{p_1}\dg\cd a_{p_m}\dg
+    a_{q_{\pi(m)}}\cd a_{q_{\pi(1)}}
+  \\=&\
+    \pr{\fr{1}{m!}}^2
+    \sum_{\substack{p_1\cd p_m\\q_1\cd q_m}}
+    \sum_{\pi\in\mr{S}_m}
+    \e_{\pi}
+    \ip{p_1\cd p_m|\op{v}|q_{\pi(1)}\cd q_{\pi(m)}}\,
+    a_{p_1}\dg\cd a_{p_m}\dg
+    a_{q_m}\cd a_{q_1}
+  \end{align*}
+  where the first step follows from simply relabeling the dummy indices of summation $q_1\cd q_m$ in $m!$ different ways and the second step follows from the fact that annihilation operators anticommute with other annihilation operators.
 }
 \end{prop}
 

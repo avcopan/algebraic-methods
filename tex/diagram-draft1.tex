@@ -18,7 +18,6 @@
 }
 \makeatother
 
-
 %%%DOCUMENT%%%
 \begin{document}
 
@@ -219,7 +218,7 @@ When the operator product is acting on $\br{\vac}$ or $\kt{\vac}$, this is indic
   \node[draw] (tn) at (0,-0.5) {term $n$};
   \padborder{7pt}
 }
-=&\
+\mapsto&\
   (\text{term 1})\cd(\text{term $n$})
 &
 \diagram[top]{
@@ -228,7 +227,7 @@ When the operator product is acting on $\br{\vac}$ or $\kt{\vac}$, this is indic
   \node[draw] (tn) at (0,-0.5) {term $n$};
   \padborder{5pt}
 }
-=&\
+\mapsto&\
   \br{\vac}
   (\text{term 1})\cd(\text{term $n$})
 \\[15pt]
@@ -239,7 +238,7 @@ When the operator product is acting on $\br{\vac}$ or $\kt{\vac}$, this is indic
   \node[draw] (tn) at (0,-0.5) {term $n$};
   \padborder{5pt}
 }
-=&\
+\mapsto&\
   (\text{term 1})\cd(\text{term $n$})
   \kt{\vac}
 &
@@ -249,7 +248,7 @@ When the operator product is acting on $\br{\vac}$ or $\kt{\vac}$, this is indic
   \node[draw] (tn) at (0,-0.5) {term $n$};
   \padborder{5pt}
 }
-=&\
+\mapsto&\
   \ip{\vac|
     (\text{term 1})\cd(\text{term $n$})
   |\vac}
@@ -267,7 +266,7 @@ The \vac-normal Wick expansion of $a_pa_q\dg$ can be expressed diagram notation 
     a_q\dg a_p
   +
     \ctr{}{a}{_p}{a} a_pa_q\dg
-\hspace{20pt}\mapsto\hspace{20pt}
+\hspace{20pt}\leftrightarrow\hspace{20pt}
   \diagram{
     \node[dot=white] (p) at (0,+0.55) {};
     \node[dot=white] (q) at (0,-0.55) {};
@@ -342,18 +341,112 @@ $\F$-normal-ordered excitation operators are distinguished by double-circle vert
 \end{ntt}
 
 
-\begin{ntt}
-\thmtitle{Goldstone, Brandow, and Hugenholtz representation of operators}
-
-\begin{align*}
-&&
+\begin{rmk}
+\thmtitle{$m$-electron operators}
+A first-quantized $m$-electron operator $\op{V}=\sum_{i_1<\cd<i_m}\op{v}(i_1\cd i_m)$ can be expressed in two equivalent second-quantized forms
+\begin{align}\label{m-electron-operator-expressions}
   V
 =
   \fr{1}{m!}
   \sum_{\substack{p_1\cd p_m\\q_1\cd q_m}}
-  \ip{p_1\cd p_m|\bm{\op{v}}|q_1\cd q_m}\,
-  \no{a_{p_1}\dg a_{q_1}\cd a_{p_m}\dg a_{q_m}}
+  \ip{p_1\cd p_m|\op{v}|q_1\cd q_m}
+  a_{p_1}\dg\cd a_{p_m}\dg a_{q_m}\cd a_{q_1}
+=
+  \pr{\fr{1}{m!}}^2
+  \sum_{\substack{p_1\cd p_m\\q_1\cd q_m}}
+  \ip{p_1\cd p_m|\op{v}|q_{[1}\cd q_{m]}}\,
+  a_{p_1}\dg\cd a_{p_m}\dg
+  a_{q_m}\cd a_{q_1}
+\end{align}
+where
+$
+  \ip{p_1\cd p_m|\op{v}|q_{[1}\cd q_{m]}}
+\equiv
+  \sum
+  \e_{\pi}
+  \ip{p_1\cd p_m|\op{v}|q_{\pi(1)}\cd q_{\pi(m)}}
+$
+are antisymmetrized $m$-electron integrals
+and the original $m$-electron integrals are given by
+$\ip{p_1\cd p_m|\op{v}|q_1\cd q_m}\equiv\int d(1\cd m)\y_{p_1}^*(1)\cd \y_{p_m}^*(m)\op{v}(1\cd m)\y_{q_1}(1)\cd \y_{q_m}(m)$.
+The derivation of these both expressions for $V$ is given in \Cref{m-electron-operators-ordinary-and-antisymmetrized}.
+In KM notation, we write \Cref{m-electron-operator-expressions} as
+\begin{align}
+&&
+  V
+=
+  \tfr{1}{m!}
+  v_{p_1\cd p_m}^{q_1\cd q_m}
+  a^{p_1\cd p_m}_{q_1\cd q_m}
+=
+  \pr{\tfr{1}{m!}}^2
+  \ol{v}_{p_1\cd p_m}^{q_1\cd q_m}
+  a^{p_1\cd p_m}_{q_1\cd q_m}
+\end{align}
+where $v_{p_1\cd p_m}^{q_1\cd q_m}\equiv\ip{p_1\cd p_m|\op{v}|q_1\cd q_m}$ and
+$\ol{v}_{p_1\cd p_m}^{q_1\cd q_m}\equiv\ip{p_1\cd p_m|\op{v}|q_{[1}\cd q_{m]}}$.
+Note that both sets of $m$-electron integrals are symmetric to permutation of upper-lower index pairs, $v_{p_1\cd p_m}^{q_1\cd q_m}=v_{p_{\pi(1)}\cd p_{\pi(m)}}^{q_{\pi(1)}\cd q_{\pi(m)}}$,
+but that the antisymmetrized $m$-electron integrals are also separately antisymmetric on their upper and lower indices,
+$
+  v_{p_1\cd p_m}^{q_1\cd q_m}
+=
+  \e_{\pi}
+  v_{p_{\pi(1)}\cd p_{\pi(m)}}^{q_1\hphantom{_{\pi()}}\cd q_m}
+=
+  \e_{\pi}
+  v_{p_1\hphantom{_{\pi()}}\cd p_m}^{q_{\pi(1)}\cd q_{\pi(m)}}
+$,
+which means that they have fewer unique elements by a factor of $m!$.
+\end{rmk}
+
+\begin{ntt}
+\thmtitle{Diagram representation of $m$-electron operators: Goldstone and Hugenholtz}
+For practical purposes, the fundamental building blocks of a diagram are $m$-electron operators, which are generally denoted in one of two different ways.
+The \textit{Goldstone representation} of an $m$-electron operator is
+\begin{align*}
+&&
+\diagram{
+  \node[draw] (label) at (-0.7,0) {\bm{v}};
+  \node[dot=white] (v1) at (0,0) {};
+  \node[dot=white] (v2) at (1,0) {};
+  \node (dots) at (1.75,0) {$\cdots$};
+  \node[dot=white] (vn) at (2.5,0) {};
+  \draw (label)--(v1)--(v2)--(dots)--(vn);
+  \draw[->-] (v1) to ++(0,+0.5);
+  \draw[->-] (v2) to ++(0,+0.5);
+  \draw[->-] (vn) to ++(0,+0.5);
+  \draw[-<-] (v1) to ++(0,-0.5) coordinate[below left=0.1cm and 0.1cm] (startbrace);
+  \draw[-<-] (v2) to ++(0,-0.5);
+  \draw[-<-] (vn) to ++(0,-0.5) coordinate[below right=0.1cm and 0.1cm] (endbrace);
+  \draw[decorate,decoration={brace,mirror}] (startbrace) to node[midway,below=0.1cm] () {\scriptsize{$m$ times}} (endbrace);
+}
+\equiv&\
+  \pr{\fr{1}{m!}}^2
+  \sum_{\text{Einstein}}
+  \ol{v}_{p_1p_2\cdots p_n}^{q_1q_2\cdots q_n}
+  a^{p_1p_2\cdots p_n}_{q_1q_2\cdots q_n}
 \end{align*}
+
+\begin{align*}
+\diagram{
+  \node[draw,circle] (label) at (0,0) {\bm{v}};
+  \draw[->-] (label.140) -- ++(140:0.5);
+  \draw[->-] (label.120) -- ++(120:0.5);
+  \draw[->-] (label.40)  -- ++(40:0.5);
+\path[postaction={decorate,decoration={text along path,text=hello}}] (0,0) circle (1cm);
+}
+\end{align*}
+\end{ntt}
+
+
+
+
+
+
+\begin{ntt}
+\thmtitle{Goldstone and Hugenholtz representation of operators}
+
+
 
 any operator with a non-antisymmetric interaction tensor can be given in antisymmetrized form
 \begin{align*}
@@ -377,6 +470,10 @@ any operator with a non-antisymmetric interaction tensor can be given in antisym
 the summations and weights on the algebraic expressions for $V$ naturally arise from the general rules for diagram interpretation, which will be given below
 \end{ntt}
 
+
+\begin{enumerate}
+  \item reference ordering for operators is always assumed to be 
+\end{enumerate}
 
 
 \begin{ntt}
