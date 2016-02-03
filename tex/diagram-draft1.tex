@@ -340,69 +340,75 @@ $\F$-normal-ordered excitation operators are distinguished by double-circle vert
 \end{align*}
 \end{ntt}
 
-
-\begin{rmk}
-\thmtitle{$m$-electron operators}
-A first-quantized $m$-electron operator $\op{V}=\sum_{i_1<\cd<i_m}\op{v}(i_1\cd i_m)$ can be expressed in two equivalent second-quantized forms
-\begin{align}\label{m-electron-operator-expressions}
+\begin{dfn}\label{dfn:m-electorn-operators-antisymmetric-interaction-tensors}
+\thmtitle{$m$-electron operators, antisymmetric interaction tensors}
+The fundamental components of a Wick diagram (\Cref{dfn:wick-diagram}) are \textit{$m$-electron operators} with \textit{antisymmetric interaction tensors}.
+That is, operators of the form
+\begin{align*}
+&&
   V
 =
-  \fr{1}{m!}
-  \sum_{\substack{p_1\cd p_m\\q_1\cd q_m}}
-  \ip{p_1\cd p_m|\op{v}|q_1\cd q_m}
-  a_{p_1}\dg\cd a_{p_m}\dg a_{q_m}\cd a_{q_1}
+  \pr{\tfr{1}{m!}}^2
+  \sum_{\text{Einstein}}
+  \ol{v}_{p_1\cd p_m}^{q_1\cd q_m}
+  a^{p_1\cd p_m}_{q_1\cd q_m}
+\end{align*}
+where the elements of the interaction tensor $\bm{\ol{v}}$ satisfy
+$
+  \ol{v}_{p_1\cd p_m}^{q_1\cd q_m}
 =
-  \pr{\fr{1}{m!}}^2
-  \sum_{\substack{p_1\cd p_m\\q_1\cd q_m}}
-  \ip{p_1\cd p_m|\op{v}|q_{[1}\cd q_{m]}}\,
-  a_{p_1}\dg\cd a_{p_m}\dg
-  a_{q_m}\cd a_{q_1}
-\end{align}
-where
-$
-  \ip{p_1\cd p_m|\op{v}|q_{[1}\cd q_{m]}}
-\equiv
-  \sum
   \e_{\pi}
-  \ip{p_1\cd p_m|\op{v}|q_{\pi(1)}\cd q_{\pi(m)}}
+  \ol{v}_{p_{\pi(1)}\cd p_{\pi(m)}}^{q_1\hphantom{_{\pi()}}\cd q_m}
+=
+  \e_{\pi}
+  \ol{v}_{p_1\hphantom{_{\pi()}}\cd p_m}^{q_{\pi(1)}\cd q_{\pi(m)}}
+$.
+\end{dfn}
+
+\begin{rmk}
+\thmtitle{antisymmetrized $m$-electron integrals}
+As shown in \Cref{m-electron-operators-ordinary-and-antisymmetrized},
+any first-quantized $m$-electron operator
 $
-are antisymmetrized $m$-electron integrals
-and the original $m$-electron integrals are given by
-$\ip{p_1\cd p_m|\op{v}|q_1\cd q_m}\equiv\int d(1\cd m)\y_{p_1}^*(1)\cd \y_{p_m}^*(m)\op{v}(1\cd m)\y_{q_1}(1)\cd \y_{q_m}(m)$.
-The derivation of these both expressions for $V$ is given in \Cref{m-electron-operators-ordinary-and-antisymmetrized}.
-In KM notation, we write \Cref{m-electron-operator-expressions} as
-\begin{align}
+  \op{V}=\sum_{i_1<\cd<i_m}\op{v}(i_1,\cd, i_m)
+$
+can be expanded in Fock space in terms of $m$-electron integrals $v_{p_1\cd p_m}^{q_1\cd q_m}$ as follows.
+\begin{align*}
 &&
   V
 =
   \tfr{1}{m!}
+  \sum_{\text{Einstein}}
   v_{p_1\cd p_m}^{q_1\cd q_m}
   a^{p_1\cd p_m}_{q_1\cd q_m}
+&&
+  v_{p_1\cd p_m}^{q_1\cd q_m}
+\equiv
+  \int d(1\cd m)\y_{p_1}^*(1)\cd \y_{p_m}^*(m)\op{v}(1\cd m)\y_{q_1}(1)\cd \y_{q_m}(m)
+\end{align*}
+A simple rearrangement, also shown in \Cref{m-electron-operators-ordinary-and-antisymmetrized}, gives another perfectly valid expression for $V$ in which the interaction tensors are \textit{antisymmetrized $m$-electron integrals} $\ol{v}_{p_1\cd p_m}^{q_1\cd q_m}$.
+\begin{align*}
+&&
+  V
 =
   \pr{\tfr{1}{m!}}^2
+  \sum_{\text{Einstein}}
   \ol{v}_{p_1\cd p_m}^{q_1\cd q_m}
   a^{p_1\cd p_m}_{q_1\cd q_m}
-\end{align}
-where $v_{p_1\cd p_m}^{q_1\cd q_m}\equiv\ip{p_1\cd p_m|\op{v}|q_1\cd q_m}$ and
-$\ol{v}_{p_1\cd p_m}^{q_1\cd q_m}\equiv\ip{p_1\cd p_m|\op{v}|q_{[1}\cd q_{m]}}$.
-Note that both sets of $m$-electron integrals are symmetric to permutation of upper-lower index pairs, $v_{p_1\cd p_m}^{q_1\cd q_m}=v_{p_{\pi(1)}\cd p_{\pi(m)}}^{q_{\pi(1)}\cd q_{\pi(m)}}$,
-but that the antisymmetrized $m$-electron integrals are also separately antisymmetric on their upper and lower indices,
-$
-  v_{p_1\cd p_m}^{q_1\cd q_m}
-=
+&&
+  \ol{v}_{p_1\cd p_m}^{q_1\cd q_m}
+\equiv
+  \sum_{\pi\in\mr{S}_m}
   \e_{\pi}
-  v_{p_{\pi(1)}\cd p_{\pi(m)}}^{q_1\hphantom{_{\pi()}}\cd q_m}
-=
-  \e_{\pi}
-  v_{p_1\hphantom{_{\pi()}}\cd p_m}^{q_{\pi(1)}\cd q_{\pi(m)}}
-$,
-which means that they have fewer unique elements by a factor of $m!$.
+  \ol{v}_{p_1\hphantom{_{\pi()}}\cd p_m}^{q_{\pi(1)}\cd q_{\pi(m)}}
+\end{align*}
+Therefore, any $m$-electron interaction which can be represented in first-quantization can also be represented in a Wick diagram (\Cref{dfn:wick-diagram}).
 \end{rmk}
 
+
 \begin{ntt}
-\thmtitle{Diagram representation of $m$-electron operators: Goldstone and Hugenholtz}
-For practical purposes, the fundamental building blocks of a diagram are $m$-electron operators, which are generally denoted in one of two different ways.
-The \textit{Goldstone representation} of an $m$-electron operator is
+\thmtitle{Goldstone representation of $m$-electron operators}
+The \textit{Goldstone representation} of an $m$-electron operator is given by attaching the operator label to an $m$-tuple excitation operator or using a different style of line (wavy, zig-zag, etc.)  to join the $m$ single-excitation operators.
 \begin{align*}
 &&
 \diagram{
@@ -420,24 +426,81 @@ The \textit{Goldstone representation} of an $m$-electron operator is
   \draw[-<-] (vn) to ++(0,-0.5) coordinate[below right=0.1cm and 0.1cm] (endbrace);
   \draw[decorate,decoration={brace,mirror}] (startbrace) to node[midway,below=0.1cm] () {\scriptsize{$m$ times}} (endbrace);
 }
+\equiv
+  \pr{\tfr{1}{m!}}^2
+  \sum_{\substack{p_1\cd p_m\\q_1\cd q_m}}
+\diagram{
+  \node[draw] (label) at (-0.7,0) {\bm{v}};
+  \node[dot=white] (v1) at (0,0) {};
+  \node[dot=white] (v2) at (1,0) {};
+  \node (dots) at (1.75,0) {$\cdots$};
+  \node[dot=white] (vn) at (2.5,0) {};
+  \draw (label)--(v1)--(v2)--(dots)--(vn);
+  \draw[->-] (v1) to ++(0,+0.45) node[above] {$p_1$};
+  \draw[->-] (v2) to ++(0,+0.45) node[above] {$p_2$};
+  \draw[->-] (vn) to ++(0,+0.45) node[above] {$p_m$};
+  \draw[-<-] (v1) to ++(0,-0.45) node[below] {$q_1$};
+  \draw[-<-] (v2) to ++(0,-0.45) node[below] {$q_2$};
+  \draw[-<-] (vn) to ++(0,-0.45) node[below] {$q_m$};
+}
 \equiv&\
-  \pr{\fr{1}{m!}}^2
+  \pr{\tfr{1}{m!}}^2
   \sum_{\text{Einstein}}
-  \ol{v}_{p_1p_2\cdots p_n}^{q_1q_2\cdots q_n}
-  a^{p_1p_2\cdots p_n}_{q_1q_2\cdots q_n}
+  \ol{v}_{p_1p_2\cdots p_m}^{q_1q_2\cdots q_m}
+  a^{p_1p_2\cdots p_m}_{q_1q_2\cdots q_m}
 \end{align*}
+Note that the summation and the factor of $\pr{\tfr{1}{m!}}^2$ are baked into the definition of the diagram.
+The individual elements
+\begin{align*}
+&&
+\diagram{
+  \node[draw] (label) at (-0.7,0) {\bm{v}};
+  \node[dot=white] (v1) at (0,0) {};
+  \node[dot=white] (v2) at (1,0) {};
+  \node (dots) at (1.75,0) {$\cdots$};
+  \node[dot=white] (vn) at (2.5,0) {};
+  \draw (label)--(v1)--(v2)--(dots)--(vn);
+  \draw[->-] (v1) to ++(0,+0.45) node[above] {$p_1$};
+  \draw[->-] (v2) to ++(0,+0.45) node[above] {$p_2$};
+  \draw[->-] (vn) to ++(0,+0.45) node[above] {$p_m$};
+  \draw[-<-] (v1) to ++(0,-0.45) node[below] {$q_1$};
+  \draw[-<-] (v2) to ++(0,-0.45) node[below] {$q_2$};
+  \draw[-<-] (vn) to ++(0,-0.45) node[below] {$q_m$};
+}
+\equiv&\
+  \ol{v}_{p_1p_2\cdots p_m}^{q_1q_2\cdots q_m}
+  a^{p_1p_2\cdots p_m}_{q_1q_2\cdots q_m}\,\text{(no summation)}
+\end{align*}
+are symmetric (not antisymmetric) to all permutations of $p_1\cd p_m$ and $q_1\cd q_m$, because any phase factors from the interaction tensor and the excitation operator cancel.
+\end{ntt}
+
+\begin{ntt}
+\thmtitle{Hugenholtz representation of $m$-electron operators}
 
 \begin{align*}
+&&
 \diagram{
   \node[draw,circle] (label) at (0,0) {\bm{v}};
   \draw[->-] (label.140) -- ++(140:0.5);
   \draw[->-] (label.120) -- ++(120:0.5);
   \draw[->-] (label.40)  -- ++(40:0.5);
-\path[postaction={decorate,decoration={text along path,text=hello}}] (0,0) circle (1cm);
+  \node at (70:0.55) {$\cdot$};
+  \node at (80:0.55) {$\cdot$};
+  \node at (90:0.55) {$\cdot$};
+  \draw[-<-] (label.220) -- ++(220:0.5);
+  \draw[-<-] (label.240) -- ++(240:0.5);
+  \node at (270:0.55) {$\cdot$};
+  \node at (280:0.55) {$\cdot$};
+  \node at (290:0.55) {$\cdot$};
+  \draw[-<-] (label.320) -- ++(320:0.5);
 }
 \end{align*}
 \end{ntt}
 
+
+\begin{dfn}\label{dfn:wick-diagram}
+\thmtitle{Wick diagram}
+\end{dfn}
 
 
 
