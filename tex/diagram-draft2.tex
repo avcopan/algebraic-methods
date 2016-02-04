@@ -22,7 +22,7 @@
 %%%DOCUMENT%%%
 \begin{document}
 
-\section{Diagram notation (draft)}
+\section{Diagram notation}
 
 \begin{ntt}
 \thmtitle{Particle-hole operators in diagram notation}
@@ -674,20 +674,10 @@ The following expression has a degeneracy of $2^3=8$
 because the summand is invariant to $u\leftrightarrow v$ transpositions, simultaneous $\substack{w\leftrightarrow x\\y\leftrightarrow z}$ transpositions, and $\a\leftrightarrow\b$ transpositions.
 \end{ex}
 
-
 \begin{dfn}
-\thmtitle{External and internal lines}
-An \textit{external line} is an un-labeled line connected to a single $m$-electron operator, whereas an \textit{internal line} is an un-labeled line connecting one  $m$-electron operator to another.
-\end{dfn}
-
-\begin{dfn}
-\thmtitle{Equivalent lines}
-Two un-labeled lines with the same direction and orientation are called \textit{equivalent} if they are (a) external lines leaving or entering the same $m$-electron operator, or (b) internal lines connected leaving the same $m$-electron operator and entering the same $m$-electron operator.
-\end{dfn}
-
-\begin{dfn}
-\thmtitle{Quasi-equivalent lines}
-Two lines with the same direction and orientation that are leaving (entering) the same $m$-electron operator and entering (leaving) two particle-hole operator vertices are called \textit{quasiequivalent}.
+\thmtitle{Inequivalent contraction lines}
+Lines with vertices on both ends are called \textit{contraction lines}.
+Contraction lines with the same orientation that terminate on particle-hole operators at the same vertical level in a diagram are called \textit{inequivalent contraction lines}.
 \end{dfn}
 
 \begin{dfn}\label{dfn:diagram}
@@ -696,12 +686,13 @@ A \textit{diagram} is a vertically-arranged [fig~\ref{fig:diagram-example}(a)] v
 A diagram translates into an algebraic expression as follows.
 \begin{enumerate}
   \item\label{dfn:diagram:item:sum}
-  All unlabeled $m$-electron operator lines are summed over (Einstein summation)
+  Sum over all unlabeled $m$-electron operator lines (Einstein summation)
   \item\label{dfn:diagram:item:degeneracy-factor}
-  The expression is multiplied by $\dfr{1}{D}$, the \textit{degeneracy factor}, where $D$ is the degeneracy of the summation
+  Multiply the expression by $D^{-1}$ where $D$ is the degeneracy of the summation
   \item\label{dfn:diagram:item:permutation-factor}
-  Each 
+  For each maximal set of inequivalent contraction lines, multiply the expression by an index permutation operator $\op{P}(\a\b\g\cd)$ where $\a\b\g\cd$ are the labels on those lines
 \end{enumerate}
+The factor $D^{-1}$ will be referred to as the \textit{degeneracy factor} of the diagram.
 Note that these rules are reversible: any algebraic term can be translated into a diagram times a scalar factor.
 \end{dfn}
 
@@ -807,9 +798,87 @@ Similarly, for a diagram consisting of a single Hugenholtz operator, we get
 where we have assigned dummy indices of summation in left-to-right order.
 \end{ex}
 
+
+
+\begin{dfn}
+\thmtitle{External and internal lines}
+An \textit{external line} is an un-labeled line connected to a single $m$-electron operator, whereas an \textit{internal line} is an un-labeled line connecting one  $m$-electron operator to another.
+\end{dfn}
+
+\begin{dfn}
+\thmtitle{Equivalent lines}
+Two un-labeled lines with the same direction and orientation are called \textit{equivalent} if they are (a) external lines leaving or entering the same $m$-electron operator, or (b) internal lines connected leaving the same $m$-electron operator and entering the same $m$-electron operator.
+\end{dfn}
+
 \begin{dfn}
 \thmtitle{Equivalent operators}
-Two copies of the an $m$-electron operator in a diagram are considered \textit{equivalent} if they are connected to exactly the same number 
+Two copies of the an $m$-electron operator in a diagram are considered \textit{equivalent} if they are connected to the same set of operators in the same way and their external lines match in orientation. 
+\end{dfn}
+
+\begin{drv}
+\thmtitle{Counting the degeneracy of a diagram}
+Consider a connected diagram.
+First, suppose a diagram has no repeated $m$-electron operators.
+A permutation of the summation symbols associated with a pair of equivalent lines applies a transposition to the operator symbols within the operators that they leave and enter.
+Since this operation can be undone using the permutational degrees of freedom of the operator elements, these permutations contribute to the overall degeneracy.
+Permutations of the summation symbols associated with inequivalent lines, on the other hand, permute symbols \ul{between} operators and so cannot be undone using their individual permutational degrees of freedom.
+Therefore, if $L$ is the set of lines in the diagram and $\{L_1,\cd, L_g\}$ is the partitioning of $L$ into equivalent lines then the degeneracy of the diagram is
+$
+  D
+=
+  |L_1|!\cd|L_g|!
+$.
+Now, suppose the diagram has one or more repeated $m$-electron operators.
+For each pair of equivalent operators, simultaneous transpositions of all of the indices on one of these operators with all of the indices on another also contribute to the degeneracy.
+If $O$ is the full set of operators in the diagram and $\{O_1,\cd,O_h\}$ is the partitioning of $O$ into equivalent operators then the total degeneracy of the diagram is
+\begin{align}
+&&
+  D
+=
+  |L_1|!\cd|L_g|!
+  |O_1|!\cd|O_h|!
+\end{align}
+\end{drv}
+
+\begin{dfn}
+\thmtitle{Degeneracy of a contraction pattern}
+The degeneracy of a contraction pattern 
+\end{dfn}
+
+\begin{drv}
+\thmtitle{Counting the degeneracy of a contraction pattern}
+\end{drv}
+
+\begin{drv}
+\thmtitle{Counting the degeneracy of a contraction pattern}
+For the sake of counting the degeneracy of a contraction pattern, we can decompose the figure into subsets $\{S_1,\cd,S_m\}$ of lines which are equivalent in the diagram components -- lines which have the same orientation and are connected to the same tensor.
+For each $S_i$, let $\{S_i(0),S_i(1),\cd,S_i(m)\}$ be a partition into external lines $S_i(0)$ and contraction lines $S_i(j)$, where the lines from $S_i(j)$ are contracted with the lines from $S_j(i)$ in the final diagram.
+Obviously, $|S_i(j)|$ must equal $|S_j(i)|$ and unless $S_i$ and $S_j$ have compatible orientations both sets must be empty, $S_i(j)=S_j(i)=\O$.
+The degeneracy of the contraction pattern is given by the number of ways of partitioning each set of equivalent lines into external lines and contraction lines times the number of ways of forming each contraction between $S_i(j)$-$S_j(i)$ pairing, which is simply $|S_i(j)|!$.
+This gives
+\begin{align*}
+  n_{\mr{ctr}}
+=&\
+  \prod_{i=1}^m
+  {|S_i| \choose |S_i(0)|, |S_i(1)|,\cd, |S_i(m)|}
+  \times
+  \prod_{i=1}^m
+  \prod_{j=i+1}^m
+  |S_i(j)|!
+=
+  \prod_{i=1}^m
+  \fr{|S_i|!}{|S_i(0)|!}
+  \pr{
+    \prod_{j=1}^{i-1}
+    \fr{1}{|S_i(j)|!}
+  }
+\end{align*}
+where the product $\prod_{i=1}^m\prod_{j=i+1}^m$ runs over $i,j$ pairs with $i<j$ and  $\ds{{n\choose k_1,\cd,k_m}}=\dfr{n!}{k_1!\cd k_m!}$ are multinomial coefficients.
+\end{drv}
+
+\begin{dfn}
+\thmtitle{Quasi-equivalent lines}
+Two lines with the same direction and orientation that are leaving (entering) the same $m$-electron operator and entering (leaving) two particle-hole operator vertices are called \textit{quasiequivalent}.
 \end{dfn}
 
 
@@ -838,32 +907,6 @@ Because we always include a degeneracy factor $\prod_i\fr{1}{n_i!}$, any diagram
 This means that, in expanding vac-normal operators in terms of $\F$-normal ones, the expansion will always be balanced if we include only the symmetry-unique diagrams.
 \end{rmk}
 
-\begin{drv}
-\thmtitle{Counting the degeneracy of a contraction pattern}
-For the sake of counting the degeneracy of a contraction pattern, we can decompose the figure into subsets $\{S_1,\cd,S_m\}$ of lines which are equivalent in the diagram components -- lines which have the same orientation and are connected to the same tensor.
-For each $S_i$, let $\{S_i(0),S_i(1),\cd,S_i(m)\}$ be a partition into external lines $S_i(0)$ and contraction lines $S_i(j)$, where the lines from $S_i(j)$ are contracted with the lines from $S_j(i)$ in the final diagram.
-Obviously, $|S_i(j)|$ must equal $|S_j(i)|$ and unless $S_i$ and $S_j$ have compatible orientations both sets must be empty, $S_i(j)=S_j(i)=\O$.
-The degeneracy of the contraction pattern is given by the number of ways of partitioning each set of equivalent lines into external lines and contraction lines times the number of ways of forming each contraction between $S_i(j)$-$S_j(i)$ pairing, which is simply $|S_i(j)|!$.
-This gives
-\begin{align*}
-  n_{\mr{ctr}}
-=&\
-  \prod_{i=1}^m
-  {|S_i| \choose |S_i(0)|, |S_i(1)|,\cd, |S_i(m)|}
-  \times
-  \prod_{i=1}^m
-  \prod_{j=i+1}^m
-  |S_i(j)|!
-=
-  \prod_{i=1}^m
-  \fr{|S_i|!}{|S_i(0)|!}
-  \pr{
-    \prod_{j=1}^{i-1}
-    \fr{1}{|S_i(j)|!}
-  }
-\end{align*}
-where the product $\prod_{i=1}^m\prod_{j=i+1}^m$ runs over $i,j$ pairs with $i<j$ and  $\ds{{n\choose k_1,\cd,k_m}}=\dfr{n!}{k_1!\cd k_m!}$ are multinomial coefficients.
-\end{drv}
 
 \begin{thm}
 \thmstatement{
