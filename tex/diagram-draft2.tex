@@ -822,70 +822,130 @@ First, suppose a diagram has no repeated $m$-electron operators.
 A permutation of the summation symbols associated with a pair of equivalent lines applies a transposition to the operator symbols within the operators that they leave and enter.
 Since this operation can be undone using the permutational degrees of freedom of the operator elements, these permutations contribute to the overall degeneracy.
 Permutations of the summation symbols associated with inequivalent lines, on the other hand, permute symbols \ul{between} operators and so cannot be undone using their individual permutational degrees of freedom.
-Therefore, if $L$ is the set of lines in the diagram and $\{L_1,\cd, L_g\}$ is the partitioning of $L$ into equivalent lines then the degeneracy of the diagram is
-$
-  D
-=
-  |L_1|!\cd|L_g|!
-$.
-Now, suppose the diagram has one or more repeated $m$-electron operators.
-For each pair of equivalent operators, simultaneous transpositions of all of the indices on one of these operators with all of the indices on another also contribute to the degeneracy.
-If $O$ is the full set of operators in the diagram and $\{O_1,\cd,O_h\}$ is the partitioning of $O$ into equivalent operators then the total degeneracy of the diagram is
+Therefore, if $L$ is the set of lines in the diagram and $\{L_1,\cd, L_g\}$ is the partitioning of $L$ into equivalent lines then the degeneracy of the diagram is the following.
 \begin{align}
 &&
   D
 =
   |L_1|!\cd|L_g|!
-  |O_1|!\cd|O_h|!
+\end{align}
+%$
+%  D
+%=
+%  |L_1|!\cd|L_g|!\,.$
+%Now, suppose the diagram has one or more repeated $m$-electron operators.
+%For each pair of equivalent operators, simultaneous transpositions of all of the indices on one of these operators with all of the indices on another also contribute to the degeneracy.
+%If $O$ is the full set of operators in the diagram and $\{O_1,\cd,O_h\}$ is the partitioning of $O$ into equivalent operators then the total degeneracy of the diagram is
+%\begin{align}
+%&&
+%  D
+%=
+%  |L_1|!\cd|L_g|!
+%  |O_1|!\cd|O_h|!
+%\end{align}
+\end{drv}
+
+\begin{dfn}
+\thmtitle{Redundancy of a contraction pattern}
+Given a connected diagram with a specific contraction pattern, the number of distinct contractions that can be transformed into the original contraction pattern by relabeling summation indices and using the permational degrees of freedom of the operator elements is the \textit{redundancy} $R$ of the pattern.
+This is equivalent to the number of contributions in a Wick expansion that are equal to the term with the reference term.
+\end{dfn}
+
+\begin{drv}
+\thmtitle{Counting the redundancy of a contraction pattern}
+Imagine forming the contraction pattern of a connected diagram step-by-step.
+First, consider diagram in which all of the contractions have been removed.
+Partition the set of lines $L$ in this diagram into equivalent lines $\{L_1,\cd,L_g\}$.
+Now, partition each $L_i$ into subsets $\{L_i(0),L_i(1),\cd,L_i(g)\}$ where $L_i(0)$ become external lines and $L_i(j)$ are joined and contracted with $L_j(i)$ in the final diagram.
+Note that $|L_i(j)|=|L_j(i)|$ and $|L_i(j)|=0$ unless $L_i$ and $L_j$ have compatible orientations.
+The number of equivalent partitionings is therefore
+\begin{align*}
+&&
+  \prod_{i=1}^g
+  {|L_i| \choose |L_i(0)|, |L_i(1)|, \ld, |L_i(g)|}
+\end{align*}
+where $\ds{{n \choose k_1,\ld,k_m}}\equiv\dfr{n!}{k_1!\cd k_m!}$ are multinomial coefficients.
+Finally, consider joining together these partitioned sets of equivalent lines into contractions.
+For each $L_i(j)$-$L_j(i)$ pair, there are $|L_i(j)|!=|L_j(i)|!$ equivalent ways of contracting the lines, so the total redundancy of the contraction pattern is
+\begin{align}
+&&\nonumber
+  R
+=&\
+  \prod_{i=1}^g
+  {|L_i| \choose |L_i(0)|, |L_i(1)|, \ld, |L_i(g)|}
+  \times
+  \prod_{i=1}^g
+  \prod_{j=i+1}^g
+  |S_i(j)|!
+\\\intertext{which simplifies to the following.}
+&&
+  R
+=&\
+  \prod_{i=1}^g
+  \fr{|L_i|!}{|L_i(0)|!}
+  \pr{
+    \prod_{j=1}^{i-1}
+    \fr{1}{|L_i(j)|!}
+  }
 \end{align}
 \end{drv}
 
-\begin{dfn}
-\thmtitle{Degeneracy of a contraction pattern}
-The degeneracy of a contraction pattern 
-\end{dfn}
+%\begin{dfn}
+%\thmtitle{Quasi-equivalent lines}
+%Two lines with the same direction and orientation that are leaving (entering) the same $m$-electron operator and entering (leaving) two particle-hole operator vertices are called \textit{quasiequivalent}.
+%\end{dfn}
 
-\begin{drv}
-\thmtitle{Counting the degeneracy of a contraction pattern}
-\end{drv}
-
-\begin{drv}
-\thmtitle{Counting the degeneracy of a contraction pattern}
-For the sake of counting the degeneracy of a contraction pattern, we can decompose the figure into subsets $\{S_1,\cd,S_m\}$ of lines which are equivalent in the diagram components -- lines which have the same orientation and are connected to the same tensor.
-For each $S_i$, let $\{S_i(0),S_i(1),\cd,S_i(m)\}$ be a partition into external lines $S_i(0)$ and contraction lines $S_i(j)$, where the lines from $S_i(j)$ are contracted with the lines from $S_j(i)$ in the final diagram.
-Obviously, $|S_i(j)|$ must equal $|S_j(i)|$ and unless $S_i$ and $S_j$ have compatible orientations both sets must be empty, $S_i(j)=S_j(i)=\O$.
-The degeneracy of the contraction pattern is given by the number of ways of partitioning each set of equivalent lines into external lines and contraction lines times the number of ways of forming each contraction between $S_i(j)$-$S_j(i)$ pairing, which is simply $|S_i(j)|!$.
-This gives
+\begin{thm}
+\thmtitle{Wick's theorem for diagrams}
+\thmstatement{The Wick expansion of a product of $m$-electron operators is given by a normal-ordered sum over all unique contracted diagrams, each corresponding to a single algebraic term, without any minus signs or scalar factors.}
+\thmproof{
+  Clearly, every term in the Wick expansion corresponds to a diagram, and no minus sign is necessary because the phase is defined by the contracted operator string.
+  Therefore, it remains to be shown that a single unique diagram is equal to the sum over all redundant contractions corresponding to the pattern.
+  That is, the final degeneracy factor $\sfr{1}{D'}$ for a given term must be equal to the redundancy $R$ of its contraction pattern times the original degeneracy factor $\sfr{1}{D}$ of the component diagrams.
+  Evaluating the latter, we get
 \begin{align*}
-  n_{\mr{ctr}}
-=&\
-  \prod_{i=1}^m
-  {|S_i| \choose |S_i(0)|, |S_i(1)|,\cd, |S_i(m)|}
-  \times
-  \prod_{i=1}^m
-  \prod_{j=i+1}^m
-  |S_i(j)|!
+  \fr{R}{D}
 =
-  \prod_{i=1}^m
-  \fr{|S_i|!}{|S_i(0)|!}
+  \prod_{i=1}^g
+  \fr{|L_i|!}{|L_i(0)|!}
   \pr{
     \prod_{j=1}^{i-1}
-    \fr{1}{|S_i(j)|!}
+    \fr{1}{|L_i(j)|!}
+  }
+\times
+  \pr{
+    \prod_{i=1}^g
+    |L_i|!
+  }^{-1}
+=
+  \prod_{i=1}^g
+  \fr{1}{|L_i(0)|!}
+  \pr{
+    \prod_{j=1}^{i-1}
+    \fr{1}{|L_i(j)|!}
   }
 \end{align*}
-where the product $\prod_{i=1}^m\prod_{j=i+1}^m$ runs over $i,j$ pairs with $i<j$ and  $\ds{{n\choose k_1,\cd,k_m}}=\dfr{n!}{k_1!\cd k_m!}$ are multinomial coefficients.
-\end{drv}
-
-\begin{dfn}
-\thmtitle{Quasi-equivalent lines}
-Two lines with the same direction and orientation that are leaving (entering) the same $m$-electron operator and entering (leaving) two particle-hole operator vertices are called \textit{quasiequivalent}.
-\end{dfn}
-
+  but $\{L_i(0)\}\cup\{L_i(j)\,|\,j<i\}$ is precisely equal the partitioning of the final diagram into equivalent lines, so
+\begin{align*}
+  D'
+=
+  \prod_{i=1}^g
+  |L_i(0)|!
+  \pr{
+    \prod_{j=1}^{i-1}
+    |L_i(j)|!
+  }
+=
+  \fr{D}{R}
+\end{align*}
+  which completes the proof.
+}
+\end{thm}
 
 
 \begin{dfn}
 \thmtitle{Adjacent}
-Two lines which are incident with the same vertex are called \textit{adjacent}.
+Two that share a vertex are called \textit{adjacent}.
 \end{dfn}
 
 \begin{dfn}
@@ -895,106 +955,18 @@ Each path has either two external lines, in which case it is an \textit{open pat
 A closed path is also known as a \textit{loop}.
 \end{dfn}
 
-\begin{dfn}
-\thmtitle{Contraction pattern}
-\end{dfn}
+\begin{prop}
+\thmtitle{Phase factor for a path}
+\end{prop}
 
+\begin{cor}
+\thmtitle{Phase factor for a loop}
+\end{cor}
 
-\subsection{Antisymmetrized Goldstone diagrams}
+\begin{cor}
+\thmtitle{Phase factor for a completely contracted diagram}
+\end{cor}
 
-\begin{rmk}
-Because we always include a degeneracy factor $\prod_i\fr{1}{n_i!}$, any diagram corresponds to a sum \ul{over all unique terms}.
-This means that, in expanding vac-normal operators in terms of $\F$-normal ones, the expansion will always be balanced if we include only the symmetry-unique diagrams.
-\end{rmk}
-
-
-\begin{thm}
-\thmstatement{
-Consider a connected diagram composed of antisymmetrized operators.
-Then the total degeneracy of the contraction pattern is
-\begin{align}
-&&
-  \textnormal{(diagram weight)}
-=
-  \pr{
-    \prod_i
-    \fr{1}{\textnormal{component $i$ degeneracy}}
-  }
-\times
-  \textnormal{(contraction degeneracy)}
-\end{align}
-}
-\thmproof{
-
-
-Number of contractions $=$ number of ways of partitioning each $S_i$ into an external set and $m-1$ sets for contraction with $S_j$, $j\neq i$.
-}
-\end{thm}
-
-
-\begin{lem}
-To illustrate this theorem, we can explicitly consider 
-\begin{align*}
-&&
-\diagram{
-% operator a
-  \node[draw] (alabel) at (-0.7,0) {\bm{a}};
-  \node[dot] (a1) at (0.0,0) {};
-  \node (adots1) at (0.75,0) {\cd};
-  \node[dot] (a2) at (1.5,0) {};
-  \node[dot] (a3) at (2.5,0) {};
-  \node (adots2) at (3.24,0) {\cd};
-  \node[dot] (a4) at (4.0,0) {};
-  \draw (alabel)--(a1)--(adots1)--(a2)--(a3)--(adots2)--(a4);
-% operator b
-  \node[dot] (b4) at (2.5,1) {};
-  \node (bdots2) at (3.25,1) {\cd};
-  \node[dot] (b3) at (4.0,1) {};
-  \node[dot] (b2) at (5.0,1) {};
-  \node (bdots1) at (5.75,1) {\cd};
-  \node[dot] (b1) at (6.5,1) {};
-  \node[draw] (blabel) at (7.2,1) {\bm{b}};
-  \draw (blabel)--(b1)--(bdots1)--(b2)--(b3)--(bdots2)--(b4);
-% lines
-  \draw[->-] (a1) to ++(0,+1);
-  \draw[->-] (a2) to ++(0,+1);
-  \draw[->-] (a3) to     (b4);
-  \draw[->-] (a4) to     (b3);
-  \draw[-<-] (b2) to ++(0,-1);
-  \draw[-<-] (b1) to ++(0,-1);
-}
-\end{align*}
-Let $A$ be the set of lines leaving \bm{a} and let $B$ be the set of lines leaving \bm{b}.
-Then the deneracy of this contraction pattern is.
-\begin{align*}
-&&
-  d_{\mr{ctr}}
-=
-  {|A| \choose |A\cap B|}
-  \cdot
-  {|B| \choose |A\cap B|}
-  \cdot
-  |A\cap B|!
-=
-  \fr{|A|!|B|!}{|A\bs B|!|A\cap B|!|B\bs A|!}
-\end{align*}
-The degeneracies of \bm{a}, \bm{b}, and the diagram as a whole are
-\begin{align}
-&&
-  d_{\bm{a}}
-=
-  |A|!
-&&
-  d_{\bm{b}}
-=
-  |B|!
-&&
-  d_{\mr{diag}}
-=
-  |A\bs B|!|A\cap B|!|B\bs A|!
-\end{align}
-which shows that $\dfr{d_{\mr{diag}}}{d_{\bm{a}}d_{\bm{b}}}=d_{\mr{ctr}}$.
-\end{lem}
 
 
 \end{document}
