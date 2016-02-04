@@ -1,0 +1,73 @@
+\documentclass{standalone}
+%EXTRA PACKAGES
+\usepackage[many]{tcolorbox}% http://ctan.org/pkg/tcolorbox
+\definecolor{navyblue}{HTML}{000080}
+%%AVC PACKAGES
+\usepackage{avcgreek}
+\usepackage{avcfonts}
+\usepackage{avcmath}
+\usepackage{qcmacros}
+\usepackage{goldstone}
+
+\begin{document}
+
+\Large
+\tcbox[colframe=navyblue,colback=blue!20]{
+$
+\diagram{
+% labels
+  \node[draw] (t) at (0,+2.9) {\bm{t}};
+  \node[draw] (u) at (0,+1.6) {\bm{u}};
+  \node[draw] (v) at (0, 0.3) {\bm{v}};
+  \node[draw] (w) at (0,-1.0) {\bm{w}};
+  \node[draw] (z) at (0,-2.3) {\bm{z}};
+% interaction lines
+  \draw (t) -- ++(-0.7,0) node[ddot=blue!20] (t1) {}
+            -- ++(-1.0,0) node[ddot=blue!20] (t2) {};
+  \draw (u) -- ++(-0.7,0) node[dot=blue!20]  (u1) {};
+  \draw (v) -- ++(-0.7,0) node[ddot=blue!20] (v1) {}
+            -- ++(-1.0,0) node[ddot=black] (v2) {};
+  \draw (w) -- ++(-0.7,0) node[ddot=blue!20] (w1) {}
+            -- ++(-1.0,0) node[ddot=black] (w2) {};
+  \draw (z) -- ++(-0.7,0) node[ddot=blue!20]  (z1) {}
+            -- ++(-1.0,0) node[ddot=blue!20]  (z2) {}
+            -- ++(-1.0,0) node[ddot=blue!20]  (z3) {};
+% particle-hole lines
+  \draw[->-] (t1) to ++(0,+0.5);  \draw[-<-] (t1) to ++(0,-0.5);
+  \draw[->-] (t2) arc (0:360:+0.25);
+  \draw[->-] (u1) to ++(0,+0.5);  \draw[-<-] (u1) to ++(0,-0.5);
+  \draw[->-] (v1) to ++(0,+0.5);
+  \draw[->-] (w1) to (v1);
+  \draw[->-,bend left]  (w2) to (v2);  \draw[-<-,bend right] (w2) to (v2);
+  \draw[->-] (z1) to ++(0,+0.5);  \draw[-<-] (z1) to ++(0,-0.5);
+  \draw[-<-] (z2) to ++(0,-0.5);
+  \draw[->-] (z3) to ++(0,+0.5);  \draw[-<-] (z3) to ++(0,-0.5);
+  \path (-1.7,-2.3) to node[midway] (mid) {} (-0.7,-1.0);
+  \draw[->-] (z2) to[bend left] (mid) to[bend right] (w1);
+  \padborder{10pt};
+}
+  \begin{array}{rl}
+  \ds{\equiv\fr{1}{D}\sum_{\text{Einstein}}}
+  &
+    \threedots t_{op}^{qr}a^{o^\hole p}_{q^\hole r} \threedots
+  \\[-5pt]
+  &\times\hspace{5pt}
+    u_s^ta^s_t
+  \\[10pt]
+  &\times\hspace{5pt}
+    \threedots
+    v_{uv}^{wx}
+    a^{u^{\hole\hole} v}_{w^\ptcl x^{\ptcl\ptcl}}
+  \\[5pt]
+  &\hphantom{\times\hspace{5pt}\threedots}
+    w_{yz}^{\a\b}
+    a^{y^\ptcl z^{\ptcl\ptcl}}_{\a^{\hole\hole} \b^{\ptcl\ptcl\ptcl}}
+  \\[5pt]
+  &\hphantom{\times\hspace{5pt}\threedots}
+    z_{\g\d\e}^{\f\h\th}
+    a^{\g\d^{\ptcl\ptcl\ptcl}\e}_{\f\h^{\hphantom{\ptcl\ptcl}}\th}
+    \threedots
+  \end{array}
+$
+}
+\end{document}

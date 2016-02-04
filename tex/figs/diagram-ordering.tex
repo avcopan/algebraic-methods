@@ -1,0 +1,67 @@
+\documentclass{standalone}
+%EXTRA PACKAGES
+\usepackage{xcolor}
+\definecolor{navyblue}{HTML}{000080}
+%%AVC PACKAGES
+\usepackage{avcgreek}
+\usepackage{avcfonts}
+\usepackage{avcmath}
+\usepackage{qcmacros}
+\usepackage{goldstone}
+\usetikzlibrary{backgrounds}
+
+\begin{document}
+
+\begin{tikzpicture}[background rectangle/.style={draw=navyblue,thick,rounded corners,fill=blue!20}, show background rectangle]
+  \node[anchor=west] at (0,0) {$
+    \diagram{
+      \node[draw] (t1) at (0,+0.5) {$\mr{T}_1$};
+      \node (dots) at (0.15,0.07) {\vd};
+      \node[draw] (tn) at (0,-0.5) {$\mr{T}_n$};
+      \padborder{4pt}
+    }
+    \mapsto
+      \text{$\mr{T}_1$}\cd\text{$\mr{T}_n$}
+  $};
+  \node[anchor=west] at (3.7,0) {$
+    \diagram[top]{
+      \node[draw] (t1) at (0,+0.5) {$\mr{T}_1$};
+      \node (dots) at (0.15,0.07) {\vd};
+      \node[draw] (tn) at (0,-0.5) {$\mr{T}_n$};
+      \padborder{2pt}
+    }
+    \mapsto
+      \br{\F}
+      \text{$\mr{T}_1$}\cd\text{$\mr{T}_n$}
+  $};
+  \node[anchor=west] at (0,-2.5) {$
+    \diagram[bottom]{
+      \node[draw] (t1) at (0,+0.5) {$\mr{T}_1$};
+      \node (dots) at (0.15,0.07) {\vd};
+      \node[draw] (tn) at (0,-0.5) {$\mr{T}_n$};
+      \padborder{2pt}
+    }
+    \mapsto
+      \text{$\mr{T}_1$}\cd\text{$\mr{T}_n$}
+      \kt{\F}
+  $};
+  \node[anchor=west] at (3.7,-2.5) {$
+    \diagram[top,bottom]{
+      \node[draw] (t1) at (0,+0.5) {$\mr{T}_1$};
+      \node (dots) at (0.15,0.07) {\vd};
+      \node[draw] (tn) at (0,-0.5) {$\mr{T}_n$};
+      \padborder{2pt}
+    }
+    \mapsto
+      \ip{\F|
+        \text{$\mr{T}_1$}\cd\text{$\mr{T}_n$}
+      |\F}
+  $};
+  \path (current bounding box.north) ++(-0.2,+0.2) coordinate (T);
+  \path (current bounding box.south) ++(-0.2,-0.2) coordinate (B);
+  \coordinate (L) at (current bounding box.east);
+  \coordinate (R) at (current bounding box.west);
+  \draw[navyblue,thick] (T)--(B) (L)--(R);
+\end{tikzpicture}
+
+\end{document}
