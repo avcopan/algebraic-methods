@@ -1,0 +1,38 @@
+\documentclass{standalone}
+%EXTRA PACKAGES
+\usepackage[many]{tcolorbox}% http://ctan.org/pkg/tcolorbox
+\definecolor{navyblue}{HTML}{000080}
+%%AVC PACKAGES
+\usepackage{avcgreek}
+\usepackage{avcfonts}
+\usepackage{avcmath}
+\usepackage{qcmacros}
+\usepackage{goldstone}
+\usetikzlibrary{backgrounds}
+
+\begin{document}
+
+\begin{tikzpicture}[background rectangle/.style={draw=navyblue,rounded corners,fill=blue!20}, show background rectangle,inner sep=10pt]
+  \node at (0,0) {
+    \begin{tikzpicture}
+    % labels
+      \node[draw,circle,inner sep=5pt] (b) at (0,0) {$\bm{b}$};
+      \node[draw,circle,inner sep=1pt] (a) at (-0.5,1) {$\bm{a}\phantom{'}$};
+      \node[draw,circle,inner sep=1pt] (a') at (+0.5,1) {$\bm{a}'$};
+      \draw[-<-] (b) to ++(-60:1);
+      \draw[-<-] (b) to ++(-80:1);
+      \draw[-<-] (b) to ++(-100:1);
+      \draw[-<-] (b) to ++(-120:1);
+      \draw[-<-] (a.-40) to (b.100);
+      \draw[-<-] (a.-90) to (b.120);
+      \draw[-<-] (a'.-90) to (b.60);
+      \draw[-<-] (a'.-140) to (b.80);
+      \draw[->-] (a.115) to ++(0,0.5);
+      \draw[->-] (a.65)  to ++(0,0.5);
+      \draw[->-] (a'.115) to ++(0,0.5);
+      \draw[->-] (a'.65)  to ++(0,0.5);
+    \end{tikzpicture}
+  };
+\end{tikzpicture}
+
+\end{document}

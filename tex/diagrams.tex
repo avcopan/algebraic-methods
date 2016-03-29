@@ -1,0 +1,1006 @@
+\documentclass[11pt,fleqn]{article}
+\usepackage[cm]{fullpage}
+%%AVC PACKAGES
+\usepackage{avcgreek}
+\usepackage{avcfonts}
+\usepackage{avcmath}
+\usepackage[numberby=section]{avcthm} % 
+\usepackage{qcmacros}
+\usepackage{goldstone}
+%%MACROS FOR THIS DOCUMENT
+\numberwithin{equation}{section}
+\usepackage{titlesec}
+\titleformat{\section}{\Large\bfseries\mathversion{bold}}{\thesection.}{5pt}{}
+% remove header from TOC
+\makeatletter
+\renewcommand\tableofcontents{%
+  \@starttoc{toc}%
+}
+\makeatother
+
+%%%DOCUMENT%%%
+\begin{document}
+
+\section{Diagram notation}
+
+\begin{ntt}\label{ntt:diagram-notation}
+\thmtitle{Diagram notation}
+In diagram notation, particle-hole operators are written as oriented lines extending from a vertex.
+Particle annihilation operators enter the vertex from below, particle creation operators leave the vertex at the top, and single-excitation operators have both creation and annihilation lines.
+Contractions are represented by joining particle-hole lines with compatible position and orientation.
+\begin{align*}
+&&
+\diagram{
+  \node[dot=white] (p) at (0,0) {};
+  \draw[-<-] (p) to ++(0,-0.5);
+}
+\equiv
+  a_p
+&&
+\diagram{
+  \node[dot=white] (p) at (0,0) {};
+  \draw[->-] (p) to ++(0,+0.5);
+}
+\equiv
+  a_p^\dagger
+&&
+\diagram{
+  \node[dot=white] (a) at (0,0) {};
+  \draw[->-] (a) to ++(0,+0.5);
+  \draw[-<-] (a) to ++(0,-0.5);
+}
+\equiv
+  a_p\dg a_q
+=
+  a^p_q
+&&
+\diagram{
+  \node[dot=white] (p) at (0,+0.5) {};
+  \node[dot=white] (q) at (0,-0.5) {};
+  \draw[->-] (q) to (p);
+}
+\equiv
+  \ctr{}{a}{_p}{a} a_p a_q\dg
+=
+  a^{p^\ptcl}_{q^\ptcl}
+\end{align*}
+Quasiparticle operators with respect to $\F$ are distinguished by the use of closed-circle vertices, with particle lines pointing upward and with hole lines pointing downward.
+Single-excitation operators split into four cases (vv, vo, ov, and oo) representing the virtual and occupied blocks of $a^p_q$.
+Internal contractions of single-excitation operators (\textit{bubble contractions}) are implicitly taken to be hole contractions with respect to $\F$.
+\begin{gather}
+\begin{flalign*}
+\diagram{
+  \node[dot] (a) at (0,0) {};
+  \draw[-<-] (a) to ++(0,-0.5);
+}
+\equiv
+  b_a
+&&
+\diagram{
+  \node[dot] (a) at (0,0) {};
+  \draw[->-] (a) to ++(0,+0.5);
+}
+\equiv
+  b_a^\dagger
+&&
+\diagram{
+  \node[dot] (i) at (0,0) {};
+  \draw[->-] (i) to ++(0,-0.5);
+}
+\equiv
+  b_i
+&&
+\diagram{
+  \node[dot] (i) at (0,0) {};
+  \draw[-<-] (i) to ++(0,+0.5);
+}
+\equiv
+  b_i^\dagger
+&&
+\diagram{
+  \node[dot] (a) at (0,+0.5) {};
+  \node[dot] (b) at (0,-0.5) {};
+  \draw[->-] (b) to (a);
+}
+\equiv
+  \ctr{}{b}{_a}{b}  b_ab_b\dg
+=
+  a^{a^\ptcl}_{b^\ptcl}
+&&
+\diagram{
+  \node[dot] (i) at (0,+0.5) {};
+  \node[dot] (j) at (0,-0.5) {};
+  \draw[-<-] (j) to (i);
+}
+\equiv
+  \ctr{}{b}{_i}{b}  b_ib_j\dg
+=
+  a^{i^\hole}_{j^\hole}
+&&
+\end{flalign*}\\
+\begin{flalign*}
+\diagram{
+  \node[dot] (ab) at (0,0) {};
+  \draw[->-] (ab) to ++(0,+0.5);
+  \draw[-<-] (ab) to ++(0,-0.5);
+}
+\equiv
+  b_a\dg b_b
+=
+  a^a_b
+&&
+\diagram{
+  \node[dot] (ai) at (0,0) {};
+  \draw[->-] (ai) to ++(-0.25,+0.5);
+  \draw[-<-] (ai) to ++(+0.25,+0.5);
+}
+\equiv
+  b_a\dg b_i\dg
+=
+  a^a_i
+&&
+\diagram{
+  \node[dot] (ia) at (0,0) {};
+  \draw[->-] (ia) to ++(-0.25,-0.5);
+  \draw[-<-] (ia) to ++(+0.25,-0.5);
+}
+\equiv
+  b_ib_a
+=
+  a^i_a
+&&
+\diagram{
+  \node[dot] (ij) at (0,0) {};
+  \draw[-<-] (ij) to ++(0,+0.5);
+  \draw[->-] (ij) to ++(0,-0.5);
+}
+\equiv
+  b_ib_j\dg 
+=
+  a^i_j
+&&
+\diagram{
+  \node[dot] (pq) at (0,0) {};
+  \draw[->-] (pq) arc (0:360:+0.3) {};
+}
+\equiv
+  \ctr{}{b}{_i}{b}  b_ib_j\dg
+=
+  a^{i^\hole}_{j^\hole}
+&&
+\end{flalign*}
+\end{gather}
+Higher excitation operators are depicted by joining single-excitation operators with a solid line.
+Contracted operators are implicitly normal ordered together.
+Normal-ordered products of uncontracted operators are joined with a dotted line.
+\begin{align*}
+&&
+\diagram{
+  \node[dot=white] (a1) at (1,0) {};
+  \node (dots) at (1.6,0) {$\cdots$};
+  \node[dot=white] (an) at (2.2,0) {};
+  \draw (a1)--(dots)--(an);
+  \draw[->-] (a1) to ++(0,+0.5);
+  \draw[->-] (an) to ++(0,+0.5);
+  \draw[-<-] (a1) to ++(0,-0.5) coordinate[below left=0.1cm and 0.1cm] (startbrace);
+  \draw[-<-] (an) to ++(0,-0.5) coordinate[below right=0.1cm and 0.1cm] (endbrace);
+  \draw[decorate,decoration={brace,mirror}] (startbrace) to node[midway,below=0.1cm] () {\scriptsize{$m$ times}} (endbrace);
+}
+\equiv
+  \no{a^{p_1}_{q_1}\cd a^{p_m}_{q_m}}
+=
+  a^{p_1\cd p_m}_{q_1\cd q_m}
+&&
+\diagram{
+% first excitation operator
+  \node[dot=white] (a1) at (1,0.5) {};
+  \node (dots) at (1.6,0.5) {$\cdots$};
+  \node[dot=white] (an) at (2.2,0.5) {};
+  \draw (a1)--(dots)--(an);
+  \draw[->-] (a1) to ++(0,+0.5) coordinate[above left=0.1cm and 0.1cm] (startbrace);
+  \draw[->-] (an) to ++(0,+0.5) coordinate[above right=0.1cm and 0.1cm] (endbrace);
+  \draw[-<-] (a1) to ++(0,-0.5);
+  \draw[decorate,decoration={brace}] (startbrace) to node[midway,above=0.1cm] () {\scriptsize{$m$ times}} (endbrace);
+% second excitation operator
+  \node[dot=white] (b1) at (2.2,-0.5) {};
+  \node (dots2) at (2.8,-0.5) {$\cdots$};
+  \node[dot=white] (bn) at (3.4,-0.5) {};
+  \draw (b1)--(dots2)--(bn);
+  \draw[->-] (bn) to ++(0,+0.5);
+  \draw[-<-] (b1) to ++(0,-0.5) coordinate[below left=0.1cm and 0.1cm] (startbrace2);
+  \draw[-<-] (bn) to ++(0,-0.5) coordinate[below right=0.1cm and 0.1cm] (endbrace2);
+  \draw[decorate,decoration={brace,mirror}] (startbrace2) to node[midway,below=0.1cm] () {\scriptsize{$n$ times}} (endbrace2);
+% connecting line
+  \draw[->-] (b1)--(an);
+}
+\equiv
+  \no{a^{p_1\cd p_m}_{q_1\cd q_m^\ptcl}a^{r_1^\ptcl\cd r_n}_{s_1\cd s_n}}
+&&
+\diagram{
+% first excitation operator
+  \node[dot=white] (a1) at (1,0) {};
+  \node (dots) at (1.6,0) {$\cdots$};
+  \node[dot=white] (an) at (2.2,0) {};
+  \draw (a1)--(dots)--(an);
+  \draw[->-] (a1) to ++(0,+0.5);
+  \draw[->-] (an) to ++(0,+0.5);
+  \draw[-<-] (a1) to ++(0,-0.5) coordinate[below left=0.1cm and 0.1cm] (startbrace);
+  \draw[-<-] (an) to ++(0,-0.5) coordinate[below right=0.1cm and 0.1cm] (endbrace);
+  \draw[decorate,decoration={brace,mirror}] (startbrace) to node[midway,below=0.1cm] () {\scriptsize{$m$ times}} (endbrace);
+% second excitation operator
+  \node[dot=white] (b1) at (3,0) {};
+  \node (dots2) at (3.6,0) {$\cdots$};
+  \node[dot=white] (bn) at (4.2,0) {};
+  \draw (b1)--(dots2)--(bn);
+  \draw[->-] (b1) to ++(0,+0.5);
+  \draw[->-] (bn) to ++(0,+0.5);
+  \draw[-<-] (b1) to ++(0,-0.5) coordinate[below left=0.1cm and 0.1cm] (startbrace2);
+  \draw[-<-] (bn) to ++(0,-0.5) coordinate[below right=0.1cm and 0.1cm] (endbrace2);
+  \draw[decorate,decoration={brace,mirror}] (startbrace2) to node[midway,below=0.1cm] () {\scriptsize{$n$ times}} (endbrace2);
+% connecting line
+  \draw[densely dotted] (an)--(b1);
+}
+\equiv
+  \no{a^{p_1\cd p_m}_{q_1\cd q_m}a^{r_1\cd r_n}_{s_1\cd s_n}}
+\end{align*}
+$\F$-normal-ordering is indicated by the use of double-circle vertices, $\diagram{\node[ddot=white] {};}$ and $\diagram{\node[ddot] {};}$ instead of $\diagram{\node[dot=white] {};}$ and $\diagram{\node[dot] {};}$.
+\end{ntt}
+
+\begin{dfn}\label{dfn:operators-in-diagram-notation}
+\thmtitle{$m$-electron operators in Diagram notation}
+The primary building blocks of a graph are $m$-electron operators, which can be represented in two equivalent ways.
+The \textit{Goldstone representation} depicts an operator as a label attached to the corresponding excitation operator, whereas the \textit{Hugenholtz representation} depicts the operator as a single vertex with $m$ outgoing and incoming lines.
+Note that $\pr{\tfr{1}{m!}}^2\sum_{\mr{Einstein}}$ is baked into the diagram definition (\Cref{dfn:graph}).
+\begin{align*}
+\diagram{
+  \node[draw] (label) at (-0.7,0) {\bm{v}};
+  \node[dot=white] (v1) at (0,0) {};
+  \node (dots) at (0.6,0) {$\cdots$};
+  \node[dot=white] (vn) at (1.2,0) {};
+  \draw (label)--(v1)--(dots)--(vn);
+  \draw[->-] (v1) to ++(0,+0.45);
+  \draw[->-] (vn) to ++(0,+0.45);
+  \draw[-<-] (v1) to ++(0,-0.45);
+  \draw[-<-] (vn) to ++(0,-0.45);
+}
+\equiv&\
+  \pr{\tfr{1}{m!}}^2
+  \sum_{\mr{Einstein}}
+  \ol{v}_{p_1\cdots p_m}^{q_1\cdots q_m}
+  a^{p_1\cdots p_m}_{q_1\cdots q_m}
+\equiv
+\diagram{
+  \node[draw,circle] (label) at (0,0) {\bm{v}};
+  \draw[->-] (label.140) -- ++(140:0.5) ++(140:0.2);
+  \draw[->-] (label.120) -- ++(120:0.5) ++(120:0.2);
+  \node at (70:0.55) {$\cdot$};
+  \node at (80:0.55) {$\cdot$};
+  \node at (90:0.55) {$\cdot$};
+  \draw[->-] (label.40)  -- ++(40:0.5)  ++(40:0.25);
+  \draw[-<-] (label.220) -- ++(220:0.5) ++(220:0.2);
+  \draw[-<-] (label.240) -- ++(240:0.5) ++(240:0.2);
+  \node at (270:0.55) {$\cdot$};
+  \node at (280:0.55) {$\cdot$};
+  \node at (290:0.55) {$\cdot$};
+  \draw[-<-] (label.320) -- ++(320:0.5) ++(320:0.25);
+}
+&&&
+\diagram{
+  \node[draw] (label) at (-0.7,0) {\bm{v}};
+  \node[dot=white] (v1) at (0,0) {};
+  \node (dots) at (0.6,0) {$\cdots$};
+  \node[dot=white] (vn) at (1.2,0) {};
+  \draw (label)--(v1)--(dots)--(vn);
+  \draw[->-] (v1) to ++(0,+0.45) node[above] {$p_1$};
+  \draw[->-] (vn) to ++(0,+0.45) node[above] {$p_m$};
+  \draw[-<-] (v1) to ++(0,-0.45) node[below] {$q_1$};
+  \draw[-<-] (vn) to ++(0,-0.45) node[below] {$q_m$};
+}
+=&\
+  \ol{v}_{p_1\cd p_m}^{q_1\cd q_m}a^{p_1\cd p_m}_{q_1\cd q_m}
+\\
+\diagram{
+  \node[draw] (label) at (-0.7,0) {\bm{v}};
+  \node[ddot=white] (v1) at (0,0) {};
+  \node (dots) at (0.6,0) {$\cdots$};
+  \node[ddot=white] (vn) at (1.2,0) {};
+  \draw (label)--(v1)--(dots)--(vn);
+  \draw[->-] (v1) to ++(0,+0.45);
+  \draw[->-] (vn) to ++(0,+0.45);
+  \draw[-<-] (v1) to ++(0,-0.45);
+  \draw[-<-] (vn) to ++(0,-0.45);
+}
+\equiv&\
+  \pr{\tfr{1}{m!}}^2
+  \sum_{\mr{Einstein}}
+  \ol{v}_{p_1\cdots p_m}^{q_1\cdots q_m}
+  \tl{a}^{p_1\cdots p_m}_{q_1\cdots q_m}
+\equiv
+\diagram{
+  \node[draw,double,circle] (label) at (0,0) {\bm{v}};
+  \draw[->-] (label.140) -- ++(140:0.5) ++(140:0.2);
+  \draw[->-] (label.120) -- ++(120:0.5) ++(120:0.2);
+  \node at (70:0.55) {$\cdot$};
+  \node at (80:0.55) {$\cdot$};
+  \node at (90:0.55) {$\cdot$};
+  \draw[->-] (label.40)  -- ++(40:0.5)  ++(40:0.25);
+  \draw[-<-] (label.220) -- ++(220:0.5) ++(220:0.2);
+  \draw[-<-] (label.240) -- ++(240:0.5) ++(240:0.2);
+  \node at (270:0.55) {$\cdot$};
+  \node at (280:0.55) {$\cdot$};
+  \node at (290:0.55) {$\cdot$};
+  \draw[-<-] (label.320) -- ++(320:0.5) ++(320:0.25);
+}
+&&&
+\diagram{
+  \node[draw,circle] (label) at (0,0) {\bm{v}};
+  \draw[->-] (label.140) -- ++(140:0.5) ++(140:0.2) node {$p_1$};
+  \draw[->-] (label.120) -- ++(120:0.5) ++(120:0.2) node {$p_2$};
+  \node at (70:0.55) {$\cdot$};
+  \node at (80:0.55) {$\cdot$};
+  \node at (90:0.55) {$\cdot$};
+  \draw[->-] (label.40)  -- ++(40:0.5)  ++(40:0.25)  node {$p_m$};
+  \draw[-<-] (label.220) -- ++(220:0.5) ++(220:0.2) node {$q_1$};
+  \draw[-<-] (label.240) -- ++(240:0.5) ++(240:0.2) node {$q_2$};
+  \node at (270:0.55) {$\cdot$};
+  \node at (280:0.55) {$\cdot$};
+  \node at (290:0.55) {$\cdot$};
+  \draw[-<-] (label.320) -- ++(320:0.5) ++(320:0.25) node {$q_m$};
+}
+=&\
+  \ol{v}_{p_{\pi(1)}\cd p_{\pi(m)}}^{q_{\si(1)}\cd q_{\si(m)}}
+  a^{p_{\pi(1)}\cd p_{\pi(m)}}_{q_{\si(1)}\cd q_{\si(m)}}
+\end{align*}
+The labeled diagrams on the right represent just the summand of the operator, which highlights the difference between representations.
+Both summands correspond to an excitation operator weighted by its antisymmetrized interaction tensor,\footnotemark\ but whereas the Goldstone summand specifies an ordering for the indices of its corresponding algebraic term, the Hugenholtz summand does not.
+Since the phases of $\ol{v}_{p_1\cd p_m}^{q_1\cd q_m}$ and $a^{p_1\cd p_m}_{q_1\cd q_m}$ cancel under index permutation, the two labeled diagrams are actually equal -- a Hugenholtz summand can be expanded into a Goldstone summand by simply choosing an arbitrary ordering for the indices.
+In practice, the symmetry of the Hugenholtz operator simplifies the enumeration of Wick expansions whereas the Goldstone operator makes it easier to evaluate a graph's overall phase.
+\end{dfn}
+\footnotetext{In the original paper [J.~Goldstone, \textit{P.~Roy.~Soc.~A} \textbf{239}, (1957)], Goldstone's diagrams were actually defined in terms of non-antisymmetrized integrals.  The \textit{antisymmetrized Goldstone diagrams} used here are sometimes called \textit{Brandow diagrams}.}
+
+\begin{dfn}\label{dfn:graph}
+\thmtitle{Graph}
+A \textit{graph} is a pair $G=(O, L)$ of sets where $O$ is a collection of $m$-electron operator diagrams and $L$ is a collection of directed lines connecting them.\footnote{Although I borrow language from graph theory, this definition of a graph is slightly different from the one used there.}
+A line $l\in L$ can be formally represented as an ordered pair of operators $l=(o_1,o_2)$, where $o_1$ is the tail and $o_2$ is the head.
+Here, we allow for \textit{external lines} $l=(e,o)$ or $l=(o,e)$ which are incident with only one operator -- formally, we consider the free end $e$ to be a member of $O$.
+Lines connecting two operators are termed \textit{internal}.
+If two lines $l,l'\in L$ share the same tail and head, $l=(o_1,o_2)=(o_1',o_2')=l'$, they are considered \textit{equivalent lines}.
+The \textit{rules of interpretation} for translating $G$ into an algebraic expression are given in \Cref{ax:rules-of-interpretation}.
+\end{dfn}
+
+\begin{dfn}
+\thmtitle{Summand graph}
+A \textit{summand graph} of $G$ associates $G$ with a set $S$ of symbols and a \textit{label map} $s:L\rightarrow S$ that assigns one symbol $s(l)\in S$ to each $l\in L$.
+Pictorially, this corresponds to labelling each line in $G$ with an index, $p,q,r,s,$ etc.
+The summand graph translates directly into a product of algebraic summands according to \Cref{dfn:operators-in-diagram-notation} and \Cref{ntt:diagram-notation}, with top-to-bottom ordering in the graph corresponding to left-to-right ordering in the algebraic expression.
+\end{dfn}
+
+\begin{dfn}
+\thmtitle{Degeneracy}
+The \textit{line label degeneracy} or simply \textit{degeneracy} of a graph, here denoted $\mr{dg}(G)$, is the number of permutational symmetries in its summand graph.
+Formally, if $S=\{s_1,\ld,s_n\}$ are the line labels and $s(l_i)=s_i$ is the label map, then $\mr{deg}(G)$ is the number of permuted maps $s_{\pi}(l_i)=s_{\pi(i)}$ for $\pi\in\mr{S}_n$ that yield the same algebraic term.
+If every $o\in O$ has a different interaction tensor, then this is simply $\mr{dg}(G)=|L_1|!\cd|L_{n_l}|!$ where $L=\{L_1\}\cup\cd\cup\{L_{n_l}\}$ partitions $L$ into equivalent lines and $|S|$ denotes the number of elements in the set $S$.
+\end{dfn}
+
+\begin{ax}\label{ax:rules-of-interpretation}
+\thmtitle{Rules of interpretation}
+The algebraic intepretation of $G$ is obtained from its summand graph as follows.
+\begin{enumerate}
+  \item Multiply the summand graph by its \textit{degeneracy factor}, $(\mr{dg}(G))^{-1}$.
+  \item Sum each index in the summand graph over its range.
+\end{enumerate}
+Note that these rules can be applied in reverse: any product of $m$-electron operators may be translated into a graph.
+\end{ax}
+
+\begin{ex}
+The one- and two-electron components of $H_e$ expand into occupied/virtual blocks as follows.
+\begin{align*}
+  h_p^qa^p_q
+=&\
+  h_a^ba^a_b
++
+  h_a^ia^a_i
++
+  h_i^aa^i_a
++
+  h_i^ja^i_j
+\\
+  \tfr{1}{4}
+  \ol{g}_{pq}^{rs}a^{pq}_{rs}
+=&\
+  \tfr{1}{4}
+  \ol{g}_{ab}^{cd}a^{ab}_{cd}
++
+  \tfr{1}{2}
+  \ol{g}_{ab}^{ci}a^{ab}_{ci}
++
+  \tfr{1}{2}
+  \ol{g}_{ai}^{bc}a^{ai}_{bc}
++
+  \tfr{1}{4}
+  \ol{g}_{ab}^{ij}a^{ab}_{ij}
++
+  \ol{g}_{ia}^{bj}a^{ia}_{bj}
++
+  \tfr{1}{4}
+  \ol{g}_{ij}^{ab}a^{ij}_{ab}
++
+  \tfr{1}{2}
+  \ol{g}_{ia}^{jk}a^{ia}_{jk}
++
+  \tfr{1}{2}
+  \ol{g}_{ij}^{ka}a^{ij}_{ka}
++
+  \tfr{1}{4}
+  \ol{g}_{ij}^{kl}a^{ij}_{kl}
+\end{align*}
+where we are using Einstein summation and have combined like terms wherever possible.
+Take note of the scalar factors.
+Defining
+$
+\diagram{
+  \draw (-0.5,0) node[squarex] (h) {} -- (0,0) node[dot=white] (h1) {}; 
+  \draw[->-] (h1) to ++(0,+0.35);
+  \draw[-<-] (h1) to ++(0,-0.35);
+}
+\equiv
+  h_p^qa_q^p
+$
+and
+$
+\diagram{
+  \interaction{2}{g}{(0,0)}{dot=white}{sawtooth};
+  \draw[->-] (g1) to ++(0,+0.35);
+  \draw[-<-] (g1) to ++(0,-0.35);
+  \draw[->-] (g2) to ++(0,+0.35);
+  \draw[-<-] (g2) to ++(0,-0.35);
+}
+\equiv
+  \textstyle\frac{1}{4}\overline{g}_{pq}^{rs}a_{rs}^{pq}
+$,
+these equations are expressed in terms of Goldstone diagrams as follows.
+\begin{align*}
+\diagram{
+  \draw (-0.5,0) node[squarex] (h) {} -- (0,0) node[dot=white] (h1) {};
+  \draw[->-] (h1) to ++(0,+0.5);
+  \draw[-<-] (h1) to ++(0,-0.5);
+}
+=&\
+\diagram{
+  \draw (-0.5,0) node[squarex] (h) {} -- (0,0) node[dot] (h1) {};
+  \draw[->-] (h1) to ++(0,+0.5);
+  \draw[-<-] (h1) to ++(0,-0.5);
+}
++
+\diagram{
+  \draw (-0.5,0) node[squarex] (h) {} -- (0,0) node[dot] (h1) {};
+  \draw[->-] (h1) to ++(-0.25,+0.5);
+  \draw[-<-] (h1) to ++(+0.25,+0.5);
+}
++
+\diagram{
+  \draw (-0.5,0) node[squarex] (h) {} -- (0,0) node[dot] (h1) {};
+  \draw[->-] (h1) to ++(-0.25,-0.5);
+  \draw[-<-] (h1) to ++(+0.25,-0.5);
+}
++
+\diagram{
+  \draw (-0.5,0) node[squarex] (h) {} -- (0,0) node[dot] (h1) {};
+  \draw[->-] (h1) to ++(0,-0.5);
+  \draw[-<-] (h1) to ++(0,+0.5);
+}
+\\
+\diagram{
+  \interaction{2}{g}{(0,0)}{dot=white}{sawtooth};
+  \draw[->-] (g1) to ++(0,+0.5);
+  \draw[-<-] (g1) to ++(0,-0.5);
+  \draw[->-] (g2) to ++(0,+0.5);
+  \draw[-<-] (g2) to ++(0,-0.5);
+}
+=&\
+\diagram{
+  \interaction{2}{g}{(0,0)}{dot}{sawtooth};
+  \draw[->-] (g1) to ++(0,+0.5);
+  \draw[-<-] (g1) to ++(0,-0.5);
+  \draw[->-] (g2) to ++(0,+0.5);
+  \draw[-<-] (g2) to ++(0,-0.5);
+}
++
+\diagram{
+  \interaction{2}{g}{(0,0)}{dot}{sawtooth};
+  \draw[->-] (g1) to ++(0,+0.5);
+  \draw[-<-] (g1) to ++(0,-0.5);
+  \draw[->-] (g2) to ++(-0.25,+0.5);
+  \draw[-<-] (g2) to ++(+0.25,+0.5);
+}
++
+\diagram{
+  \interaction{2}{g}{(0,0)}{dot}{sawtooth};
+  \draw[->-] (g1) to ++(0,+0.5);
+  \draw[-<-] (g1) to ++(0,-0.5);
+  \draw[->-] (g2) to ++(-0.25,-0.5);
+  \draw[-<-] (g2) to ++(+0.25,-0.5);
+}
++
+\diagram{
+  \interaction{2}{g}{(0,0)}{dot}{sawtooth};
+  \draw[->-] (g1) to ++(-0.25,+0.5);
+  \draw[-<-] (g1) to ++(+0.25,+0.5);
+  \draw[->-] (g2) to ++(-0.25,+0.5);
+  \draw[-<-] (g2) to ++(+0.25,+0.5);
+}
++
+\diagram{
+  \interaction{2}{g}{(0,0)}{dot}{sawtooth};
+  \draw[->-] (g1) to ++(-0.25,-0.5);
+  \draw[-<-] (g1) to ++(+0.25,-0.5);
+  \draw[->-] (g2) to ++(-0.25,+0.5);
+  \draw[-<-] (g2) to ++(+0.25,+0.5);
+}
++
+\diagram{
+  \interaction{2}{g}{(0,0)}{dot}{sawtooth};
+  \draw[->-] (g1) to ++(-0.25,-0.5);
+  \draw[-<-] (g1) to ++(+0.25,-0.5);
+  \draw[->-] (g2) to ++(-0.25,-0.5);
+  \draw[-<-] (g2) to ++(+0.25,-0.5);
+}
++
+\diagram{
+  \interaction{2}{g}{(0,0)}{dot}{sawtooth};
+  \draw[->-] (g1) to ++(0,-0.5);
+  \draw[-<-] (g1) to ++(0,+0.5);
+  \draw[->-] (g2) to ++(-0.25,+0.5);
+  \draw[-<-] (g2) to ++(+0.25,+0.5);
+}
++
+\diagram{
+  \interaction{2}{g}{(0,0)}{dot}{sawtooth};
+  \draw[->-] (g1) to ++(0,-0.5);
+  \draw[-<-] (g1) to ++(0,+0.5);
+  \draw[->-] (g2) to ++(-0.25,-0.5);
+  \draw[-<-] (g2) to ++(+0.25,-0.5);
+}
++
+\diagram{
+  \interaction{2}{g}{(0,0)}{dot}{sawtooth};
+  \draw[->-] (g1) to ++(0,-0.5);
+  \draw[-<-] (g1) to ++(0,+0.5);
+  \draw[->-] (g2) to ++(0,-0.5);
+  \draw[-<-] (g2) to ++(0,+0.5);
+}
+\end{align*}
+To see that these match the algebraic expressions, note that for each diagram the partition into equivalent lines falls into one of three cases: $\{l_1,l_2\}\cup\{l_3,l_4\}\implies (\mr{dg}(G))^{-1}=\tfr{1}{2\cdot2}=\tfr{1}{4}$; $\{l_1,l_2\}\cup\{l_3\}\cup\{l_4\}\implies (\mr{dg}(G))^{-1}=\tfr{1}{2\cdot1\cdot1}=\tfr{1}{2}$; and $\{l_1\}\cup\{l_2\}\cup\{l_3\}\cup\{l_4\}\implies (\mr{dg}(G))^{-1}=\tfr{1}{1\cdot1\cdot1\cdot1}=1$.
+In terms of Hugenholtz diagrams, these look as follows.
+\begin{align*}
+\diagram{
+  \node[dot=white] (h) at (0,0) {};
+  \draw[->-] (h) to ++(0,+0.5);
+  \draw[-<-] (h) to ++(0,-0.5);
+}
+=
+\diagram{
+  \node[dot] (h) at (0,0) {};
+  \draw[->-] (h) to ++(0,+0.5);
+  \draw[-<-] (h) to ++(0,-0.5);
+}
++
+\diagram{
+  \node[dot] (h) at (0,0) {};
+  \draw[->-] (h) to ++(-0.25,+0.5);
+  \draw[-<-] (h) to ++(+0.25,+0.5);
+}
++
+\diagram{
+  \node[dot] (h) at (0,0) {};
+  \draw[-<-] (h) to ++(-0.25,-0.5);
+  \draw[->-] (h) to ++(+0.25,-0.5);
+}
++
+\diagram{
+  \node[dot] (h) at (0,0) {};
+  \draw[-<-] (h) to ++(0,+0.5);
+  \draw[->-] (h) to ++(0,-0.5);
+}
+&&
+\diagram{
+  \node[dot=white] (g) at (0,0) {};
+  \draw[->-] (g) to ++(-0.25,+0.5);
+  \draw[->-] (g) to ++(+0.25,+0.5);
+  \draw[-<-] (g) to ++(-0.25,-0.5);
+  \draw[-<-] (g) to ++(+0.25,-0.5);
+}
+=
+\diagram{
+  \node[dot] (g) at (0,0) {};
+  \draw[->-] (g) to ++(-0.25,+0.5);
+  \draw[->-] (g) to ++(+0.25,+0.5);
+  \draw[-<-] (g) to ++(-0.25,-0.5);
+  \draw[-<-] (g) to ++(+0.25,-0.5);
+}
++
+\diagram{
+  \node[dot] (g) at (0,0) {};
+  \draw[->-] (g) to ++(0,+0.5);
+  \draw[-<-] (g) to ++(0,-0.5);
+  \draw[-<-] (g) to ++(50:0.5);
+  \draw[->-] (g) to ++(130:0.5);
+}
++
+\diagram{
+  \node[dot] (g) at (0,0) {};
+  \draw[->-] (g) to ++(0,+0.5);
+  \draw[-<-] (g) to ++(0,-0.5);
+  \draw[-<-] (g) to ++(-50:0.5);
+  \draw[->-] (g) to ++(-130:0.5);
+}
++
+\diagram{
+  \newcommand{\ang}{40};
+  \node[dot] (g) at (0,0) {};
+  \draw[-<-] (g) to ++(90-1.5*\ang:0.5);
+  \draw[-<-] (g) to ++(90-0.5*\ang:0.5);
+  \draw[->-] (g) to ++(90+0.5*\ang:0.5);
+  \draw[->-] (g) to ++(90+1.5*\ang:0.5);
+}
++
+\diagram{
+  \node[dot] (g) at (0,0) {};
+  \draw[-<-] (g) to ++(-0.25,+0.5);
+  \draw[->-] (g) to ++(+0.25,+0.5);
+  \draw[-<-] (g) to ++(-0.25,-0.5);
+  \draw[->-] (g) to ++(+0.25,-0.5);
+}
++
+\diagram{
+  \newcommand{\ang}{40};
+  \node[dot] (g) at (0,0) {};
+  \draw[-<-] (g) to ++(-90+1.5*\ang:0.5);
+  \draw[-<-] (g) to ++(-90+0.5*\ang:0.5);
+  \draw[->-] (g) to ++(-90-0.5*\ang:0.5);
+  \draw[->-] (g) to ++(-90-1.5*\ang:0.5);
+}
++
+\diagram{
+  \node[dot] (g) at (0,0) {};
+  \draw[-<-] (g) to ++(0,+0.5);
+  \draw[->-] (g) to ++(0,-0.5);
+  \draw[-<-] (g) to ++(50:0.5);
+  \draw[->-] (g) to ++(130:0.5);
+}
++
+\diagram{
+  \node[dot] (g) at (0,0) {};
+  \draw[-<-] (g) to ++(0,+0.5);
+  \draw[->-] (g) to ++(0,-0.5);
+  \draw[-<-] (g) to ++(-50:0.5);
+  \draw[->-] (g) to ++(-130:0.5);
+}
++
+\diagram{
+  \node[dot] (g) at (0,0) {};
+  \draw[-<-] (g) to ++(-0.25,+0.5);
+  \draw[-<-] (g) to ++(+0.25,+0.5);
+  \draw[->-] (g) to ++(-0.25,-0.5);
+  \draw[->-] (g) to ++(+0.25,-0.5);
+}
+\end{align*}
+\end{ex}
+
+\begin{ex}
+The $\F$-normal Wick expansion of the one- and two-electron components of $H_e$ are as follows.
+\begin{align*}
+  h_p^qa^p_q
+=&\
+  h_p^q
+  \pr{
+    \tl{a}^p_q
+  +
+    \tl{a}^{p^\hole}_{q^\hole}
+  }
+=
+  h_p^q
+  \tl{a}^p_q
++
+  h_p^q
+  \g^p_q
+\\
+  \tfr{1}{4}
+  \ol{g}_{pq}^{rs}
+  a^{pq}_{rs}
+=&\
+  \tfr{1}{4}
+  \ol{g}_{pq}^{rs}
+  \pr{
+    \tl{a}^{pq}_{rs}
+  +
+    \op{P}^{(p/q)}_{(r/s)}
+    \tl{a}^{p^\hole q}_{r^\hole s}
+  +
+    \op{P}_{(r/s)}
+    \tl{a}^{p^\hole q^{\hole\hole}}_{r^\hole s^{\hole\hole}}
+  }
+=
+  \tfr{1}{4}
+  \ol{g}_{pq}^{rs}
+  \tl{a}^{pq}_{rs}
++
+  \ol{g}_{pq}^{rs}
+  \g^p_r
+  \tl{a}^q_s
++
+  \tfr{1}{2}
+  \ol{g}_{pq}^{rs}
+  \g^p_r
+  \g^q_s
+\end{align*}
+\begin{align*}
+\diagram{
+  \draw (-0.5,0) node[squarex] (h) {} -- (0,0) node[dot=white] (h1) {};
+  \draw[->-] (h1) to ++(0,+0.5);
+  \draw[-<-] (h1) to ++(0,-0.5);
+}
+=&\
+\diagram{
+  \draw (-0.5,0) node[squarex] (h) {} -- (0,0) node[ddot=white] (h1) {};
+  \draw[->-] (h1) to ++(0,+0.5);
+  \draw[-<-] (h1) to ++(0,-0.5);
+}
++
+\diagram{
+  \draw (-0.5,0) node[squarex] (h) {} -- (0,0) node[ddot=white] (h1) {};
+  \draw[-<-] (h1) arc (0:360:-0.25);
+}
+&
+\diagram{
+  \interaction{2}{g}{(0,0)}{dot=white}{sawtooth};
+  \draw[->-] (g1) to ++(0,+0.5);
+  \draw[-<-] (g1) to ++(0,-0.5);
+  \draw[->-] (g2) to ++(0,+0.5);
+  \draw[-<-] (g2) to ++(0,-0.5);
+}
+=&\
+\diagram{
+  \interaction{2}{g}{(0,0)}{ddot=white}{sawtooth};
+  \draw[->-] (g1) to ++(0,+0.5);
+  \draw[-<-] (g1) to ++(0,-0.5);
+  \draw[->-] (g2) to ++(0,+0.5);
+  \draw[-<-] (g2) to ++(0,-0.5);
+}
++
+\diagram{
+  \interaction{2}{g}{(0,0)}{ddot=white}{sawtooth};
+  \draw[->-] (g1) arc (0:360:+0.25);
+  \draw[->-] (g2) to ++(0,+0.5);
+  \draw[-<-] (g2) to ++(0,-0.5);
+}
++
+\diagram{
+  \interaction{2}{g}{(0,0)}{ddot=white}{sawtooth};
+  \draw[->-] (g1) arc (0:360:+0.25);
+  \draw[-<-] (g2) arc (0:360:-0.25);
+}
+\\
+\diagram{
+  \node[dot=white] (h) at (0,0) {};
+  \draw[->-] (h) to ++(0,+0.5);
+  \draw[-<-] (h) to ++(0,-0.5);
+}
+=&\
+\diagram{
+  \node[ddot=white] (h) at (0,0) {};
+  \draw[->-]  (h) to ++(0,+0.5);
+  \draw[-<-]  (h) to ++(0,-0.5);
+}
++
+\diagram{
+  \node[ddot=white] (h) at (0,0) {};
+  \draw[-<-]  (h) arc (0:360:-0.25);
+}
+&
+\diagram{
+  \node[dot=white] (g) at (0,0) {};
+  \draw[->-] (g) to ++(+0.25,+0.5);
+  \draw[-<-] (g) to ++(+0.25,-0.5);
+  \draw[->-] (g) to ++(-0.25,+0.5);
+  \draw[-<-] (g) to ++(-0.25,-0.5);
+}
+=&\
+\diagram{
+  \node[ddot=white] (g) at (0,0) {};
+  \draw[->-] (g) to ++(+0.25,+0.5);
+  \draw[-<-] (g) to ++(+0.25,-0.5);
+  \draw[->-] (g) to ++(-0.25,+0.5);
+  \draw[-<-] (g) to ++(-0.25,-0.5);
+}
++
+\diagram{
+  \node[ddot=white] (g) at (0,0) {};
+  \draw[->-] (g) arc (0:360:+0.25);
+  \draw[->-] (g) to ++(0,+0.5);
+  \draw[-<-] (g) to ++(0,-0.5);
+}
++
+\diagram{
+  \node[ddot=white] (g) at (0,0) {};
+  \draw[->-] (g) arc (0:360:+0.25);
+  \draw[-<-] (g) arc (0:360:-0.25);
+}
+\end{align*}
+\begin{align*}
+\diagram{
+  \node[flexdot={7ex}{red}] (g) at (0,0) {};
+  \node[flexddot={7ex}{red}] (g2) at (2,0) {};
+}
+\end{align*}
+\end{ex}
+
+\begin{dfn}
+\thmtitle{Contraction}
+A \textit{graph contraction} is a map $G\mapsto c(G)$ joining one or more compatible external lines in $G$.
+For example, $l_1=(o_1,e)$ and $l_2=(e,o_2)$ might be replaced with $l_{12}=(o_1,o_2)$.
+Two contractions $c$ and $c'$ of $G$ are \textit{equivalent} if they are visually indistinguishable.
+Algebraically, $c$ and $c'$ are equivalent if the summand graphs of $c(G)$ and $c'(G)$ are equal for some choice of labels.
+We will denote the full set of inequivalent graph contractions by $\mr{Ctr}(G)$.
+\end{dfn}
+
+\begin{dfn}
+\thmtitle{Equivalent subgraph}
+If $O'$ and $L'$ are subsets of $O$ and $L$ then $G'=(O',L')$ is a \textit{subgraph} of $G$, denoted $G'\subseteq G$.
+Given an operator subset $O'\subseteq O$, the \textit{subgraph induced by $O'$} is $G[O']\equiv(O',L')$ where $L'$ contains all lines in $L$ except for those incident on operators not in $O'$.
+If $O_1$ and $O_2$ are disjoint subsets of $O$ that induce the same subgraphs $G[O_1]=G[O_2]$ and are connected to the same operators in $O\bs(O_1\cup O_2)$ in the same ways, we call them \textit{equivalent subgraphs}.
+If $O_1=\{o_1\}$ and $O_2=\{o_2\}$, we call $o_1$ and $o_2$ \textit{equivalent operators}.
+See \cref{ex:equivalent-subgraphs}.
+\end{dfn}
+
+
+
+\begin{prop}
+\thmtitle{$\mr{pat}(c) = \sfr{\mr{dg}(G)}{\mr{dg}(c(G))}$}
+\thmstatement{Let $G$ be graph and $c(G)$ a contraction of $G$.  Then the pattern degeneracy of $c$ is equal to the line degeneracy of the original graph divided by the line degeneracy of the contracted graph.}
+\thmproof{
+\begin{align*}
+  G
+=&\
+  (O,L)
+\\
+  O
+=&\
+  O_1\cup\cd\cup O_h
+=
+  \bigcup_{i=1}^h
+    O_{i,1}\cup\cd\cup
+    O_{i,n_i}
+\end{align*}
+First, define $G'=(O',L)$ which equals $G$ except that copies of the same operator are treated as distinct.
+
+ 
+
+$G=(O,L)$.
+First, consider $G'=(O',L)$ which equals $G$ except that, 
+\begin{align*}
+  G'
+=&\
+  (O', L)
+&&
+\\
+  L
+=&\
+  L_1\cup\cd\cup L_g
+=
+  \bigcup_{i=1}^g
+  L_{i,\mr{ext}}
+  \cup
+  L_{i,1}
+  \cup\cd
+  \cup
+  L_{i,g}
+\\
+  \mr{lin}(G')
+=&\
+  |L_1|!\cd|L_g|!
+\\
+  \mr{lin}(\mr{ctr}(G'))
+=&\
+  \prod_{i=1}^g
+  \pr{
+    |L_{i,\mr{ext}}|!
+    |L_{i,1}|!\cd
+    |L_{i,i-1}|!
+  }
+=
+  \prod_{i=1}^g
+  \pr{
+    |L_{i,\mr{ext}}|!
+    |L_{i,i+1}|!\cd
+    |L_{i,g}|!
+  }
+\end{align*}
+\begin{align*}
+  \mr{pat}(\mr{ctr}(G'))
+=
+  \prod_{i=1}^g
+  \left[
+    {|L_i| \choose |L_{i,\mr{ext}}|,|L_{i,1}|,\cd,|L_{i,g}|}
+    \cdot
+    \prod_{j=1}^{i-1}
+    |L_{i,j}|!
+  \right]
+=&\
+  \prod_{i=1}^g
+  \left[
+    \fr{|L_i|!}{|L_{i,\mr{ext}}|!|L_{i,1}|!\cd|L_{i,g}|!}
+    \cdot
+    |L_{i,1}|!\cd|L_{i,i-1}|!
+  \right]
+\\=&\
+  \prod_{i=1}^g
+  \left[
+    \fr{|L_i|!}{|L_{i,\mr{ext}}|!|L_{i,i+1}|!\cd|L_{i,g}|!}
+  \right]
+=
+  \fr{\mr{lin}(G')}{\mr{lin}(\mr{ctr}(G'))}
+\end{align*}
+
+}
+\end{prop}
+
+
+\appendix
+\section{Parenthetical results}
+
+\begin{ex}\label{ex:equivalent-subgraphs}
+\thmtitle{Equivalent subgraphs}
+If $a$ and $a'$ have the same interaction tensor, and $c$ and $c'$ do too, then
+\begin{align*}
+&&
+\underset{\text{{\small $a$ and $a'$ are equivalent operators}}}{
+  \diagram{
+    % labels
+    \node[draw,circle,inner sep=5pt] (b) at (0,0) {$\bm{b}$};
+    \node[draw,circle,inner sep=1pt] (a) at (-0.5,1) {$\bm{a}\phantom{'}$};
+    \node[draw,circle,inner sep=1pt] (a') at (+0.5,1) {$\bm{a}'$};
+    \draw[-<-] (b) to ++(-60:1);
+    \draw[-<-] (b) to ++(-80:1);
+    \draw[-<-] (b) to ++(-100:1);
+    \draw[-<-] (b) to ++(-120:1);
+    \draw[-<-] (a.-40) to (b.100);
+    \draw[-<-] (a.-90) to (b.120);
+    \draw[-<-] (a'.-90) to (b.60);
+    \draw[-<-] (a'.-140) to (b.80);
+    \draw[->-] (a.115) to ++(0,0.5);
+    \draw[->-] (a.65)  to ++(0,0.5);
+    \draw[->-] (a'.115) to ++(0,0.5);
+    \draw[->-] (a'.65)  to ++(0,0.5);
+  }
+}
+&&
+\underset{\text{{\small $G[\{a,c\}]$ and $G[\{a',c'\}]$ are equivalent subgraphs.}}}{
+  \diagram{
+    % labels
+    \node[draw,circle,inner sep=5pt] (b) at (0,0) {$\bm{b}$};
+    \node[draw,circle,inner sep=1pt] (a) at (-0.5,1) {$\bm{a}\phantom{'}$};
+    \node[draw,circle,inner sep=1pt] (a') at (+0.5,1) {$\bm{a}'$};
+    \node[draw,circle,inner sep=1pt] (c) at (-1,0.3) {$\bm{c}\phantom{'}$};
+    \node[draw,circle,inner sep=1pt] (c') at (+1,0.3) {$\bm{c}'$};
+    \draw[-<-] (b) to ++(-60:1);
+    \draw[-<-] (b) to ++(-80:1);
+    \draw[-<-] (b) to ++(-100:1);
+    \draw[-<-] (b) to ++(-120:1);
+    \draw[->-] (a.115) to ++(0,0.5);
+    \draw[->-] (a.65)  to ++(0,0.5);
+    \draw[->-] (a'.115) to ++(0,0.5);
+    \draw[->-] (a'.65)  to ++(0,0.5);
+    \draw[-<-] (a)  to (b);
+    \draw[-<-] (a') to (b);
+    \draw[-<-] (c)  to (b);
+    \draw[-<-] (c') to (b);
+    \draw[-<-] (a)  to (c);
+    \draw[-<-] (a') to (c');
+  }
+}
+\end{align*}
+\end{ex}
+
+
+\end{document}
