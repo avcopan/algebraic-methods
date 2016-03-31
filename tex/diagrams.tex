@@ -21,6 +21,7 @@
 %%%DOCUMENT%%%
 \begin{document}
 
+
 \section{Diagram notation}
 
 \begin{ntt}\label{ntt:diagram-notation}
@@ -250,7 +251,7 @@ $\F$-normal-ordering is indicated by the use of double-circle vertices, $\diagra
 \thmtitle{$m$-electron operators in Diagram notation}
 The primary building blocks of a graph are $m$-electron operators, which can be represented in two equivalent ways.
 The \textit{Goldstone representation} depicts an operator as a label attached to the corresponding excitation operator, whereas the \textit{Hugenholtz representation} depicts the operator as a single vertex with $m$ outgoing and incoming lines.
-Note that $\pr{\tfr{1}{m!}}^2\sum_{\mr{Einstein}}$ is baked into the diagram definition (\Cref{dfn:graph}).
+Note that $\pr{\tfr{1}{m!}}^2\sum_{\mr{Einstein}}$ is baked into the definition (see \Cref{dfn:graph} and \Cref{ax:rules-of-interpretation}).
 \begin{align*}
 \diagram{
   \node[draw] (label) at (-0.7,0) {\bm{v}};
@@ -360,36 +361,42 @@ In practice, the symmetry of the Hugenholtz operator simplifies the enumeration 
 
 \begin{dfn}\label{dfn:graph}
 \thmtitle{Graph}
-A \textit{graph} is a pair $G=(O, L)$ of sets where $O$ is a collection of $m$-electron operator diagrams and $L$ is a collection of directed lines connecting them.\footnote{Although I borrow language from graph theory, this definition of a graph is slightly different from the one used there.}
-A line $l\in L$ can be formally represented as an ordered pair of operators $l=(o_1,o_2)$, where $o_1$ is the tail and $o_2$ is the head.
-Here, we allow for \textit{external lines} $l=(e,o)$ or $l=(o,e)$ which are incident with only one operator -- formally, we consider the free end $e$ to be a member of $O$.
-Lines connecting two operators are termed \textit{internal}.
-If two lines $l,l'\in L$ share the same tail and head, $l=(o_1,o_2)=(o_1',o_2')=l'$, they are considered \textit{equivalent lines}.
+A \textit{graph}\footnotemark\
+is a 4-tuple $G=(O,L,h,t)$ where $O$ is a set of electron operators, $L$ is a set of lines, and $h$ and $t$ are maps from $L$ to $O$ that return the \textit{head} $h(l)\in O$ and \textit{tail end} $t(l)\in O$ of every line $l\in L$.
+Here, we allow for \textit{external lines} in which either $h(l)$ or $t(l)$ equals $e$, the \textit{free end}, which is formally considered a member of $O$.
+Lines no free end are termed \textit{internal}.
+If $l$ and $l'$ share the same tail and the same head, they are termed \textit{equivalent lines} and we write $l\sim l'$.
+If $o$ and $o'$ can be exchanged, attaching the ends of one to the other and vice versa, without altering $G$ then they are termed \textit{interchangeable operators}.
+Repeated copies of the same operator are formally distinguished as elements of $O$ and termed \textit{identical operators}, denoted $o\simeq o'$.
+If identical operators are interchangeable, they are termed \textit{equivalent}, denoted $o\sim o'$.
+See \Cref{ex:equivalent-operators}.
 The \textit{rules of interpretation} for translating $G$ into an algebraic expression are given in \Cref{ax:rules-of-interpretation}.
 \end{dfn}
+\footnotetext{In group theory jargon this is essentially a \textit{directed multigraph}, except that the vertical ordering of operators matters.}
 
 \begin{dfn}
 \thmtitle{Summand graph}
-A \textit{summand graph} of $G$ associates $G$ with a set $S$ of symbols and a \textit{label map} $s:L\rightarrow S$ that assigns one symbol $s(l)\in S$ to each $l\in L$.
-Pictorially, this corresponds to labelling each line in $G$ with an index, $p,q,r,s,$ etc.
-The summand graph translates directly into a product of algebraic summands according to \Cref{dfn:operators-in-diagram-notation} and \Cref{ntt:diagram-notation}, with top-to-bottom ordering in the graph corresponding to left-to-right ordering in the algebraic expression.
+A \textit{summand graph}\footnotemark\ $\Si(G)$ of $G$ is a 3-tuple $\Si(G)=(G,S,s)$ where $S$ is a set of symbols and $s:L\rightarrow S$ is a \textit{label map} assigning one symbol $s(l)\in S$ to each line $l\in L$.
+Pictorially, this corresponds to labeling each line in $G$ with an index, $p,q,r,s,$ etc.
+$\Si(G)$ translates directly into an algebraic summand according to \Cref{dfn:operators-in-diagram-notation} and \Cref{ntt:diagram-notation}, with top-to-bottom ordering in the graph corresponding to left-to-right ordering in the expression.
 \end{dfn}
+\footnotetext{In group theory jargon this is an \textit{edge-labeled directed multigraph}.}
 
 \begin{dfn}
 \thmtitle{Degeneracy}
-The \textit{line label degeneracy} or simply \textit{degeneracy} of a graph, here denoted $\mr{dg}(G)$, is the number of permutational symmetries in its summand graph.
-Formally, if $S=\{s_1,\ld,s_n\}$ are the line labels and $s(l_i)=s_i$ is the label map, then $\mr{deg}(G)$ is the number of permuted maps $s_{\pi}(l_i)=s_{\pi(i)}$ for $\pi\in\mr{S}_n$ that yield the same algebraic term.
-If every $o\in O$ has a different interaction tensor, then this is simply $\mr{dg}(G)=|L_1|!\cd|L_{n_l}|!$ where $L=\{L_1\}\cup\cd\cup\{L_{n_l}\}$ partitions $L$ into equivalent lines and $|S|$ denotes the number of elements in the set $S$.
+The \textit{line degeneracy} or simply \textit{degeneracy} of $G$ is the number of permutational symmetries in $\Si(G)$, a positive integer denoted $\mr{dg}(G)$.
+Formally, if $S=\{s_1,\ld,s_n\}$ with $s(l_i)=s_i$, then $\mr{dg}(G)$ is the number of label permutations $\Si_{\mr{\pi}}(G)=(G,S,s_\pi)$, where $\pi\in\mr{S}_n$ and $s_{\pi}(l_i)=s_{\pi(i)}$, that don't change the summand graph, $\Si_\pi(G)=\Si(G)$.
+If $G$ has no identical operators, then $\mr{dg}(G)=|L_1|!\cd|L_{m}|!$ where $L=L_1\cup\cd\cup L_{m}$ partitions $L$ into equivalent lines and $|L_i|$ denotes the number of elements in the set $L_i$.
 \end{dfn}
 
 \begin{ax}\label{ax:rules-of-interpretation}
 \thmtitle{Rules of interpretation}
-The algebraic intepretation of $G$ is obtained from its summand graph as follows.
+The algebraic intepretation of $G$ is obtained from $\Si(G)$ as follows.
+See \Cref{ex:graph}.
 \begin{enumerate}
-  \item Multiply the summand graph by its \textit{degeneracy factor}, $(\mr{dg}(G))^{-1}$.
-  \item Sum each index in the summand graph over its range.
+  \item Multiply $\Si(G)$ by $\mr{dg}(G)^{-1}$, termed the \textit{degeneracy factor}.
+  \item Sum each index in $\Si(G)$ over its range.
 \end{enumerate}
-Note that these rules can be applied in reverse: any product of $m$-electron operators may be translated into a graph.
 \end{ax}
 
 \begin{ex}
@@ -434,8 +441,6 @@ The one- and two-electron components of $H_e$ expand into occupied/virtual block
   \tfr{1}{4}
   \ol{g}_{ij}^{kl}a^{ij}_{kl}
 \end{align*}
-where we are using Einstein summation and have combined like terms wherever possible.
-Take note of the scalar factors.
 Defining
 $
 \diagram{
@@ -570,8 +575,8 @@ these equations are expressed in terms of Goldstone diagrams as follows.
   \draw[-<-] (g2) to ++(0,+0.5);
 }
 \end{align*}
-To see that these match the algebraic expressions, note that for each diagram the partition into equivalent lines falls into one of three cases: $\{l_1,l_2\}\cup\{l_3,l_4\}\implies (\mr{dg}(G))^{-1}=\tfr{1}{2\cdot2}=\tfr{1}{4}$; $\{l_1,l_2\}\cup\{l_3\}\cup\{l_4\}\implies (\mr{dg}(G))^{-1}=\tfr{1}{2\cdot1\cdot1}=\tfr{1}{2}$; and $\{l_1\}\cup\{l_2\}\cup\{l_3\}\cup\{l_4\}\implies (\mr{dg}(G))^{-1}=\tfr{1}{1\cdot1\cdot1\cdot1}=1$.
-In terms of Hugenholtz diagrams, these look as follows.
+The degeneracy factors fall into three cases: $\{l_1,l_2\}\cup\{l_3,l_4\}\implies \mr{dg}(G)^{-1}=\tfr{1}{2\cdot2}$; $\{l_1,l_2\}\cup\{l_3\}\cup\{l_4\}\implies \mr{dg}(G)^{-1}=\tfr{1}{2\cdot1\cdot1}$; and $\{l_1\}\cup\{l_2\}\cup\{l_3\}\cup\{l_4\}\implies \mr{dg}(G)^{-1}=\tfr{1}{1\cdot1\cdot1\cdot1}$.
+In terms of Hugenholtz diagrams, these are written as follows.
 \begin{align*}
 \diagram{
   \node[dot=white] (h) at (0,0) {};
@@ -687,6 +692,7 @@ In terms of Hugenholtz diagrams, these look as follows.
 \end{align*}
 \end{ex}
 
+\begin{samepage}
 \begin{ex}
 The $\F$-normal Wick expansion of the one- and two-electron components of $H_e$ are as follows.
 \begin{align*}
@@ -734,6 +740,7 @@ The $\F$-normal Wick expansion of the one- and two-electron components of $H_e$ 
   \g^p_r
   \g^q_s
 \end{align*}
+In terms of Goldstone diagrams, these equations are written as
 \begin{align*}
 \diagram{
   \draw (-0.5,0) node[squarex] (h) {} -- (0,0) node[dot=white] (h1) {};
@@ -781,6 +788,7 @@ The $\F$-normal Wick expansion of the one- and two-electron components of $H_e$ 
   \draw[-<-] (g2) arc (0:360:-0.25);
 }
 \\
+\intertext{and, in terms of Hugenholtz diagrams, they are written as follows.}
 \diagram{
   \node[dot=white] (h) at (0,0) {};
   \draw[->-] (h) to ++(0,+0.5);
@@ -827,32 +835,173 @@ The $\F$-normal Wick expansion of the one- and two-electron components of $H_e$ 
   \draw[-<-] (g) arc (0:360:-0.25);
 }
 \end{align*}
+\end{ex}
+\end{samepage}
+
+\begin{ex}
+The $\F$-normal Wick expansion of $H_e$ in terms of Goldstone diagrams is
 \begin{align*}
+  H_e
+=
 \diagram{
-  \node[flexdot={7ex}{red}] (g) at (0,0) {};
-  \node[flexddot={7ex}{red}] (g2) at (2,0) {};
+  \draw (-0.5,0) node[squarex] (h) {} -- (0,0) node[dot=white] (h1) {};
+  \draw[->-] (h1) to ++(0,+0.5);
+  \draw[-<-] (h1) to ++(0,-0.5);
+}
++
+\diagram{
+  \interaction{2}{g}{(0,0)}{dot=white}{sawtooth};
+  \draw[->-] (g1) to ++(0,+0.5);
+  \draw[->-] (g2) to ++(0,+0.5);
+  \draw[-<-] (g1) to ++(0,-0.5);
+  \draw[-<-] (g2) to ++(0,-0.5);
+}
+=
+  E_0
++
+  H_{\mr{c}}
+&&
+  E_0
+=
+\diagram{
+  \draw (-0.5,0) node[squarex] (h) {} -- (0,0) node[ddot=white] (h1) {};
+  \draw[-<-] (h1) arc (0:360:-0.25);
+}
++
+\diagram{
+  \interaction{2}{g}{(0,0)}{ddot=white}{sawtooth};
+  \draw[->-] (g1) arc (0:360:+0.25);
+  \draw[-<-] (g2) arc (0:360:-0.25);
+}
+&&
+  H_{\mr{c}}
+=
+\diagram{
+  \draw (-0.5,0) node[circlex] (f) {} -- (0,0) node[ddot=white] (f1) {};
+  \draw[->-] (f1) to ++(0,+0.5);
+  \draw[-<-] (f1) to ++(0,-0.5);
+}
++
+\diagram{
+  \interaction{2}{g}{(0,0)}{ddot=white}{sawtooth};
+  \draw[->-] (g1) to ++(0,+0.5);
+  \draw[->-] (g2) to ++(0,+0.5);
+  \draw[-<-] (g1) to ++(0,-0.5);
+  \draw[-<-] (g2) to ++(0,-0.5);
+}
+&&
+\diagram{
+  \draw (-0.5,0) node[circlex] (f) {} -- (0,0) node[ddot=white] (f1) {};
+  \draw[->-] (f1) to ++(0,+0.5);
+  \draw[-<-] (f1) to ++(0,-0.5);
+}
+\equiv
+\diagram{
+  \draw (-0.5,0) node[squarex] (h) {} -- (0,0) node[ddot=white] (h1) {};
+  \draw[->-] (h1) to ++(0,+0.5);
+  \draw[-<-] (h1) to ++(0,-0.5);
+}
++
+\diagram{
+  \interaction{2}{g}{(0,0)}{ddot=white}{sawtooth};
+  \draw[->-] (g1) arc (0:360:+0.25);
+  \draw[->-] (g2) to ++(0,+0.5);
+  \draw[-<-] (g2) to ++(0,-0.5);
 }
 \end{align*}
+where
+$
+\diagram{
+  \draw (-0.5,0) node[circlex] (f) {} -- (0,0) node[ddot=white] (f1) {};
+  \draw[->-] (f1) to ++(0,+0.3);
+  \draw[-<-] (f1) to ++(0,-0.3);
+}
+$
+represents the $\F$-normal-ordered Fock operator,
+$
+  f_p^q\tl{a}^p_q
+$.
 \end{ex}
 
 \begin{dfn}
 \thmtitle{Contraction}
 A \textit{graph contraction} is a map $G\mapsto c(G)$ joining one or more compatible external lines in $G$.
-For example, $l_1=(o_1,e)$ and $l_2=(e,o_2)$ might be replaced with $l_{12}=(o_1,o_2)$.
-Two contractions $c$ and $c'$ of $G$ are \textit{equivalent} if they are visually indistinguishable.
-Algebraically, $c$ and $c'$ are equivalent if the summand graphs of $c(G)$ and $c'(G)$ are equal for some choice of labels.
-We will denote the full set of inequivalent graph contractions by $\mr{Ctr}(G)$.
+For example, $c$ might replace $l_1$ and $l_2$, which have ends $(t(l_1),h(l_1))=(o_1,e)$ and $(t(l_2),h(l_2))=(e,o_2)$, with $l_{12}$, which has ends $(t(l_{12}),h(l_{12}))=(o_1,o_2)$.
+Contractions $c$ and $c'$ of $G$ are \textit{equivalent} if $c(G)=c'(G)$.
+The number of $c'$ equivalent to $c$ is called the \textit{pattern degeneracy} of $c$, denoted $\mr{pat}(c)$.
+The complete set of inequivalent graph contractions of $G$ is here denoted $\mr{Ctr}(G)$.
+\end{dfn}
+
+\begin{dfn}
+\thmtitle{Connected graph}
 \end{dfn}
 
 \begin{dfn}
 \thmtitle{Equivalent subgraph}
-If $O'$ and $L'$ are subsets of $O$ and $L$ then $G'=(O',L')$ is a \textit{subgraph} of $G$, denoted $G'\subseteq G$.
-Given an operator subset $O'\subseteq O$, the \textit{subgraph induced by $O'$} is $G[O']\equiv(O',L')$ where $L'$ contains all lines in $L$ except for those incident on operators not in $O'$.
-If $O_1$ and $O_2$ are disjoint subsets of $O$ that induce the same subgraphs $G[O_1]=G[O_2]$ and are connected to the same operators in $O\bs(O_1\cup O_2)$ in the same ways, we call them \textit{equivalent subgraphs}.
-If $O_1=\{o_1\}$ and $O_2=\{o_2\}$, we call $o_1$ and $o_2$ \textit{equivalent operators}.
-See \cref{ex:equivalent-subgraphs}.
+If $O'$ and $L'$ are subsets of $O$ and $L$ then $G'=(O',L',h,t)$ is a \textit{subgraph} of $G$, denoted $G'\subseteq G$.
+Given an operator subset $O'\subseteq O$, the \textit{subgraph induced by $O'$} is $G[O']\equiv(O',L',h,t)$ where $L'$ contains all lines in $L$ except for those incident on operators not in $O'$.
+If $O_1$ and $O_2$ are disjoint subsets of $O$ such that $G[O_1]$ and $G[O_2]$ can be exchanged 
+
+If $O_1$ and $O_2$ are disjoint subsets of $O$ inducing identical subgraphs $G[O_1]\simeq G[O_2]$ that can be interchanged without altering $G$, we say that they are \textit{equivalent subgraphs} and write $G[O_1]\sim G[O_2]$.
+See \cref{ex:equivalent-subgraphs} for an example.
+If $O_1=\{o_1\}$ and $O_2=\{o_2\}$, then $o_1$ and $o_2$ are equivalent operators.
+A pair of equivalent operators $o\sim o'$ such that $G[O_1\cup\{o\}]$ and $G[O_2\cup\{o'\}]$ are equivalent subgraphs is called an \textit{extension} of the equivalent subgraphs $G[O_1]\sim G[O_2]$.
 \end{dfn}
 
+\begin{lem}
+\thmstatement{The pattern degeneracy of a contraction $c$ of the graph $G$ is given by $\mr{pat}(c) = \dfr{\mr{dg}(G)}{\mr{dg}(c(G))}$.}
+\thmproof{
+  First, consider $c'$ and $G'$ which equal $c$ and $G$ except that identical operators are treated as distinct.
+  If $L=L_1\cup\cd\cup L_m$ partitions $L$ into equivalent lines, let $L_{i,j}$ denote the subset of lines in $L_i$ contracted with lines from $L_j$ under $c$.
+  Let $L_{i,\mr{ext}}$ denote the (possibly empty) subset of $L_i$ which is external in $c(G)$.
+  The number of equivalent ways of partitioning $L_i$ for contraction is then ``$|L_i|$ choose $|L_{i,\mr{ext}}|,|L_{i,1}|,\cd,|L_{i,m}|$''.
+  The number of equivalent ways of contracting $L_{i,j}$ with $L_{j,i}$ is $|L_{i,j}|!=|L_{j,i}|!$.
+  Therefore, the total pattern degeneracy of $c'$ is
+  \begin{align*}
+    \mr{pat}(c')
+  =
+    \prod_{i=1}^m
+    {|L_i| \choose |L_{i,\mr{ext}}|,|L_{i,1}|,\ld,|L_{i,m}|}
+    \prod_{i=1}^m
+    \prod_{j=i+1}^m
+    |L_{i,j}|!
+  =
+    \fr{
+      |L_1|!\cd|L_m|!
+    }
+    {
+      \prod_{i=1}^m
+      |L_{i,\mr{ext}}|!
+      |L_{i,1}|!\cd|L_{i,i-1}|!
+    }
+  =
+    \fr{\mr{dg}(G')}{\mr{dg}(c'(G'))}\,.
+  \end{align*}
+}
+\end{lem}
+
+\begin{thm}
+\thmtitle{Wick's theorem for diagrams}
+\thmproof{
+\begin{align*}
+  \tfr{1}{\mr{dg}(G)}
+  \sum_{\mr{Einstein}}
+  \Si(G)
+=&\
+  \tfr{1}{\mr{dg}(G)}
+  \sum_{\mr{Einstein}}
+  \no{\Si(G)}
++
+  \sum_{c\in\mr{Ctr}(G)}
+  \mr{pat}(c)\,
+  \tfr{1}{\mr{dg}(G)}
+  \sum_{\mr{Einstein}}
+  \no{\Si(c(G))}
+\\
+\intertext{and since $\mr{pat}(c)\,\mr{dg}(G)^{-1}=\mr{dg}(c(G))^{-1}$, this is equivalent to $G=\no{G}+\sum_{c\in\mr{Ctr}(G)}\no{c(G)}$.}
+\end{align*}
+}
+\end{thm}
 
 
 \begin{prop}
@@ -949,55 +1098,113 @@ First, consider $G'=(O',L)$ which equals $G$ except that,
 \appendix
 \section{Parenthetical results}
 
-\begin{ex}\label{ex:equivalent-subgraphs}
-\thmtitle{Equivalent subgraphs}
-If $a$ and $a'$ have the same interaction tensor, and $c$ and $c'$ do too, then
+\begin{ex}\label{ex:graph}
+\thmtitle{Graph}
 \begin{align*}
 &&
-\underset{\text{{\small $a$ and $a'$ are equivalent operators}}}{
-  \diagram{
-    % labels
-    \node[draw,circle,inner sep=5pt] (b) at (0,0) {$\bm{b}$};
-    \node[draw,circle,inner sep=1pt] (a) at (-0.5,1) {$\bm{a}\phantom{'}$};
-    \node[draw,circle,inner sep=1pt] (a') at (+0.5,1) {$\bm{a}'$};
-    \draw[-<-] (b) to ++(-60:1);
-    \draw[-<-] (b) to ++(-80:1);
-    \draw[-<-] (b) to ++(-100:1);
-    \draw[-<-] (b) to ++(-120:1);
-    \draw[-<-] (a.-40) to (b.100);
-    \draw[-<-] (a.-90) to (b.120);
-    \draw[-<-] (a'.-90) to (b.60);
-    \draw[-<-] (a'.-140) to (b.80);
-    \draw[->-] (a.115) to ++(0,0.5);
-    \draw[->-] (a.65)  to ++(0,0.5);
-    \draw[->-] (a'.115) to ++(0,0.5);
-    \draw[->-] (a'.65)  to ++(0,0.5);
-  }
+\diagram{
+% labels
+  \node[draw] (t) at (0,+2.9) {\bm{t}};
+  \node[draw] (u) at (0,+1.6) {\bm{u}};
+  \node[draw] (v) at (0, 0.3) {\bm{v}};
+  \node[draw] (w) at (0,-1.0) {\bm{w}};
+  \node[draw] (z) at (0,-2.3) {\bm{z}};
+% interaction lines
+  \draw (t) -- ++(-0.7,0) node[ddot=blue!20] (t1) {}
+            -- ++(-1.0,0) node[ddot=blue!20] (t2) {};
+  \draw (u) -- ++(-0.7,0) node[dot=blue!20]  (u1) {};
+  \draw (v) -- ++(-0.7,0) node[ddot=blue!20] (v1) {}
+            -- ++(-1.0,0) node[ddot=black] (v2) {};
+  \draw (w) -- ++(-0.7,0) node[ddot=blue!20] (w1) {}
+            -- ++(-1.0,0) node[ddot=black] (w2) {};
+  \draw (z) -- ++(-0.7,0) node[ddot=blue!20]  (z1) {}
+            -- ++(-1.0,0) node[ddot=blue!20]  (z2) {}
+            -- ++(-1.0,0) node[ddot=blue!20]  (z3) {};
+% particle-hole lines
+  \draw[->-] (t1) to ++(0,+0.5);  \draw[-<-] (t1) to ++(0,-0.5);
+  \draw[->-] (t2) arc (0:360:+0.25);
+  \draw[->-] (u1) to ++(0,+0.5);  \draw[-<-] (u1) to ++(0,-0.5);
+  \draw[->-] (v1) to ++(0,+0.5);
+  \draw[->-] (w1) to (v1);
+  \draw[->-,bend left]  (w2) to (v2);  \draw[-<-,bend right] (w2) to (v2);
+  \draw[->-] (z1) to ++(0,+0.5);  \draw[-<-] (z1) to ++(0,-0.5);
+  \draw[-<-] (z2) to ++(0,-0.5);
+  \draw[->-] (z3) to ++(0,+0.5);  \draw[-<-] (z3) to ++(0,-0.5);
+  \path (-1.7,-2.3) to node[midway] (mid) {} (-0.7,-1.0);
+  \draw[->-] (z2) to[bend left] (mid) to[bend right] (w1);
+  \padborder{10pt};
 }
-&&
-\underset{\text{{\small $G[\{a,c\}]$ and $G[\{a',c'\}]$ are equivalent subgraphs.}}}{
-  \diagram{
-    % labels
-    \node[draw,circle,inner sep=5pt] (b) at (0,0) {$\bm{b}$};
-    \node[draw,circle,inner sep=1pt] (a) at (-0.5,1) {$\bm{a}\phantom{'}$};
-    \node[draw,circle,inner sep=1pt] (a') at (+0.5,1) {$\bm{a}'$};
-    \node[draw,circle,inner sep=1pt] (c) at (-1,0.3) {$\bm{c}\phantom{'}$};
-    \node[draw,circle,inner sep=1pt] (c') at (+1,0.3) {$\bm{c}'$};
-    \draw[-<-] (b) to ++(-60:1);
-    \draw[-<-] (b) to ++(-80:1);
-    \draw[-<-] (b) to ++(-100:1);
-    \draw[-<-] (b) to ++(-120:1);
-    \draw[->-] (a.115) to ++(0,0.5);
-    \draw[->-] (a.65)  to ++(0,0.5);
-    \draw[->-] (a'.115) to ++(0,0.5);
-    \draw[->-] (a'.65)  to ++(0,0.5);
-    \draw[-<-] (a)  to (b);
-    \draw[-<-] (a') to (b);
-    \draw[-<-] (c)  to (b);
-    \draw[-<-] (c') to (b);
-    \draw[-<-] (a)  to (c);
-    \draw[-<-] (a') to (c');
+\equiv
+  \fr{1}{2\cdot2\cdot3}
+  \sum_{\text{Einstein}}
+  \gno{t_{op}^{qr}a^{o^\hole p}_{q^\hole r}}
+  \,u_s^ta^s_t
+  \pr{
+    \gno{
+      v_{uv}^{wx}a^{u^{\hole\hole} v}_{w^\ptcl x^{\ptcl\ptcl}}
+      w_{yz}^{\a\b}
+      a^{y^\ptcl z^{\ptcl\ptcl}}_{\a^{\hole\hole} \b^{\ptcl\ptcl\ptcl}}
+      z_{\g\d\e}^{\f\h\th}
+      a^{\g\d^{\ptcl\ptcl\ptcl}\e}_{\f\h^{\hphantom{\ptcl\ptcl}}\th}
+    }
   }
+\end{align*}
+\end{ex}
+
+\begin{ex}\label{ex:equivalent-operators}
+\thmtitle{Equivalent operators}
+If $v$ and $v'$ in the following graph are identical, then they are \textit{equivalent operators}, $v\sim v'$.
+Otherwise, $v$ and $v'$ are \textit{interchangeable} but \textit{inequivalent operators}.
+\begin{align*}
+&&
+\diagram{
+  % labels
+  \node[draw,circle,inner sep=5pt] (w) at (0,0) {$\bm{w}$};
+  \node[draw,circle,inner sep=1pt] (v) at (-0.5,1) {$\bm{v}\phantom{'}$};
+  \node[draw,circle,inner sep=1pt] (v') at (+0.5,1) {$\bm{v}'$};
+  \draw[-<-] (w) to ++(-60:1);
+  \draw[-<-] (w) to ++(-80:1);
+  \draw[-<-] (w) to ++(-100:1);
+  \draw[-<-] (w) to ++(-120:1);
+  \draw[-<-] (v.-40) to (w.100);
+  \draw[-<-] (v.-90) to (w.120);
+  \draw[-<-] (v'.-90) to (w.60);
+  \draw[-<-] (v'.-140) to (w.80);
+  \draw[->-] (v.115) to ++(0,0.5);
+  \draw[->-] (v.65)  to ++(0,0.5);
+  \draw[->-] (v'.115) to ++(0,0.5);
+  \draw[->-] (v'.65)  to ++(0,0.5);
+}
+\end{align*}
+\end{ex}
+
+\begin{ex}\label{ex:equivalent-subgraphs}
+\thmtitle{Equivalent subgraphs}
+If $v\simeq v'$ and $x\simeq x'$ in the following graph, then $G[\{v,x\}]$ and $G[\{v',x'\}]$ are \textit{equivalent subgraphs}, $G[\{v,x\}]\sim G[\{v',x'\}]$.
+Otherwise, they are \textit{interchangeable} but \textit{inequivalent subgraphs}.
+\begin{align*}
+&&
+\diagram{
+  % labels
+  \node[draw,circle,inner sep=5pt] (w) at (0,0) {$\bm{w}$};
+  \node[draw,circle,inner sep=1pt] (v) at (-0.5,1) {$\bm{v}\phantom{'}$};
+  \node[draw,circle,inner sep=1pt] (v') at (+0.5,1) {$\bm{v}'$};
+  \node[draw,circle,inner sep=1pt] (x) at (-1,0.3) {$\bm{x}\phantom{'}$};
+  \node[draw,circle,inner sep=1pt] (x') at (+1,0.3) {$\bm{x}'$};
+  \draw[-<-] (w) to ++(-60:1);
+  \draw[-<-] (w) to ++(-80:1);
+  \draw[-<-] (w) to ++(-100:1);
+  \draw[-<-] (w) to ++(-120:1);
+  \draw[->-] (v.115) to ++(0,0.5);
+  \draw[->-] (v.65)  to ++(0,0.5);
+  \draw[->-] (v'.115) to ++(0,0.5);
+  \draw[->-] (v'.65)  to ++(0,0.5);
+  \draw[-<-] (v)  to (w);
+  \draw[-<-] (v') to (w);
+  \draw[-<-] (x)  to (w);
+  \draw[-<-] (x') to (w);
+  \draw[-<-] (v)  to (x);
+  \draw[-<-] (v') to (x');
 }
 \end{align*}
 \end{ex}
