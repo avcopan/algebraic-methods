@@ -932,20 +932,24 @@ The number of $c'$ equivalent to $c$ is called the \textit{pattern degeneracy} o
 The complete set of inequivalent graph contractions of $G$ is here denoted $\mr{Ctr}(G)$.
 \end{dfn}
 
+
 \begin{dfn}
 \thmtitle{Connected graph}
+A \textit{path} is a sequence of lines $(l_1,\cd,l_n)$ such that $l_i$ is adjacent to $l_{i+1}$ and all of the 
+
+$G$ forms a \textit{connected graph} if there is a path between any two of its operators.
 \end{dfn}
 
 \begin{dfn}
 \thmtitle{Equivalent subgraph}
 If $O'$ and $L'$ are subsets of $O$ and $L$ then $G'=(O',L',h,t)$ is a \textit{subgraph} of $G$, denoted $G'\subseteq G$.
-Given an operator subset $O'\subseteq O$, the \textit{subgraph induced by $O'$} is $G[O']\equiv(O',L',h,t)$ where $L'$ contains all lines in $L$ except for those incident on operators not in $O'$.
-If $O_1$ and $O_2$ are disjoint subsets of $O$ such that $G[O_1]$ and $G[O_2]$ can be exchanged 
-
-If $O_1$ and $O_2$ are disjoint subsets of $O$ inducing identical subgraphs $G[O_1]\simeq G[O_2]$ that can be interchanged without altering $G$, we say that they are \textit{equivalent subgraphs} and write $G[O_1]\sim G[O_2]$.
-See \cref{ex:equivalent-subgraphs} for an example.
-If $O_1=\{o_1\}$ and $O_2=\{o_2\}$, then $o_1$ and $o_2$ are equivalent operators.
-A pair of equivalent operators $o\sim o'$ such that $G[O_1\cup\{o\}]$ and $G[O_2\cup\{o'\}]$ are equivalent subgraphs is called an \textit{extension} of the equivalent subgraphs $G[O_1]\sim G[O_2]$.
+Given an operator subset $O'\subseteq O$, the \textit{subgraph induced by $O'$} is the subgraph $(O',L',h,t)$ where $L'$ contains all lines in $L$ except for those incident on operators not in $O'$.
+Suppose $O_1$ and $O_2$ are disjoint subsets of $O$ such that $G[O_1]$ is connected and $G[O_2]$ is connected.
+If $G[O_1]$ and $G[O_2]$ can be exchanged in $G$ without altering the graph then we say that they are \textit{interchangeable subgraphs}.
+See \Cref{ex:interchangeable-subgraphs}.
+If in addition $G[O_1]$ and $G[O_2]$ are interchangeable subgraphs that are identical, we call them \textit{equivalent subgraphs} and write $G[O_1]\sim G[O_2]$.
+See \Cref{ex:equivalent-subgraphs}.
+If $O_1=\{o_1\}$ and $O_2=\{o_2\}$, then this is the same as saying that $o_1$ and $o_2$ are equivalent operators.
 \end{dfn}
 
 \begin{lem}
@@ -1004,96 +1008,8 @@ A pair of equivalent operators $o\sim o'$ such that $G[O_1\cup\{o\}]$ and $G[O_2
 \end{thm}
 
 
-\begin{prop}
-\thmtitle{$\mr{pat}(c) = \sfr{\mr{dg}(G)}{\mr{dg}(c(G))}$}
-\thmstatement{Let $G$ be graph and $c(G)$ a contraction of $G$.  Then the pattern degeneracy of $c$ is equal to the line degeneracy of the original graph divided by the line degeneracy of the contracted graph.}
-\thmproof{
-\begin{align*}
-  G
-=&\
-  (O,L)
-\\
-  O
-=&\
-  O_1\cup\cd\cup O_h
-=
-  \bigcup_{i=1}^h
-    O_{i,1}\cup\cd\cup
-    O_{i,n_i}
-\end{align*}
-First, define $G'=(O',L)$ which equals $G$ except that copies of the same operator are treated as distinct.
 
- 
-
-$G=(O,L)$.
-First, consider $G'=(O',L)$ which equals $G$ except that, 
-\begin{align*}
-  G'
-=&\
-  (O', L)
-&&
-\\
-  L
-=&\
-  L_1\cup\cd\cup L_g
-=
-  \bigcup_{i=1}^g
-  L_{i,\mr{ext}}
-  \cup
-  L_{i,1}
-  \cup\cd
-  \cup
-  L_{i,g}
-\\
-  \mr{lin}(G')
-=&\
-  |L_1|!\cd|L_g|!
-\\
-  \mr{lin}(\mr{ctr}(G'))
-=&\
-  \prod_{i=1}^g
-  \pr{
-    |L_{i,\mr{ext}}|!
-    |L_{i,1}|!\cd
-    |L_{i,i-1}|!
-  }
-=
-  \prod_{i=1}^g
-  \pr{
-    |L_{i,\mr{ext}}|!
-    |L_{i,i+1}|!\cd
-    |L_{i,g}|!
-  }
-\end{align*}
-\begin{align*}
-  \mr{pat}(\mr{ctr}(G'))
-=
-  \prod_{i=1}^g
-  \left[
-    {|L_i| \choose |L_{i,\mr{ext}}|,|L_{i,1}|,\cd,|L_{i,g}|}
-    \cdot
-    \prod_{j=1}^{i-1}
-    |L_{i,j}|!
-  \right]
-=&\
-  \prod_{i=1}^g
-  \left[
-    \fr{|L_i|!}{|L_{i,\mr{ext}}|!|L_{i,1}|!\cd|L_{i,g}|!}
-    \cdot
-    |L_{i,1}|!\cd|L_{i,i-1}|!
-  \right]
-\\=&\
-  \prod_{i=1}^g
-  \left[
-    \fr{|L_i|!}{|L_{i,\mr{ext}}|!|L_{i,i+1}|!\cd|L_{i,g}|!}
-  \right]
-=
-  \fr{\mr{lin}(G')}{\mr{lin}(\mr{ctr}(G'))}
-\end{align*}
-
-}
-\end{prop}
-
+\newpage
 
 \appendix
 \section{Parenthetical results}
@@ -1174,6 +1090,40 @@ Otherwise, $v$ and $v'$ are \textit{interchangeable} but \textit{inequivalent op
   \draw[->-] (v.65)  to ++(0,0.5);
   \draw[->-] (v'.115) to ++(0,0.5);
   \draw[->-] (v'.65)  to ++(0,0.5);
+}
+\end{align*}
+\end{ex}
+
+\begin{ex}\label{ex:interchangeable-subgraphs}
+\thmtitle{Interchangeable subgraphs}
+$G[\{x_1,w_1,v_{11},v_{12}\}]$ and $G[\{x_2,w_2,v_{21},v_{22}\}]$ in the following graph are interchangeable subgraphs.
+Also, $G[\{v_{11}\}]$ is interchangeable with $G[\{v_{12}\}]$ and $G[\{v_{21}\}]$ is interchangeable with $G[\{v_{22}\}]$.
+\begin{align*}
+&&
+\diagram{
+  \node[draw,circle,inner sep=5pt] (y) at (0,0) {$\bm{y}$};
+  \node[draw,circle,inner sep=2pt] (x1) at (-1,0.5) {$\bm{x}_1$};
+  \node[draw,circle,inner sep=2pt] (x2) at (+1,0.5) {$\bm{x}_2$};
+  \node[draw,circle,inner sep=2pt] (w1) at (-1,1.5) {$\bm{w}_1$};
+  \node[draw,circle,inner sep=2pt] (w2) at (+1,1.5) {$\bm{w}_2$};
+  \node[draw,circle,inner sep=0pt] (v11) at (-1.35,2.5) {$\bm{v}_{11}$};
+  \node[draw,circle,inner sep=0pt] (v12) at (-0.65,2.5) {$\bm{v}_{12}$};
+  \node[draw,circle,inner sep=0pt] (v22) at (+0.65,2.5) {$\bm{v}_{21}$};
+  \node[draw,circle,inner sep=0pt] (v21) at (+1.35,2.5) {$\bm{v}_{22}$};
+  \draw[-<-] (y) to ++(-70:0.9);
+  \draw[-<-] (y) to ++(-110:0.9);
+  \draw[->-] (y) to (x1);
+  \draw[->-] (y) to (x2);
+  \draw[->-] (x1) to (w1);
+  \draw[->-] (x2) to (w2);
+  \draw[->-] (w1) to (v11);
+  \draw[->-] (w1) to (v12);
+  \draw[->-] (w2) to (v21);
+  \draw[->-] (w2) to (v22);
+  \draw[->-] (v11) to ++(0,+0.7);
+  \draw[->-] (v12) to ++(0,+0.7);
+  \draw[->-] (v21) to ++(0,+0.7);
+  \draw[->-] (v22) to ++(0,+0.7);
 }
 \end{align*}
 \end{ex}

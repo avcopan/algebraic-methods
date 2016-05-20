@@ -1,0 +1,493 @@
+\documentclass[11pt,fleqn]{article}
+\usepackage[cm]{fullpage}
+%%AVC PACKAGES
+\usepackage{avcgreek}
+\usepackage{avcfonts}
+\usepackage{avcmath}
+\usepackage[numberby=section]{avcthm} % 
+\usepackage{qcmacros}
+\usepackage{goldstone}
+%%MACROS FOR THIS DOCUMENT
+\numberwithin{equation}{section}
+\usepackage{titlesec}
+\titleformat{\section}{\Large\bfseries\mathversion{bold}}{\thesection.}{5pt}{}
+% remove header from TOC
+\makeatletter
+\renewcommand\tableofcontents{%
+  \@starttoc{toc}%
+}
+\makeatother
+
+%%%DOCUMENT%%%
+\begin{document}
+
+%%TENSORS
+\section{Rayleigh-Schr\"odinger perturbation theory}\label{sec:rspt}
+
+\begin{dfn}\label{dfn:model-hamiltonian}
+\thmtitle{Model problem}
+In perturbation theory, the \textit{model Hamiltonian} is an operator $H_0\approx H_e$ which approximates the full Hamiltonian and has eigenfunctions spanning the complete $n$-particle Fock space.
+An obvious choice in electronic structure is the diagonal one-particle component of $H_e$, which is diagonal in the determinant basis.
+\begin{align*}
+&&
+  H_0
+  \F_{i_1\cd i_k}^{a_1\cd a_k}
+=
+  \mc{E}_{i_1\cd i_k}^{a_1\cd a_k}
+  \F_{i_1\cd i_k}^{a_1\cd a_k}
+&&
+  H_c
+=
+  H_0
++
+  V_c
+&&
+  H_0
+\equiv
+  f_p^p\tl{a}^p_p
+&&
+  \mc{E}_{i_1\cd i_k}^{a_1\cd a_k}
+\equiv
+\pr{
+  f_{a_1}^{a_1}
++
+  \cd
++
+  f_{a_k}^{a_k}
+-
+  f_{i_1}^{i_1}
+-
+  \cd
+-
+  f_{i_k}^{i_k}
+}
+\end{align*}
+where the perurbation is
+$
+  V_c
+\equiv
+  f_p^q(1-\d_p^q)
+  \tl{a}^p_q
++
+  \tfr{1}{4}
+  \ol{g}_{pq}^{rs}
+  \tl{a}^{pq}_{rs}
+$.
+In this context, the reference determinant $\F$ is termed the \textit{model function}.
+Note that we are playing fast and loose with Einstein summation here: the $i$ and $a$ indices are not summed over, but the $p$ index in $H_0$ is.
+The eigenvalue can be determined by noting that $a^p_p\F_k=n_p^k\F_k$ where $n_p^k$ is the occupation number of $\y_p$ in $\F_k$.
+Therefore $\tl{a}^p_p=a^p_p-\tl{a}^{p^\hole}_{p^\hole}=a^p_p - n_p$ which implies that $\tl{a}^p_p\F_k=(n_p^k-n_p)\F_k$.
+It then follows that
+$
+  \sum_p
+  f_p^p
+  \tl{a}^p_p
+  \F_k
+=
+(
+  \sum_{p\in \F_k}
+  f_p^p
+-
+  \sum_{p\in \F}
+  f_p^p
+)
+\F_k
+$,
+which leads to the expression above for $\mc{E}_{i_1\cd i_k}^{a_1\cd a_k}$.
+\end{dfn}
+
+
+\begin{dfn}\label{dfn:model-function}
+\thmtitle{Model space projection operators}
+The projection $P=\kt{\F}\br{\F}$ onto the model function is termed the \textit{model space projection operator}, and its orthogonal complement $Q=1-P=\sum_k(\fr{1}{k!})^2\sum_{\substack{a_1\cd a_k\\i_1\cd i_k}}\kt{\F_{i_1\cd i_k}^{a_1\cd a_k}}\br{\F_{i_1\cd i_k}^{a_1\cd a_k}}$ is the \textit{orthogonal space projection operator}.
+Note that $P^2=Q^2=1$ and $PQ=QP=0$ are necessary consequences of the fact that $P$ and $Q$ are projection operators for orthogonal subspaces, and note that $P+Q=1$.
+Assuming \textit{intermediate normalization}, where we set the norm of the wavefunction such that $\ip{\F|\Y}=1$ rather than $\ip{\Y|\Y}=1$, the model space projection operator takes the wavefunction into our model function, $P\Y=\F\ip{\F|\Y}=\F$.
+\end{dfn}
+
+\begin{dfn}
+\thmtitle{Resolvent}
+Let $R_0$ be minus\footnote{The annoying sign factor is required for consistency with the standard definition $R_0\equiv(E_0-H_0)^{-1}Q$.  Since we have already subtracted off $E_0$, we have $R_0=(-H_0)^{-1}Q$.  This also results in a more convenient sign rule for the bracketing theorem.} the inverse of $H_0$ in the orthogonal complement of $\F$, so that $-R_0H_0=Q$.
+The operator $R_0$ is termed the \textit{resolvent}.
+Explicitly, we can apply resolution of the identity in the orthogonal space to get
+{\footnotesize
+\begin{align*}
+  R_0
+=
+  (-H_0)^{-1}Q
+=
+  \sum_k
+  \pr{\fr{1}{k!}}^2
+  \sum_{\substack{a_1\cd a_k\\i_1\cd i_k}}
+  (-H_0)^{-1}
+  \kt{\F_{i_1\cd i_k}^{a_1\cd a_k}}
+  \br{\F_{i_1\cd i_k}^{a_1\cd a_k}}
+=
+  \sum_k
+  \pr{\fr{1}{k!}}^2
+  \sum_{\substack{a_1\cd a_k\\i_1\cd i_k}}
+  \fr{
+    \kt{\F_{i_1\cd i_k}^{a_1\cd a_k}}
+    \br{\F_{i_1\cd i_k}^{a_1\cd a_k}}
+  }{
+    \mc{D}_{i_1\cd i_k}^{a_1\cd a_k}
+  }
+&&
+  \mc{D}_{i_1\cd i_k}^{a_1\cd a_k}
+\equiv
+-
+  \mc{E}_{i_1\cd i_k}^{a_1\cd a_k}
+\end{align*}}%
+where we recognize that $H_0^{-1}$ does not exist outside of the model space because $H_0\F=0\implies H_0P=0$.
+Note that $R_0$ simply acts as the null operator outside of the orthogonal space, so that $R_0Q=R_0$ and $R_0P=0$.
+\end{dfn}
+
+\begin{dfn}
+\thmtitle{Rayleigh-Schr\"odinger perturbation theory}
+Rearranging the Schr\"odinger equation to the form
+$
+  H_0\Y
+=
+  (E_c - V_c)\Y
+$
+and operating the $R_0$ on both sides, recognizing that $R_0H_0=Q$ and $Q\Y=(1-P)\Y=\Y-\F$, we find
+\begin{align*}
+  R_0H_0\Y
+=
+-
+  Q\Y
+=
+-
+  \Y
++
+  \F
+=
+  R_0
+  (E_c - V_c)
+  \Y
+\implies
+  \Y
+=
+  \F
+-
+  R_0
+  (E_c - V_c)
+  \Y
+=
+  \F
++
+  R_0
+  (V_c - E_c)
+  \Y
+\end{align*}
+which gives a recursive equation for $\Y$.
+Straightforward induction gives
+$
+  \Y
+=
+  \sum_{k=0}^n
+  (R_0(V_c - E_c))^k\F
++
+  (R_0(V_c - E_c))^{n+1}\Y
+$.
+Noting that $H_0\F=0$ and $\ip{\F|\Y}=1$, projecting the Schr\"odinger equation by $\F$ gives an expression for the correlation energy: $E_c=\ip{\F|V_c|\Y}$.
+Assuming the recursive definition for $\Y$ converges, we find
+\begin{align}\label{eq:rspt-equations-form-1}
+  \Y
+=
+  \sum_{k=0}^{\infty}
+  (R_0(V_c - E_c))^k\F
+&&
+  E_c
+=
+  \sum_{k=0}^{\infty}
+  \ip{\F|V_c|\Y\ord{k}}
+=
+  \sum_{k=0}^{\infty}
+  \ip{\F|V_c(R_0(V_c - E_c))^k|\F}
+\end{align}
+which can be solved iteratively in orders of perturbation theory.
+Introducing a perturbation parameter $V_c\mapsto \la V_c$ that acts as a switch to turn the perturbation on, $\la=1$, or off, $\la=0$, the wavefunction and correlation energy are given by
+\begin{align*}
+  \Y(\la)
+=
+  \sum_k
+  \fr{1}{k!}\,\la^k\pr{\pd{^k\Y}{\la^k}}_{\la=0}
+\equiv
+  \sum_k
+  \la^k \Y\ord{k}
+&&
+  E_c(\la)
+=
+  \sum_k
+  \fr{1}{k!}\,\la^k\pr{\pd{^kE_c}{\la^k}}_{\la=0}
+\equiv
+  \sum_k
+  \la^k
+  E_c\ord{k}
+\end{align*}
+and we can separate \Cref{eq:rspt-equations-form-1} in powers of $\la$.
+The first-order energy contribution vanishes
+$\la E_c\ord{1}=\la\ip{\F|V_c|\F}=0$
+since $V_c$ is composed of $\F$-normal operators.
+The first order wavefunction contribution is
+$
+  \la
+  \Y\ord{1}
+=
+  \la
+  R_0
+  (V_c - E_c\ord{1})\F
+=
+  \la
+  R_0
+  V_c
+  \F
+$,
+which can be directly evaluated using Wick's theorem and $\F$ normal ordering
+\begin{align*}
+  \Y\ord{1}
+=
+  R_0
+  V_c
+  \F
+=&\
+  \sum_k
+  \pr{\fr{1}{k!}}^2
+  \sum_{\substack{a_1\cd a_k\\i_1\cd i_k}}
+  \kt{\F_{i_1\cd i_k}^{a_1\cd a_k}}
+  \fr{
+    \ip{\F|\tl{a}^{i_1\cd i_k}_{a_1\cd a_k}V_c|\F}
+  }{
+    \mc{D}_{i_1\cd i_k}^{a_1\cd a_k}
+  }
+\\=&\
+  \sum_{ia}
+  \kt{\F_i^a}
+  \fr{
+    \sum_{pq}
+    f_p^q(1-\d_p^q)
+    \ip{\F|\gno{\tl{a}_{a^\ptcl}^{i^\hole}\tl{a}^{p^\ptcl}_{q^\hole}}|\F}
+  }{
+    f_i^i
+  -
+    f_a^a
+  }
+-
+  \fr{1}{4}
+  \sum_{ijab}
+  \kt{\F_{ij}^{ab}}
+  \fr{
+    \fr{1}{4}
+    \sum_{pqrs}
+    \ol{g}_{pq}^{rs}
+    P^{(p/q)}_{(r/s)}
+    \ip{\F|\gno{\tl{a}_{a^\ptcl b^{\ptcl\ptcl}}^{i^\hole j^{\hole\hole}}\tl{a}^{p^\ptcl q^{\ptcl\ptcl}}_{r^\hole s^{\hole\hole}}}|\F}
+  }{
+    f_i^i
+  +
+    f_j^j
+  -
+    f_a^a
+  -
+    f_b^b
+  }
+\\=&\
+-
+  \sum_{ia}
+  \kt{\F_i^a}
+  \fr{
+    f_a^i
+  }{
+    f_i^i
+  -
+    f_a^a
+  }
+-
+  \fr{1}{4}
+  \sum_{ijab}
+  \kt{\F_{ij}^{ab}}
+  \fr{
+    \ol{g}_{ab}^{rij}
+  }{
+    f_i^i
+  +
+    f_j^j
+  -
+    f_a^a
+  -
+    f_b^b
+  }
+\end{align*}
+where we have recognized that only singly and doubly excited determinants can fully contract $V_c$.
+The second-order energy contribution, $\la^2 E_c\ord{2}=\la^2\ip{\F|V_cR_0(V_c-E_c\ord{1})|\F}=\la^2\ip{\F|V_c|\Y\ord{1}}$, can be evaluated from our expression for $\Y\ord{1}$.
+\begin{align*}
+  E\ord{2}
+=
+  \sum_{ia}
+  \ip{\F|V_c\tl{a}^a_i|\F}
+  \fr{
+    f_a^i
+  }{
+    f_i^i
+  -
+    f_a^a
+  }
+-
+  \fr{1}{4}
+  \sum_{ijab}
+  \ip{\F|V_c\tl{a}^{ab}_{ij}|\F}
+  \fr{
+    \ol{g}_{ab}^{ij}
+  }{
+    f_i^i
+  +
+    f_j^j
+  -
+    f_a^a
+  -
+    f_b^b
+  }
+=
+  \sum_{ia}
+  \fr{
+    f_i^a
+    f_a^i
+  }{
+    f_i^i
+  -
+    f_a^a
+  }
+-
+  \fr{1}{4}
+  \sum_{ijab}
+  \fr{
+    \ol{g}_{ij}^{ab}
+    \ol{g}_{ab}^{ij}
+  }{
+    f_i^i
+  +
+    f_j^j
+  -
+    f_a^a
+  -
+    f_b^b
+  }
+\end{align*}
+The second order wavefunction contribution is
+$
+  \la^2
+  \Y\ord{2}
+=
+-
+  \la^2
+  E_c\ord{2}
+  R_0\F
++
+  \la^2
+  R_0(V_c - E_c\ord{1})R_0(V_c - E_c\ord{1})\F
+=
+  \la^2
+  R_0V_cR_0V_c\F
+$
+since $R_0\F=0$ and $E_c\ord{1}=0$.
+The third order energy can be then obtained from $\Y\ord{2}$ as
+$\la^3 E_c\ord{3} = \la^3\ip{\F|V_c|\Y\ord{2}}$.
+In this manner, one can in principle solve the Schr\"odinger equation recursively by alternately evaluating the wavefunction and energy contributions at increasing orders in the perturbation parameter.
+\end{dfn}
+
+\begin{drv}
+Writing the RSPT wavefunction equation as $\Y=\sum_{k=0}^{\infty}(R_0V_c - R_0 E_c)^k\F$, note that if $R_0$ and $V_c$ were to commute we could to an ordinary binomial expansion of $(R_0V_c - R_0E_c)^k$ to give $\sum_{p=0}^k{k\choose p}(-)^p(R_0V_c)^{k-p}(R_0E_c)^p$.
+Since they don't commute, we can write the binomial expansion in the following slightly modified form
+\begin{align*}
+  (R_0E_c - R_0V_c)^k
+=
+  \sum_{p=0}^k
+  (-)^p
+  \{\underset{\text{$p$ times}}{\underbrace{R_0E_c,\ld,R_0E_c}}\}\mr{insert}\{R_0V_c\}^{p-k}
+\end{align*}
+where $\{B_1,\ld,B_p\}\mr{insert}\{A\}^{k-p}$ denotes the sum over all ${k\choose p}$ possible ways of inserting $k-p$ copies of $A$ into the product $B_1\cd B_p$.
+For example,
+$
+  \{B_1,B_2\}\mr{insert}\{A\}^2
+$
+evaluates to
+$
+  AAB_1B_2
++
+  AB_1AB_2
++
+  AB_1B_2A
++
+  B_1AAB_2
++
+  B_1AB_2A
++
+  B_1B_2AA
+$.
+This allows the wavefunction expansion to be easily grouped by orders
+\begin{align*}
+  \Y
+=&\
+  \sum_{k=0}^{\infty}
+  \sum_{p=0}^k
+  (-)^p
+  \{\underset{\text{$p$ times}}{\underbrace{R_0E_c,\ld,R_0E_c}}\}
+  \mr{insert}\{R_0V_c\}^{p-k}
+  \F
+\\=&\
+  \sum_{n=0}^{\infty}
+  \sum_{(n_1,n_2)}^{\mc{C}_2(n)\cup\{(0,n)\}}
+  \sum^{\mc{C}(n_1)}_{(r_1,\ld,r_m)}
+  (-)^m
+  \{R_0E_c\ord{r_1},\ld,R_0E_c\ord{r_m}\}
+  \mr{insert}
+  \{R_0V_c\}^{n_2}
+  \F
+=
+  \sum_{n=0}^\infty
+  \Y\ord{n}
+\end{align*}
+where $\mc{C}(n)$ denotes the set of integer compositions of $n$, i.e. all ordered tuples $(r_1,\ld,r_m)$ of strictly positive integers that add up to $n$.
+$\mc{C}_k(n)\subset\mc{C}(n)$ is the set of $k$-tuple integer compositions of $n$, i.e. all $(r_1,\ld,r_k)$ of fixed length $k$ such that $r_1+\cd+r_k=n$.
+The rearrangement follows from the fact that all possible terms of the form
+$
+  (-)^k
+  \{R_0E_c\ord{n_1},\ld,R_0E_c\ord{n_k}\}
+  \mr{insert}
+  \{R_0V_c\}^{n_{k+1}}
+  \F
+$
+contribute to the sum, and the composition sums group these into all possible terms of this form that are of a given order $n$ in the perturbation parameter $\la$.
+Note that we have appended the tuple $(0,n)$ to our sum over $\mc{C}_2(n)$ but not $(n,0)$ since $R_0$ acting directly on $\F$ gives $0$.
+\end{drv}
+
+\begin{lem}
+\thmtitle{The Energy Substitution Lemma}
+\thmstatement{
+The $n\eth$-order contribution to the wavefunction is given by
+\begin{align*}
+  \Y\ord{n}
+=
+  (R_0V_c)^n\F
++
+  \sum_{(n_1,n_2)}^{\mc{C}_2(n)}
+  \sum^{\mc{C}(n_1)}_{(r_1,\ld,r_m)}
+  (-)^m
+  \{R_0E_c\ord{r_1},\ld,R_0E_c\ord{r_m}\}
+  \mr{insert}
+  \{R_0V_c\}^{n_2}
+  \F
+\end{align*}
+which can be evaluated as the sum of a \emph{principal term}, $(R_0V_c)^n\F$, plus all possible $m$-tuple substitutions of adjacent factors $(R_0V_c)^{r_k}$ in the principal term by $R_0E_c\ord{r_k}$ times a sign factor $(-)^m$.
+}
+\end{lem}
+
+\begin{thm}
+\thmtitle{The Bracketing Theorem}
+\thmstatement{
+The
+}
+\end{thm}
+
+
+\end{document}
