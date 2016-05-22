@@ -17,12 +17,17 @@
   \@starttoc{toc}%
 }
 \makeatother
+\newcommand{\resolventline}[2][1]{
+  \tikz[overlay]{
+      \draw[thick,flexdotted] (0,-1ex) to ++(0,#1*4.5ex) node[above,inner sep=1pt] {#2};
+  }
+}
 
 %%%DOCUMENT%%%
 \begin{document}
 
 %%TENSORS
-\section{Rayleigh-Schr\"odinger perturbation theory}\label{sec:rspt}
+\section{The linked diagram theorem}\label{sec:rspt}
 
 \begin{dfn}\label{dfn:model-hamiltonian}
 \thmtitle{Model problem}
@@ -372,6 +377,8 @@ The second-order energy contribution, $\la^2 E_c\ord{2}=\la^2\ip{\F|V_c|\Y\ord{1
     f_b^b
   }
 \end{align*}
+Note that the one-particle contributions involving $f_i^a$ are present only for non-Hartree-Fock references.
+In both canonical and non-canonical Hartree-Fock $f_i^a=0$.
 The second order wavefunction contribution is
 $
   \la^2
@@ -570,14 +577,14 @@ Projecting these equations by $\br{\F}V_c$ then yields $E_c\ord{2}$, $E_c\ord{3}
 \begin{thm}
 \thmtitle{The Bracketing Theorem}
 \thmstatement{
-The $n\eth$-order contribution to the wavefunction is the sum of a principal term $\underset{\text{$n$ times}}{R_0V_c\cd R_0V_c}\F$ plus all unique ways of placing one or more brackets $R_0V_c\cd R_0\ip{V_c\cd R_0V_c}\cd R_0V_c\F$ into the principal term,\footnote{The brackets $\ip{\cd}$ here are $\F$ expectation values, $\ip{\F|\cd|\F}$.} allowing nested brackets.
-Each of these terms gets a phase factor $(-)^k$ where $k$ is the number of brackets.
+The $n\eth$-order contribution to the wavefunction consists of a principal term $(R_0V_c)^n\F=R_0V_c\cd R_0V_c\F$ plus the sum over all possible ways of inserting one or more pairs of brackets $\ip{\cd}\equiv\ip{\F|\cd|\F}$ into the principal term, $R_0V_c\cd R_0\ip{V_c\cd R_0V_c}\cd R_0V_c\F$, allowing nested brackets.
+Each of these terms gets a phase factor $(-)^k$ where $k$ is the total number of brackets.
 }
 \thmproof{
   This obviously holds for $\Y\ord{1}$ since $\Y\ord{1}=R_0V_c\F$ and there are no possible bracketings.
   Assume it holds up to $n-1$ and consider $n$.
   By the substitution lemma, $\Y\ord{n}$ equals a principal term $R_0V_c\cd R_0V_c\F$ plus all unique substitutions of factors $(R_0V_c)^{r_1},\ld,(R_0V_c)^{r_m}$ in the principal term with energy factors $R_0E_c\ord{r_1},\ld,R_0E_c\ord{r_m}$, weighted by a sign $(-)^m$.
-  But, by our inductive assumption, the substituted energies $E_c\ord{r_k}=\ip{\F|V_c|\Y\ord{r_k}}$ are sums of a principal term $\ip{V_cR_0V_c\cd R_0V_c}$ plus all possible bracketings, with the appropriate sign factor, which shows that $\Y\ord{n}$ is the sum over all nested bracketings and therefore completes the proof.
+  But, by our inductive assumption, the substituted energies $E_c\ord{r_k}=\ip{\F|V_c|\Y\ord{r_k}}$ are sums of a principal term $\ip{V_cR_0V_c\cd R_0V_c}$ plus all possible bracketings, with the appropriate sign factor, which shows that $\Y\ord{n}$ is the sum over all nested bracketings and completes the proof.
 }
 \end{thm}
 
@@ -677,6 +684,565 @@ The bracketing expansions for the corresponding energies are as follows.
   \ip{V_cR_0\ip{V_cR_0\ip{V_cR_0V_c}R_0V_c}R_0V_c}
 \end{align*}
 \end{ex}
+
+\begin{rmk}
+Individual terms in the perturbation expansion are readily evaluated using Wick's theorem and $\F$-normal ordering.
+Using resolution of the identity in the orthogonal space, the general structure of a principal term is as follows.
+{\footnotesize
+\begin{align*}
+  (R_0V_c)^n\kt{\F}
+=
+  Q
+  (R_0V_c)^n\kt{\F}
+=
+  \sum_k
+  \kt{\F_k}
+  \ip{\F_k|(R_0V_c)^n|\F}
+=
+  \sum_k
+  \kt{\F_k}
+  \sum_{k_1\cd k_n}
+  \fr{
+    \ip{\F_k    |V_c|\F_{k_1}}
+    \ip{\F_{k_1}|V_c|\F_{k_2}}
+    \ip{\F_{k_2}|\cd|\F_{k_n}}
+    \ip{\F_{k_n}|V_c|\F}
+  }{
+    \mc{D}_{k_1}\mc{D}_{k_2}\cd\mc{D}_{k_n}
+  }
+\end{align*}}%
+Terms with bracketing insertions differ from the principal term by a scalar $\ip{\cd}$ which can be factored out, leaving a squared resolvent at the point of insertion.
+By orthonormality of the determinant basis, the squared resolvent equals
+\begin{align*}
+&&
+  R_0^2
+=
+  \sum_{k_1k_2}
+  \fr{
+    \kt{\F_{k_1}}
+    \ip{\F_{k_1}|\F_{k_2}}
+    \br{\F_{k_2}}
+  }{
+    \mc{D}_{k_1}\mc{D}_{k_2}
+  }
+=
+  \sum_{k_1k_2}
+  \fr{
+    \kt{\F_{k_1}}
+    \d_{k_1k_2}
+    \br{\F_{k_2}}
+  }{
+    \mc{D}_{k_1}\mc{D}_{k_2}
+  }
+=
+  \sum_k
+  \fr{
+    \kt{\F_k}\br{\F_k}
+  }{
+    \mc{D}_k^2
+  }
+\end{align*}
+which is of course equal to $(H_0^2)^{-1}$ restricted to the orthogonal space where it is non-singular, $R_0^2H_0^2=Q$.
+Consequently, every wavefunction contribution is proportional to a term of the following generic form
+\begin{align*}
+  R_0^{p_1}V_cR_0^{p_2}V_c\cd R_0^{p_n}V_c
+  \kt{\F}
+=
+  \sum_k
+  \kt{\F_k}
+  \ip{\F|
+    \tl{a}_k\dg
+    R_0^{p_1}
+    V_c
+    R_0^{p_2}
+    V_c
+    \cd
+    R_0^{p_n}
+    V_c
+  |\F}
+&&
+  R_0^p
+=
+  \sum_k
+  \fr{\kt{\F_k}\br{\F_k}}{\mc{D}_k^p}
+\end{align*}
+which can be evaluated by determining all complete $\F$-normal contractions of
+$
+  \tl{a}_k\dg
+  R_0^{p_1}
+  V_c
+  R_0^{p_2}
+  V_c
+  \cd
+  R_0^{p_n}
+  V_c
+$,
+where $\tl{a}_k\dg$ is a de-excitation operator
+$\tl{a}_k\dg\in\{\tl{a}^{i_1\cd i_n}_{a_1\cd a_n}\,|\,\substack{i_1<\cd<i_n,\\a_1<\cd<a_n}\}$.
+\end{rmk}
+
+\begin{rmk}
+Note that, when an operator of the form
+$
+  M_{\mr{o}}
+=
+  \sum_i
+  a_i\kt{\F}m_i\br{\F}a^i
+$
+or
+$
+  M_{\mr{v}}
+=
+  \sum_a
+  a^a\kt{\F}m_a\br{\F}a_a
+$
+is contracted on the left and on the right, we can make the following rearrangement
+\begin{align*}
+  \sum_i
+  \ctr{}{a}{^p}{a}a^pa_i\kt{\F}m_i\br{\F}\ctr{}{a}{^i}{a}a^ia_s
+=
+  \kt{\F}\br{\F}
+  m_p\,
+  \ctr{}{a}{^p}{a}a^pa_s
+&&
+  \sum_a
+  \ctr{}{a}{^q}{a}a_qa^a\kt{\F}m_a\br{\F}\ctr{}{a}{_a}{a}a_aa^r
+=
+  \kt{\F}\br{\F}
+  m_q\,
+  \ctr{}{a}{_q}{a}a_q a^r
+\end{align*}
+where the requirement that $m_p$ have a hole index and $m_q$ have a particle index is taken care of by the contractions.
+In words, contracting one operator to the left side of $M_o$ and another operator to the right side is equivalent to contracting these operators to each other and freezing out the term from $M_{\mr{o}}$ that matches the left (or, equivalently, the right) index.
+This generalizes directly to operators of the form
+$
+  \sum_{\substack{i_1<\cd<i_k\\a_1<\cd<a_k}}
+  \tl{a}_{i_1\cd i_k}^{a_1\cd a_k}
+  \kt{\F}M_{i_1\cd i_k}^{a_1\cd a_k}\br{\F}
+  \tl{a}^{i_1\cd i_k}_{a_1\cd a_k}
+$
+and can be used to simplify the contractions of an operator product with an intervening resolvent, $QR_0^nQ'$:
+\begin{align*}
+&&
+  \gno{\ol{\ol{
+    Q R_0^n Q'
+  }}}
+=
+  \sum_k
+  \fr{
+    \gno{\ol{\ol{Q\tl{a}_k}}}
+    \kt{\F}\br{\F}
+    \gno{\ol{\ol{\tl{a}_k\dg Q'}}}
+  }{
+    \mc{D}_k^n
+  }
+=
+  \kt{\F}\br{\F}
+  \sum_k
+  \fr{
+    \gno{\ol{\ol{Q\tl{a}_k}}}
+    \gno{\ol{\ol{\tl{a}_k\dg Q'}}}
+  }{
+    \mc{D}_k^n
+  }
+=
+  \kt{\F}\br{\F}
+  \gno{\ol{\ol{
+    Q
+    \,\resolventline{\scriptsize\ \ $R_0^n$}\hspace{1pt}
+    Q'
+  }}}\,.
+\end{align*}
+Here, we have introduced the notion of a \textit{resolvent line}
+$
+\resolventline[0.6]{\scriptsize\ \ $R_0^n$}\hspace{3pt}
+$.
+Complete contractions through a resolvent line are defined as
+\begin{align*}
+&&
+  \gno{
+  \ctr[4]
+    {}
+    {a}
+    {^{p_1}\cd a^{p_k}a_{q_1}\cd a_{q_k}\,a^{r_1}\cd a^{r_k}a_{s_1}\cd }
+    {a}
+  \ctr[3]
+    {a^{p_1}\cd}
+    {a}
+    {^{p_k}a_{q_1}\cd a_{q_k}\,a^{r_1}\cd a^{r_k}}
+    {a}
+  \ctr[2]
+    {a^{p_1}\cd a^{p_k}}
+    {a}
+    {_{q_1}\cd a_{q_k}\,a^{r_1}\cd}
+    {a}
+  \ctr[1]
+    {a^{p_1}\cd a^{p_k}a_{q_1}\cd}
+    {a}
+    {_{q_k}\,}
+    {a}
+  a^{p_1}\cd a^{p_k}
+  a_{q_1}\cd a_{q_k}
+  \resolventline[1.3]{\scriptsize\ \ $R_0^n$}\,
+  a^{r_1}\cd a^{r_k}
+  a_{s_1}\cd a_{s_k}
+  }
+\equiv
+  \fr{\gno{
+    \ctr[4]
+      {}
+      {a}
+      {^{p_1}\cd a^{p_k}a_{q_1}\cd a_{q_k}a^{r_1}\cd a^{r_k}a_{s_1}\cd }
+      {a}
+    \ctr[3]
+      {a^{p_1}\cd}
+      {a}
+      {^{p_k}a_{q_1}\cd a_{q_k}a^{r_1}\cd a^{r_k}}
+      {a}
+    \ctr[2]
+      {a^{p_1}\cd a^{p_k}}
+      {a}
+      {_{q_1}\cd a_{q_k}a^{r_1}\cd}
+      {a}
+    \ctr[1]
+      {a^{p_1}\cd a^{p_k}a_{q_1}\cd}
+      {a}
+      {_{q_k}}
+      {a}
+    a^{p_1}\cd a^{p_k}
+    a_{q_1}\cd a_{q_k}
+    a^{r_1}\cd a^{r_k}
+    a_{s_1}\cd a_{s_k}
+  }}{
+    (\mc{D}_{p_1\cd p_k}^{q_1\cd q_k})^n
+  }\,.
+\end{align*}
+That is, each hole contraction $\ctr{}{a}{^p}{a}a^pa_s$ through the resolvent line
+$
+\resolventline[0.6]{\scriptsize\ \ $R_0^n$}\hspace{3pt}
+$
+fixes a hole index in the denominator $(\mc{D}_{\cd p\cd})^n$ and each particle contraction
+$\ctr{}{a}{_q}{a}a_qa^r$ fixes a a particle index in the denominator $(\mc{D}^{\cd q\cd})^n$.
+This result further generalizes to completely contracted products with multiple resolvents, and is codified in the next proposition.
+\end{rmk}
+
+
+\begin{prop}\label{prop:reduced-wick-thm}
+\thmtitle{Reduced Wick theorem for expectation values with resolvents}
+\vspace{7pt}
+\begin{align*}
+&&
+\ip{\F|
+  Q
+  R_0^{p_1}
+  Q_1
+  R_0^{p_2}
+  Q_2
+  \cd
+  R_0^{p_n}
+  Q_n
+|\F}
+=
+\gno{\ol{\ol{
+  Q
+  \hspace{2pt}\resolventline{\scriptsize\ \ $R_0^{p_1}$}\hspace{2pt}
+  Q_1
+  \hspace{2pt}\resolventline{\scriptsize\ \ $R_0^{p_2}$}\hspace{2pt}
+  Q_2
+  \cd
+  \hspace{2pt}\resolventline{\scriptsize\ \ $R_0^{p_n}$}\hspace{2pt}
+  Q_n
+}}}
+\end{align*}
+\end{prop}
+
+\begin{ex}
+The reduced Wick theorem of \Cref{prop:reduced-wick-thm} can be used to evaluate the following
+\vspace{5pt}
+\begin{align*}
+  \gno{\ol{\ol{
+    \tl{a}^{p_1q_1}
+          _{r_1s_1}
+    \hspace{2pt}\resolventline{\tiny\ \ $R_0$}\hspace{2pt}
+    \tl{a}^{p_2q_2}
+          _{r_2s_2}
+  }}}
+=&\
+  P^{(p_2/q_2)}_{(r_2/s_2)}
+  \gno{
+    \tl{a}^{p_1^\hole q_1^{\hole\hole}}
+          _{r_1^{\ptcl}s_1^{\ptcl\ptcl}}
+    \hspace{2pt}\resolventline[0.8]{\tiny\ \ $R_0$}\hspace{2pt}
+    \tl{a}^{p_2^{\ptcl}q_2^{\ptcl\ptcl}}
+          _{r_2^\hole s_2^{\hole\hole}}
+  }
+\\[8pt]
+  \gno{\ol{\ol{
+    \tl{a}^{p_1q_1}
+          _{r_1s_1}
+    \hspace{2pt}\resolventline{\tiny\ \ $R_0$}\hspace{2pt}
+    \tl{a}^{p_2q_2}
+          _{r_2s_2}
+    \hspace{2pt}\resolventline{\tiny\ \ $R_0$}\hspace{2pt}
+    \tl{a}^{p_3q_3}
+          _{r_3s_3}
+  }}}
+=&\
+  P^{(p_1/q_1|p_3/q_3)}_{(r_1/s_1|r_3/s_3)}
+  \gno{
+    \tl{a}^{p_1^{\hole1} q_1^{\hole2}}
+          _{r_1^{\ptcl1} s_1^{\ptcl2}}
+    \hspace{2pt}\resolventline[0.8]{\tiny\ \ $R_0$}\hspace{2pt}
+    \tl{a}^{p_2^{\ptcl1} q_2^{\ptcl2}}
+          _{r_2^{\ptcl3} s_2^{\ptcl4}}
+    \hspace{2pt}\resolventline[0.8]{\tiny\ \ $R_0$}\hspace{2pt}
+    \tl{a}^{p_3^{\ptcl3} q_3^{\ptcl4}}
+          _{r_3^{\hole1} s_3^{\hole2}}
+  }
++
+  P^{(p_1/q_1|p_2/q_2|p_3/q_3)}_{(r_1/s_1|r_2/s_2|r_3/s_3)}
+  \gno{
+    \tl{a}^{p_1^{\hole3} q_1^{\hole1}}
+          _{r_1^{\ptcl3} s_1^{\ptcl1}}
+    \hspace{2pt}\resolventline[0.8]{\tiny\ \ $R_0$}\hspace{2pt}
+    \tl{a}^{p_2^{\ptcl1} q_2^{\hole2}}
+          _{r_2^{\hole1} s_2^{\ptcl2}}
+    \hspace{2pt}\resolventline[0.8]{\tiny\ \ $R_0$}\hspace{2pt}
+    \tl{a}^{p_3^{\ptcl2} q_3^{\ptcl3}}
+          _{r_3^{\hole2} s_3^{\hole3}}
+  }
+\\[5pt]+&\
+  P^{(p_1/q_1|p_3/q_3)}_{(r_1/s_1|r_3/s_3)}
+  \gno{
+    \tl{a}^{p_1^{\hole3} q_1^{\hole4}}
+          _{r_1^{\ptcl1} s_1^{\ptcl2}}
+    \hspace{2pt}\resolventline[0.8]{\tiny\ \ $R_0$}\hspace{2pt}
+    \tl{a}^{p_2^{\hole1} q_2^{\hole2}}
+          _{r_2^{\hole3} s_2^{\hole4}}
+    \hspace{2pt}\resolventline[0.8]{\tiny\ \ $R_0$}\hspace{2pt}
+    \tl{a}^{p_3^{\ptcl1} q_3^{\ptcl2}}
+          _{r_3^{\hole1} s_3^{\hole2}}
+  }
+\end{align*}
+in order to derive the second- and third-order energy contributions
+\begin{align*}
+  E_c\ord{2}
+=&\
+  \ip{V_cR_0V_c}
+=
+  \gno{\ol{\ol{
+    V_c
+    \hspace{2pt}\resolventline{\tiny\ \ $R_0$}\hspace{2pt}
+    V_c
+  }}}
+=
+  \pr{\tfr{1}{4}}^2
+  \ol{g}_{p_1q_1}^{r_1s_1}
+  \ol{g}_{p_2q_2}^{r_2s_2}
+  \gno{\ol{\ol{
+    \tl{a}^{p_1q_1}
+          _{r_1s_1}
+    \hspace{2pt}\resolventline{\tiny\ \ $R_0$}\hspace{2pt}
+    \tl{a}^{p_2q_2}
+          _{r_2s_2}
+  }}}
+=
+  \fr{1}{4}
+  \fr{
+    \ol{g}_{ij}^{ab}
+    \ol{g}_{ab}^{ij}
+  }{
+    \mc{D}_{ij}^{ab}
+  }
+\\[5pt]
+  E_c\ord{3}
+=&\
+  \ip{V_cR_0V_cR_0V_c}
+=
+  \gno{\ol{\ol{
+    V_c
+    \hspace{2pt}\resolventline{\tiny\ \ $R_0$}\hspace{2pt}
+    V_c
+    \hspace{2pt}\resolventline{\tiny\ \ $R_0$}\hspace{2pt}
+    V_c
+  }}}
+=
+  \pr{\tfr{1}{4}}^3
+  \ol{g}_{p_1q_1}^{r_1s_1}
+  \ol{g}_{p_2q_2}^{r_2s_2}
+  \ol{g}_{p_3q_3}^{r_3s_3}
+  \gno{\ol{\ol{
+    \tl{a}^{p_1q_1}
+          _{r_1s_1}
+    \hspace{2pt}\resolventline{\tiny\ \ $R_0$}\hspace{2pt}
+    \tl{a}^{p_2q_2}
+          _{r_2s_2}
+    \hspace{2pt}\resolventline{\tiny\ \ $R_0$}\hspace{2pt}
+    \tl{a}^{p_3q_3}
+          _{r_3s_3}
+  }}}
+=
+  \tfr{1}{4}
+  \fr{
+    \ol{g}_{ij}^{ab}
+    \ol{g}_{ab}^{cd}
+    \ol{g}_{cd}^{ij}
+  }{
+    \mc{D}_{ij}^{ab}
+    \mc{D}_{ij}^{cd}
+  }
++
+  \fr{
+    \ol{g}_{ij}^{ab}
+    \ol{g}_{bk}^{jc}
+    \ol{g}_{ca}^{ki}
+  }{
+    \mc{D}_{ij}^{ab}
+    \mc{D}_{ki}^{ca}
+  }
++
+  \tfr{1}{4}
+  \fr{
+    \ol{g}_{ij}^{ab}
+    \ol{g}_{kl}^{ij}
+    \ol{g}_{ab}^{kl}
+  }{
+    \mc{D}_{ij}^{ab}
+    \mc{D}_{kl}^{ab}
+  }
+\end{align*}
+where we have used implicit summation (over all indices) to keep the expressions relatively compact.
+Here, we have assumed a canonical Hartree-Fock (RHF or UHF) reference so that the one-particle perturbation vanishes $f_p^q(1-\d_p^q)=0$ and $V_c=\tfr{1}{4}\ol{g}_{pq}^{rs}\tl{a}^{pq}_{rs}$.
+Non-canonical Hartree-Fock (such as ROHF) has the same second-order contribution, but introduces two additional terms at third order.
+In Hugenholtz diagram notation, this looks as follows.
+\begin{align*}
+  E_c\ord{2}
+=
+\diagram[top,bottom]{
+  \node[ddot=white] (g1) at (0,+0.4) {};
+  \draw[thick,flexdotted] (-0.5,0) to (0.5,0);
+  \node[ddot=white] (g2) at (0,-0.4) {};
+  \draw[->-] (g1) to ++(-0.25,+0.25);
+  \draw[->-] (g1) to ++(+0.25,+0.25);
+  \draw[-<-] (g1) to ++(-0.25,-0.25);
+  \draw[-<-] (g1) to ++(+0.25,-0.25);
+  \draw[->-] (g2) to ++(-0.25,+0.25);
+  \draw[->-] (g2) to ++(+0.25,+0.25);
+  \draw[-<-] (g2) to ++(-0.25,-0.25);
+  \draw[-<-] (g2) to ++(+0.25,-0.25);
+}
+=
+\diagram{
+  \node[ddot] (g1) at (0,+0.5) {};
+  \draw[thick,flexdotted] (-0.7,0) to ++(1.4,0);
+  \node[ddot] (g2) at (0,-0.5) {};
+  \draw[->-=0.6] (0,0) [partial ellipse=-90:90:-0.5cm and 0.5cm];
+  \draw[-<-=0.6] (0,0) [partial ellipse=-90:90:-0.25cm and 0.5cm];
+  \draw[->-=0.6] (0,0) [partial ellipse=-90:90:0.25cm and 0.5cm];
+  \draw[-<-=0.6] (0,0) [partial ellipse=-90:90:0.5cm and 0.5cm];
+}
+&&
+  E_c\ord{3}
+=
+\diagram[top,bottom]{
+  \node[ddot=white] (g1) at (0,+0.8) {};
+  \draw[thick,flexdotted] (-0.5,+0.4) to ++(1,0);
+  \node[ddot=white] (g2) at (0,+0.0) {};
+  \draw[thick,flexdotted] (-0.5,-0.4) to ++(1,0);
+  \node[ddot=white] (g3) at (0,-0.8) {};
+  \draw[->-] (g1) to ++(-0.25,+0.25);
+  \draw[->-] (g1) to ++(+0.25,+0.25);
+  \draw[-<-] (g1) to ++(-0.25,-0.25);
+  \draw[-<-] (g1) to ++(+0.25,-0.25);
+  \draw[->-] (g2) to ++(-0.25,+0.25);
+  \draw[->-] (g2) to ++(+0.25,+0.25);
+  \draw[-<-] (g2) to ++(-0.25,-0.25);
+  \draw[-<-] (g2) to ++(+0.25,-0.25);
+  \draw[->-] (g3) to ++(-0.25,+0.25);
+  \draw[->-] (g3) to ++(+0.25,+0.25);
+  \draw[-<-] (g3) to ++(-0.25,-0.25);
+  \draw[-<-] (g3) to ++(+0.25,-0.25);
+}
+=
+\diagram{
+  \node[ddot] (g1) at (0,+0.8) {};
+  \draw[thick,flexdotted] (-1,+0.4) to ++(2,0);
+  \node[ddot] (g2) at (0,+0.0) {};
+  \draw[thick,flexdotted] (-1,-0.4) to ++(2,0);
+  \node[ddot] (g3) at (0,-0.8) {};
+  \draw[-<-] (0,0) [partial ellipse=-90:90:-0.8cm and 0.8cm];
+  \draw[-<-] (0,0) [partial ellipse=-90:90:+0.8cm and 0.8cm];
+  \draw[->-=0.6,bend left =55] (g3) to (g2);
+  \draw[->-=0.6,bend right=55] (g3) to (g2);
+  \draw[->-=0.6,bend left =55] (g2) to (g1);
+  \draw[->-=0.6,bend right=55] (g2) to (g1);
+}
++
+\diagram{
+  \node[ddot] (g1) at (0,+0.8) {};
+  \draw[thick,flexdotted] (-1,+0.4) to ++(2,0);
+  \node[ddot] (g2) at (0,+0.0) {};
+  \draw[thick,flexdotted] (-1,-0.4) to ++(2,0);
+  \node[ddot] (g3) at (0,-0.8) {};
+  \draw[-<-] (0,0) [partial ellipse=-90:90:-0.8cm and 0.8cm];
+  \draw[->-] (0,0) [partial ellipse=-90:90:+0.8cm and 0.8cm];
+  \draw[->-=0.6,bend left =55] (g3) to (g2);
+  \draw[-<-=0.6,bend right=55] (g3) to (g2);
+  \draw[->-=0.6,bend left =55] (g2) to (g1);
+  \draw[-<-=0.6,bend right=55] (g2) to (g1);
+}
++
+\diagram{
+  \node[ddot] (g1) at (0,+0.8) {};
+  \draw[thick,flexdotted] (-1,+0.4) to ++(2,0);
+  \node[ddot] (g2) at (0,+0.0) {};
+  \draw[thick,flexdotted] (-1,-0.4) to ++(2,0);
+  \node[ddot] (g3) at (0,-0.8) {};
+  \draw[->-] (0,0) [partial ellipse=-90:90:-0.8cm and 0.8cm];
+  \draw[->-] (0,0) [partial ellipse=-90:90:+0.8cm and 0.8cm];
+  \draw[-<-=0.6,bend left =55] (g3) to (g2);
+  \draw[-<-=0.6,bend right=55] (g3) to (g2);
+  \draw[-<-=0.6,bend left =55] (g2) to (g1);
+  \draw[-<-=0.6,bend right=55] (g2) to (g1);
+}
+\end{align*}
+\end{ex}
+
+\begin{ex}
+Contributions to the wavefunction can be separated into singles, doubles, triples, etc.~contributions by a resolution of the identity in the orthogonal space
+\begin{align*}
+  \Y\ord{n}
+=
+  Q
+  \Y\ord{n}
+=
+  \sum_k
+  \pr{\tfr{1}{k!}}^2
+  \sum_{\substack{a_1\cd a_k\\i_1\cd i_k}}
+  \F_{i_1\cd i_k}^{a_1\cd a_k}\,
+  {}^{(n)}c_{a_1\cd a_k}^{i_1\cd i_k}
+&&
+  {}^{(n)}c_{a_1\cd a_k}^{i_1\cd i_k}
+\equiv
+  \ip{\F|a_{a_1\cd a_k}^{i_1\cd i_k}|\Y\ord{n}}
+\end{align*}
+which turns the problem into one of identitfying contributions to the CI coefficients.
+At second and third order, only doubles contributions are non-vanishing.
+\begin{align*}
+  {}\ord{2}c_a^i
+=&\
+  \ip{\tl{a}_a^iR_0V_c}
+=
+  \gno{\ol{\ol{
+    \tl{a}_a^i
+    \hspace{2pt}\resolventline{\tiny\ \ $R_0$}\hspace{2pt}
+    V_c
+  }}}
+=
+  0
+\end{align*}
+\end{ex}
+
 
 
 \end{document}
