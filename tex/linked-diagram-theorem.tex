@@ -27,7 +27,7 @@
 \begin{document}
 
 %%TENSORS
-\section{The linked diagram theorem}\label{sec:rspt}
+\section{Perturbation theory and the linked diagram theorem}\label{sec:rspt}
 
 \begin{dfn}\label{dfn:model-hamiltonian}
 \thmtitle{Model problem}
@@ -1227,9 +1227,9 @@ Contributions to the wavefunction can be separated into singles, doubles, triple
   \ip{\F|a_{a_1\cd a_k}^{i_1\cd i_k}|\Y\ord{n}}
 \end{align*}
 which turns the problem into one of identitfying contributions to the CI coefficients.
-At second and third order, only doubles contributions are non-vanishing.
+At first order in the wavefunction, only doubles contributions are non-vanishing.
 \begin{align*}
-  {}\ord{2}c_a^i
+  {}\ord{1}c_a^i
 =&\
   \ip{\tl{a}_a^iR_0V_c}
 =
@@ -1240,9 +1240,542 @@ At second and third order, only doubles contributions are non-vanishing.
   }}}
 =
   0
+&
+  {}\ord{1}c_{ab}^{ij}
+=&\
+  \ip{\tl{a}^{ij}_{ab}R_0V_c}
+=
+  \gno{\ol{\ol{
+    \tl{a}^{ij}_{ab}
+    \hspace{2pt}\resolventline{\tiny\ \ $R_0$}\hspace{2pt}
+    V_c
+  }}}
+=
+\diagram{
+  \newcommand{\ang}{30};
+  \node[ddot] (g) at (0,-0.5) {};
+  \draw[thick,flexdotted] (-0.8,0) to ++(1.6,0);
+  \draw[-<-=0.6] (g) to ++(90-1.5*\ang:1) node[smalldot] {};
+  \draw[-<-=0.6] (g) to ++(90-0.5*\ang:1) node[smalldot] {};
+  \draw[->-=0.6] (g) to ++(90+0.5*\ang:1) node[smalldot] {};
+  \draw[->-=0.6] (g) to ++(90+1.5*\ang:1) node[smalldot] {};
+}
+=
+  \fr{
+    \ol{g}_{ab}^{ij}
+  }{
+    \mc{D}_{ij}^{ab}
+  }
+\end{align*}
+At second order in the wavefunction, singles, triples, and disconnected quadruples are introduced.
+\begin{align*}
+  \ord{2}c_a^i
+=
+  \gno{\ol{\ol{
+    \tl{a}_a^i
+    \hspace{2pt}\resolventline{\tiny\ \ $R_0$}\hspace{2pt}
+    V_c
+    \hspace{2pt}\resolventline{\tiny\ \ $R_0$}\hspace{2pt}
+    V_c
+  }}}
+=&\
+\diagram{
+  \node[ddot] (1g) at (0,-0.5) {};
+  \draw[-<-] (1g) to ++(-0.5,1) node[smalldot] {};
+  \draw[->-=0.25,->-=0.75] (1g) to node[midway,ddot] (2g) {} ++(+0.5,1)
+                                   node[smalldot] {};
+  \draw[->-,bend left =45] (1g) to (2g);
+  \draw[-<-,bend right=45] (1g) to (2g);
+  \draw[thick,flexdotted] (-0.6,-0.35) to ++(1.2,0);
+  \draw[thick,flexdotted] (-0.6,+0.35) to ++(1.2,0);
+}
++
+\diagram{
+  \node[ddot] (1g) at (0,-0.5) {};
+  \draw[->-] (1g) to ++(-0.5,1) node[smalldot] {};
+  \draw[-<-=0.25,-<-=0.75] (1g) to node[midway,ddot] (2g) {} ++(0.5,1)
+                                   node[smalldot] {};
+  \draw[->-,bend left =45] (1g) to (2g);
+  \draw[-<-,bend right=45] (1g) to (2g);
+  \draw[thick,flexdotted] (-0.6,-0.35) to ++(1.2,0);
+  \draw[thick,flexdotted] (-0.6,+0.35) to ++(1.2,0);
+}
+=
+\diagram{
+  \interaction{2}{1g}{(0,-0.5)}{ddot}{sawtooth};
+  \node[ddot] (2g2) at (1,0) {};
+  \draw[-<-] (1g1) to ++(-0.25,+1) node[smalldot] {};
+  \draw[->-=0.25,->-=0.75] (1g1) to node[midway,ddot] (2g1) {} ++(+0.25,+1)
+                                    node[smalldot] {};
+  \draw[sawtooth] (2g1) to (2g2);
+  \draw[->-,bend left =45] (1g2) to (2g2);
+  \draw[-<-,bend right=45] (1g2) to (2g2);
+  \draw[thick,flexdotted] (-0.3,-0.35) to ++(1.6,0);
+  \draw[thick,flexdotted] (-0.3,+0.35) to ++(1.6,0);
+}
++
+\diagram{
+  \interaction{2}{1g}{(0,-0.5)}{ddot}{sawtooth};
+  \node[ddot] (2g2) at (1,0) {};
+  \draw[->-] (1g1) to ++(-0.25,+1) node[smalldot] {};
+  \draw[-<-=0.25,-<-=0.75] (1g1) to node[midway,ddot] (2g1) {} ++(+0.25,+1)
+                                    node[smalldot] {};
+  \draw[sawtooth] (2g1) to (2g2);
+  \draw[->-,bend left =45] (1g2) to (2g2);
+  \draw[-<-,bend right=45] (1g2) to (2g2);
+  \draw[thick,flexdotted] (-0.3,-0.35) to ++(1.6,0);
+  \draw[thick,flexdotted] (-0.3,+0.35) to ++(1.6,0);
+}
+=
+  \fr{1}{2}
+  \fr{
+    \ol{g}_{am}^{ef}
+    \ol{g}_{ef}^{im}
+  }{
+    \mc{D}_i^a
+    \mc{D}_{im}^{ef}
+  }
+-
+  \fr{1}{2}
+  \fr{
+    \ol{g}_{mn}^{ie}
+    \ol{g}_{ae}^{mn}
+  }{
+    \mc{D}_i^a
+    \mc{D}_{mn}^{ae}
+  }
+\\
+  {}\ord{2}c_{ab}^{ij}
+=
+  \gno{\ol{\ol{
+    \tl{a}_{ab}^{ij}
+    \hspace{2pt}\resolventline{\tiny\ \ $R_0$}\hspace{2pt}
+    V_c
+    \hspace{2pt}\resolventline{\tiny\ \ $R_0$}\hspace{2pt}
+    V_c
+  }}}
+=&\
+\diagram{
+  \node[ddot] (1g) at (0,-0.5) {};
+  \node[ddot] (2g) at (0,0) {};
+  \draw[-<-] (1g) to ++(-0.65,1) node[smalldot] {};
+  \draw[-<-] (1g) to ++(+0.65,1) node[smalldot] {};
+  \draw[->-=0.65,bend left =30] (1g) to (2g);
+  \draw[->-=0.65,bend right=30] (1g) to (2g);
+  \draw[->-] (2g) to (-0.25,+0.5) node[smalldot] {};
+  \draw[->-] (2g) to (+0.25,+0.5) node[smalldot] {};
+  \draw[thick,flexdotted] (-0.75,-0.35) to ++(1.5,0);
+  \draw[thick,flexdotted] (-0.75,+0.35) to ++(1.5,0);
+}
++
+\diagram{
+  \node[ddot] (1g) at (0,-0.5) {};
+  \node[ddot] (2g) at (0,0) {};
+  \draw[-<-] (1g) to ++(-0.65,1) node[smalldot] {};
+  \draw[->-] (1g) to ++(+0.65,1) node[smalldot] {};
+  \draw[->-=0.65,bend left =30] (1g) to (2g);
+  \draw[-<-=0.65,bend right=30] (1g) to (2g);
+  \draw[->-] (2g) to (-0.25,+0.5) node[smalldot] {};
+  \draw[-<-] (2g) to (+0.25,+0.5) node[smalldot] {};
+  \draw[thick,flexdotted] (-0.75,-0.35) to ++(1.5,0);
+  \draw[thick,flexdotted] (-0.75,+0.35) to ++(1.5,0);
+}
++
+\diagram{
+  \node[ddot] (1g) at (0,-0.5) {};
+  \node[ddot] (2g) at (0,0) {};
+  \draw[->-] (1g) to ++(-0.65,1) node[smalldot] {};
+  \draw[->-] (1g) to ++(+0.65,1) node[smalldot] {};
+  \draw[-<-=0.65,bend left =30] (1g) to (2g);
+  \draw[-<-=0.65,bend right=30] (1g) to (2g);
+  \draw[-<-] (2g) to (-0.25,+0.5) node[smalldot] {};
+  \draw[-<-] (2g) to (+0.25,+0.5) node[smalldot] {};
+  \draw[thick,flexdotted] (-0.75,-0.35) to ++(1.5,0);
+  \draw[thick,flexdotted] (-0.75,+0.35) to ++(1.5,0);
+}
+\\=&\
+\diagram{
+  \interaction{2}{1g}{(0,-0.5)}{ddot}{sawtooth};
+  \draw[-<-] (1g1) to ++(-0.25,1) node[smalldot] {};
+  \draw[->-=0.25,->-=0.75] (1g1) to
+    node[ddot,midway] (2g1) {} ++(+0.25,1)
+    node[smalldot] {};
+  \draw[->-=0.25,->-=0.75] (1g2) to
+    node[ddot,midway] (2g2) {} ++(-0.25,1)
+    node[smalldot] {};
+  \draw[-<-] (1g2) to ++(+0.25,1) node[smalldot] {};
+  \draw[sawtooth] (2g1) to (2g2);
+  \draw[thick,flexdotted] (-0.4,-0.35) to ++(1.8,0);
+  \draw[thick,flexdotted] (-0.4,+0.35) to ++(1.8,0);
+}
++
+\diagram{
+  \interaction{2}{1g}{(0,-0.5)}{ddot}{sawtooth};
+  \draw[-<-] (1g1) to ++(-0.25,1) node[smalldot] {};
+  \draw[->-=0.25,->-=0.75] (1g1) to
+    node[ddot,midway] (2g1) {} ++(+0.25,1)
+    node[smalldot] {};
+  \draw[-<-=0.25,-<-=0.75] (1g2) to
+    node[ddot,midway] (2g2) {} ++(-0.25,1)
+    node[smalldot] {};
+  \draw[->-] (1g2) to ++(+0.25,1) node[smalldot] {};
+  \draw[sawtooth] (2g1) to (2g2);
+  \draw[thick,flexdotted] (-0.4,-0.35) to ++(1.8,0);
+  \draw[thick,flexdotted] (-0.4,+0.35) to ++(1.8,0);
+}
++
+\diagram{
+  \interaction{2}{1g}{(0,-0.5)}{ddot}{sawtooth};
+  \draw[->-] (1g1) to ++(-0.25,1) node[smalldot] {};
+  \draw[-<-=0.25,-<-=0.75] (1g1) to
+    node[ddot,midway] (2g1) {} ++(+0.25,1)
+    node[smalldot] {};
+  \draw[-<-=0.25,-<-=0.75] (1g2) to
+    node[ddot,midway] (2g2) {} ++(-0.25,1)
+    node[smalldot] {};
+  \draw[->-] (1g2) to ++(+0.25,1) node[smalldot] {};
+  \draw[sawtooth] (2g1) to (2g2);
+  \draw[thick,flexdotted] (-0.4,-0.35) to ++(1.8,0);
+  \draw[thick,flexdotted] (-0.4,+0.35) to ++(1.8,0);
+}
+=
+  \fr{1}{2}
+  \fr{
+    \ol{g}_{ab}^{ef}
+    \ol{g}_{ef}^{ij}
+  }{
+    \mc{D}_{ij}^{ab}
+    \mc{D}_{ij}^{ef}
+  }
+-
+  P^{(i/j)}_{(a/b)}
+  \fr{
+    \ol{g}_{am}^{ej}
+    \ol{g}_{eb}^{im}
+  }{
+    \mc{D}_{ij}^{ab}
+    \mc{D}_{im}^{eb}
+  }
++
+  \fr{1}{2}
+  \fr{
+    \ol{g}_{mn}^{ij}
+    \ol{g}_{ab}^{mn}
+  }{
+    \mc{D}_{ij}^{ab}
+    \mc{D}_{mn}^{ab}
+  }
+\\
+  {}\ord{2}c_{abc}^{ijk}
+=
+  \gno{\ol{\ol{
+    \tl{a}_{abc}^{ijk}
+    \hspace{2pt}\resolventline{\tiny\ \ $R_0$}\hspace{2pt}
+    V_c
+    \hspace{2pt}\resolventline{\tiny\ \ $R_0$}\hspace{2pt}
+    V_c
+  }}}
+=&\
+\diagram{
+  \node[ddot] (1g) at (0,-0.5) {};
+  \node[ddot] (2g) at (0,0) {};
+  \draw[->-,bend left=15] (1g) to (-0.9,0.5) node[smalldot] {};
+  \draw[-<-] (1g) to (-0.6,0.5) node[smalldot] {};
+  \draw[->-] (1g) to (2g);
+  \draw[->-] (2g) to (0,0.5) node[smalldot] {};
+  \draw[->-] (2g) to (-0.3,0.5) node[smalldot] {};
+  \draw[-<-] (2g) to (+0.3,0.5) node[smalldot] {};
+  \draw[-<-] (1g) to (+0.6,0.5) node[smalldot] {};
+  \draw[thick,flexdotted] (-1,-0.35) to ++(1.7,0);
+  \draw[thick,flexdotted] (-1,+0.35) to ++(1.7,0);
+}
++
+\diagram{
+  \node[ddot] (1g) at (0,-0.5) {};
+  \node[ddot] (2g) at (0,0) {};
+  \draw[-<-,bend left=15] (1g) to (-0.9,0.5) node[smalldot] {};
+  \draw[->-] (1g) to (-0.6,0.5) node[smalldot] {};
+  \draw[-<-] (1g) to (2g);
+  \draw[-<-] (2g) to (0,0.5) node[smalldot] {};
+  \draw[->-] (2g) to (-0.3,0.5) node[smalldot] {};
+  \draw[-<-] (2g) to (+0.3,0.5) node[smalldot] {};
+  \draw[->-] (1g) to (+0.6,0.5) node[smalldot] {};
+  \draw[thick,flexdotted] (-1,-0.35) to ++(1.7,0);
+  \draw[thick,flexdotted] (-1,+0.35) to ++(1.7,0);
+}
+\\=&\
+\diagram{
+  \interaction{2}{1g}{(0,-0.5)}{ddot}{sawtooth};
+  \interaction{2}{2g}{(1.125,0)}{ddot}{sawtooth};
+  \draw[-<-] (1g1) to ++(-0.25,1) node[smalldot] {};
+  \draw[->-] (1g1) to ++(+0.25,1) node[smalldot] {};
+  \draw[-<-] (1g2) to ++(-0.25,1) node[smalldot] {};
+  \draw[->-=0.25,->-=0.75] (1g2) to ++(+0.25,1) node[smalldot] {};
+  \draw[-<-] (2g2) to ++(-0.25,0.5) node[smalldot] {};
+  \draw[->-] (2g2) to ++(+0.25,0.5) node[smalldot] {};
+  \draw[thick,flexdotted] (-0.4,-0.35) to ++(2.9,0);
+  \draw[thick,flexdotted] (-0.4,+0.35) to ++(2.9,0);
+}
++
+\diagram{
+  \interaction{2}{1g}{(0,-0.5)}{ddot}{sawtooth};
+  \interaction{2}{2g}{(1.125,0)}{ddot}{sawtooth};
+  \draw[->-] (1g1) to ++(-0.25,1) node[smalldot] {};
+  \draw[-<-] (1g1) to ++(+0.25,1) node[smalldot] {};
+  \draw[->-] (1g2) to ++(-0.25,1) node[smalldot] {};
+  \draw[-<-=0.25,-<-=0.75] (1g2) to ++(+0.25,1) node[smalldot] {};
+  \draw[->-] (2g2) to ++(-0.25,0.5) node[smalldot] {};
+  \draw[-<-] (2g2) to ++(+0.25,0.5) node[smalldot] {};
+  \draw[thick,flexdotted] (-0.4,-0.35) to ++(2.9,0);
+  \draw[thick,flexdotted] (-0.4,+0.35) to ++(2.9,0);
+}
+=
+  P^{(ij/k)}_{(a/bc)}
+  \fr{
+    \ol{g}_{bc}^{ek}
+    \ol{g}_{ae}^{ij}
+  }{
+    \mc{D}_{ijk}^{abc}
+    \mc{D}_{ij}^{ae}
+  }
+-
+  P^{(i/jk)}_{(ab/c)}
+  \fr{
+    \ol{g}_{mc}^{jk}
+    \ol{g}_{ab}^{im}
+  }{
+    \mc{D}_{ijk}^{abc}
+    \mc{D}_{im}^{ab}
+  }
+\\
+  {}\ord{2}c_{abcd}^{ijkl}
+=
+  \gno{\ol{\ol{
+    \tl{a}_{abcd}^{ijkl}
+    \hspace{2pt}\resolventline{\tiny\ \ $R_0$}\hspace{2pt}
+    V_c
+    \hspace{2pt}\resolventline{\tiny\ \ $R_0$}\hspace{2pt}
+    V_c
+  }}}
+=&\
+\diagram{
+  \node[ddot] (1g) at (0,-0.5) {};
+  \draw[-<-] (1g) to ++(-0.45,1) node[smalldot] {};
+  \draw[-<-] (1g) to ++(-0.15,1) node[smalldot] {};
+  \draw[->-] (1g) to ++(+0.15,1) node[smalldot] {};
+  \draw[->-] (1g) to ++(+0.45,1) node[smalldot] {};
+  \node[ddot] (2g) at (1.2,0) {};
+  \draw[-<-] (2g) to ++(-0.45,0.5) node[smalldot] {};
+  \draw[-<-] (2g) to ++(-0.15,0.5) node[smalldot] {};
+  \draw[->-] (2g) to ++(+0.15,0.5) node[smalldot] {};
+  \draw[->-] (2g) to ++(+0.45,0.5) node[smalldot] {};
+  \draw[thick,flexdotted] (-0.5,-0.35) to ++(2.2,0);
+  \draw[thick,flexdotted] (-0.5,+0.35) to ++(2.2,0);
+}
+=
+\diagram{
+  \interaction{2}{1g}{(0,-0.5)}{ddot}{sawtooth};
+  \interaction{2}{2g}{(2,0)}{ddot}{sawtooth};
+  \draw[-<-] (1g1) to ++(-0.25,1) node[smalldot] {};
+  \draw[->-] (1g1) to ++(+0.25,1) node[smalldot] {};
+  \draw[-<-] (1g2) to ++(-0.25,1) node[smalldot] {};
+  \draw[->-] (1g2) to ++(+0.25,1) node[smalldot] {};
+  \draw[-<-] (2g1) to ++(-0.25,0.5) node[smalldot] {};
+  \draw[->-] (2g1) to ++(+0.25,0.5) node[smalldot] {};
+  \draw[-<-] (2g2) to ++(-0.25,0.5) node[smalldot] {};
+  \draw[->-] (2g2) to ++(+0.25,0.5) node[smalldot] {};
+  \draw[thick,flexdotted] (-0.4,-0.35) to ++(3.9,0);
+  \draw[thick,flexdotted] (-0.4,+0.35) to ++(3.9,0);
+}
+=
+  P^{(ij/kl)}_{(ab/cd)}
+  \fr{
+    \ol{g}_{cd}^{kl}\ol{g}_{ab}^{ij}
+  }{
+    \mc{D}_{ijkl}^{abcd}
+    \mc{D}_{ij}^{ab}
+  }
+\end{align*}
+Here, the indices $m,n,e,f$ are implicitly summed over, and the Hugenholtz diagrams have been translated into Goldstone diagrams in order to evaluate the phase of each term.
+The disconnected quadruples term can be factored as follows
+\begin{align*}
+  P^{(ij/kl)}_{(ab/cd)}
+  \fr{
+    \ol{g}_{cd}^{kl}\ol{g}_{ab}^{ij}
+  }{
+    \mc{D}_{ijkl}^{abcd}
+    \mc{D}_{ij}^{ab}
+  }
+=
+  \fr{1}{2}
+  P^{(ij/kl)}_{(ab/cd)}
+  \pr{
+    \fr{
+      \ol{g}_{cd}^{kl}\ol{g}_{ab}^{ij}
+    }{
+      \mc{D}_{ijkl}^{abcd}
+      \mc{D}_{ij}^{ab}
+    }
+  +
+    \fr{
+      \ol{g}_{ab}^{ij}\ol{g}_{cd}^{kl}
+    }{
+      \mc{D}_{ijkl}^{abcd}
+      \mc{D}_{kl}^{cd}
+    }
+  }
+=
+  \fr{1}{2}
+  P^{(ij/kl)}_{(ab/cd)}
+  \pr{
+    \fr{
+      \ol{g}_{cd}^{kl}\ol{g}_{ab}^{ij}
+      \pr{\mc{D}_{kl}^{cd} + \mc{D}_{ij}^{ab}}
+    }{
+      \mc{D}_{ijkl}^{abcd}
+      \mc{D}_{ij}^{ab}
+      \mc{D}_{kl}^{cd}
+    }
+  }
+=
+  \fr{1}{2}
+  P^{(ij/kl)}_{(ab/cd)}
+  {}\ord{1}c_{ab}^{ij}
+  {}\ord{1}c_{cd}^{kl}
+\end{align*}
+where we have brought the two terms to a common denominator and used the fact that $\mc{D}_{ijkl}^{abcd}=\mc{D}_{ij}^{ab}+\mc{D}_{kl}^{cd}$.\footnote{
+This is actually an example of the Frantz-Mills factorization theorem, \Cref{thm:factorization}.}
+Plugging this result into the CI wave operator, we find that the lowest-order contribution to the quadruple excitation operator is a product of two double excitation operators.
+\begin{align*}
+  \ord{2}\op{C}_4
+=
+  \pr{\tfr{1}{4!}}^2
+  {}\ord{2}c_{abcd}^{ijkl}
+  \tl{a}_{ijkl}^{abcd}
+=
+  \tfr{1}{2}
+  \pr{\tfr{1}{4!}}^2
+  \pr{
+    P^{(ij/kl)}_{(ab/cd)}
+    {}\ord{1}c_{ab}^{ij}
+    {}\ord{1}c_{cd}^{kl}
+  }
+  \tl{a}_{ijkl}^{abcd}
+=
+  \tfr{1}{2}
+  \pr{\tfr{1}{4}{}\ord{1}c_{ab}^{ij}\tl{a}_{ij}^{ab}}
+  \pr{\tfr{1}{4}{}\ord{1}c_{cd}^{kl}\tl{a}_{kl}^{cd}}
+=
+  \tfr{1}{2}
+  {}\ord{1}\op{C}_2^2
 \end{align*}
 \end{ex}
 
+\begin{dfn}
+Diagrams with external lines are termed \textit{open}, whereas those with only internal lines are \textit{closed}.
+A diagram in which there is a path between any two operators is termed \textit{connected}.
+Otherwise, the diagram is \textit{disconnected} and comprises one or more parts without cross-contractions.
+A disconnected diagram is considered \textit{linked} if none of its parts is closed.
+A disconnected diagram with a closed part is \textit{unlinked}.
+\end{dfn}
+
+\begin{dfn}
+In perturbation theory, there is one more distinction to be made, owing to the presence of resolvent lines:
+principal terms $R_0V_c\cd R_0V_c\F$ generate disconnected diagrams with one common set of resolvent lines, whereas bracketed terms $R_0V_c\cd R_0\ip{V_c\cd R_0V_c}\cd R_0V_c\F$ generate disconnected (and unlinked) diagrams whose parts have their own sets of resolvent lines.
+In the second case, we refer to the disconnected parts as \textit{separate} diagrams, whereas in the first case we consider them parts to make up one \textit{combined} diagram.
+\end{dfn}
+
+\begin{thm}\label{thm:factorization}
+\thmtitle{The Frantz-Mills Factorization Theorem}
+\thmstatement{
+A diagram with separate open parts equals the sum over all relative orderings of its parts in the corresponding combined diagram.
+}
+\thmproof{
+  Apart from the resolvent lines, the separate and combined diagrams are identical and share a numerator, so we need only consider the denominators.
+  Let $\mc{D}_1,\ld,\mc{D}_n$ be the denominator factors for one diagram with $n$ operators and let $\mc{D}_1',\ld,\mc{D}_{n'}'$ be the denominator factors for another diagram with $n'$ operators, ordered from bottom to top.
+  We proceed by induction on $n+n'=m$.
+  As a base case, consider $m=2$, of which the only non-trivial possibility is $n=n'=1$.
+  There are two possible orderings for the combined diagram: either the operator of the first diagram is below the operator of the second diagram, or vice versa.
+  In either case the upper resolvent crosses the lines of both diagrams, contributing a factor $\mc{D}_1+\mc{D}_1'$, but in the first case the lower resolvent crosses the lines of the first diagram and in the second case it crosses the lines of the second diagram.
+  The sum of the denominators for these two orderings is
+$
+  \fr{
+    1
+  }{
+    \mc{D}_1(\mc{D}_1+\mc{D}_1')
+  }
++
+  \fr{
+    1
+  }{
+    \mc{D}_1'(\mc{D}_1+\mc{D}_1')
+  }
+=
+  \fr{
+    \mc{D}_1+\mc{D}_1'
+  }{
+    \mc{D}_1(\mc{D}_1+\mc{D}_1')\mc{D}_1'
+  }
+=
+  \fr{
+    1
+  }{
+    \mc{D}_1\mc{D}_1'
+  }
+$
+  which confirms the proposistion for $m=2$.
+  Now, suppose it holds for $m-1$ and consider $m$. 
+  The different orderings for the combined graph can be grouped into two classes: those for which the first graph has the topmost operator, and those for which the second one does.
+  All of the terms in either class have a common factor $\fr{1}{\mc{D}_n+\mc{D}_{n'}'}$ from the topmost resolvent.
+  Factoring this out, the sum over the first class is equivalent to a sum over all orderings with the topmost operator of the first diagram removed.
+  By our inductive assumption, this evaluates to 
+  $
+    \fr{
+      1
+    }{
+      \mc{D}_1\cd \mc{D}_{n-1}\mc{D}_1'\cd\mc{D}_{n'}'
+    }
+  $.
+  Similarly, after pulling out the common factor, the sum over the second class is equivalent to a sum over all orderings with the topmost operator of the second diagram removed, which evaluates to 
+  $
+    \fr{
+      1
+    }{
+      \mc{D}_1\cd \mc{D}_{n}\mc{D}_1'\cd\mc{D}_{n'-1}'
+    }
+  $
+  by our inductive assumption.
+  Therefore, the sum over all orderings is
+$
+  \fr{1}{\mc{D}_n+\mc{D}_{n'}'}
+  \pr{
+    \fr{
+      1
+    }{
+      \mc{D}_1\cd \mc{D}_{n-1}\mc{D}_1'\cd\mc{D}_{n'}'
+    }
+  +
+    \fr{
+      1
+    }{
+      \mc{D}_1\cd \mc{D}_{n}\mc{D}_1'\cd\mc{D}_{n'-1}'
+    }
+  }
+=
+  \fr{
+    1
+  }{
+    \mc{D}_1\cd \mc{D}_n\mc{D}_1'\cd\mc{D}_{n'}'
+  }\,,
+$
+  which implies that the proposition holds for all $m$ and completes the proof for the case of two separate diagrams.
+  For multiple separate parts, the proposition still follows by combining one pair at a time, since the set of final orderings is the cartesian product of the pairwise orderings.
+}
+\end{thm}
+
+\begin{cor}
+
+\end{cor}
 
 
 \end{document}
