@@ -377,8 +377,7 @@ The second-order energy contribution, $\la^2 E_c\ord{2}=\la^2\ip{\F|V_c|\Y\ord{1
     f_b^b
   }
 \end{align*}
-Note that the one-particle contributions involving $f_i^a$ are present only for non-Hartree-Fock references.
-In both canonical and non-canonical Hartree-Fock $f_i^a=0$.
+The one-particle contributions involving $f_i^a$ are present only for ROHF references, since $f_i^a=0$ for canonical Hartree-Fock orbitals.
 The second order wavefunction contribution is
 $
   \la^2
@@ -1208,7 +1207,7 @@ In Hugenholtz diagram notation, this looks as follows.
 \end{align*}
 \end{ex}
 
-\begin{ex}
+\begin{ex}\label{ex:second-order-wavefunction-ci-coefficients}
 Contributions to the wavefunction can be separated into singles, doubles, triples, etc.~contributions by a resolution of the identity in the orthogonal space
 \begin{align*}
   \Y\ord{n}
@@ -1643,8 +1642,7 @@ The disconnected quadruples term can be factored as follows
   {}\ord{1}c_{ab}^{ij}
   {}\ord{1}c_{cd}^{kl}
 \end{align*}
-where we have brought the two terms to a common denominator and used the fact that $\mc{D}_{ijkl}^{abcd}=\mc{D}_{ij}^{ab}+\mc{D}_{kl}^{cd}$.\footnote{
-This is actually an example of the Frantz-Mills factorization theorem, \Cref{thm:factorization}.}
+where we have brought the two terms to a common denominator and used the fact that $\mc{D}_{ijkl}^{abcd}=\mc{D}_{ij}^{ab}+\mc{D}_{kl}^{cd}$.
 Plugging this result into the CI wave operator, we find that the lowest-order contribution to the quadruple excitation operator is a product of two double excitation operators.
 \begin{align*}
   \ord{2}\op{C}_4
@@ -1683,20 +1681,44 @@ A disconnected diagram with a closed part is \textit{unlinked}.
 In perturbation theory, there is one more distinction to be made, owing to the presence of resolvent lines:
 principal terms $R_0V_c\cd R_0V_c\F$ generate disconnected diagrams with one common set of resolvent lines, whereas bracketed terms $R_0V_c\cd R_0\ip{V_c\cd R_0V_c}\cd R_0V_c\F$ generate disconnected (and unlinked) diagrams whose parts have their own sets of resolvent lines.
 In the second case, we refer to the disconnected parts as \textit{separate} diagrams, whereas in the first case we consider them parts to make up one \textit{combined} diagram.
+The unliked diagrams arising from bracketed terms form a subcategory of separated diagrams which are termed \textit{insertion diagrams}.
+Insertion diagrams have the form
+\begin{align*}
+&&
+  \underset{
+    \text{insertion diagram}
+  }{\underbrace{
+    \cd R_0\ip{V_c\cd R_0V_c}R_0V_c\cd 
+  }}
+=
+  \underset{
+    \textit{remainder diagram}
+  }{\underbrace{
+    \pr{
+      \cd R_0R_0V_c\cd
+    }
+  }}\hspace{5pt}
+  \underset{
+    \textit{inserted diagram}
+  }{\underbrace{
+    \ip{V_c\cd R_0V_c}
+  }}
+\end{align*}
+where the \textit{inserted diagram} is closed and the \textit{remainder diagram} may be closed or open and has a squared resolvent at the point of insertion.
 \end{dfn}
 
 \begin{thm}\label{thm:factorization}
 \thmtitle{The Frantz-Mills Factorization Theorem}
 \thmstatement{
-A diagram with separate open parts equals the sum over all relative orderings of its parts in the corresponding combined diagram.
+A diagram with separate parts that are open at the top and closed at the bottom equals the sum over all relative orderings in the corresponding combined diagram.
 }
 \thmproof{
-  Apart from the resolvent lines, the separate and combined diagrams are identical and share a numerator, so we need only consider the denominators.
-  Let $\mc{D}_1,\ld,\mc{D}_n$ be the denominator factors for one diagram with $n$ operators and let $\mc{D}_1',\ld,\mc{D}_{n'}'$ be the denominator factors for another diagram with $n'$ operators, ordered from bottom to top.
-  We proceed by induction on $n+n'=m$.
-  As a base case, consider $m=2$, of which the only non-trivial possibility is $n=n'=1$.
-  There are two possible orderings for the combined diagram: either the operator of the first diagram is below the operator of the second diagram, or vice versa.
-  In either case the upper resolvent crosses the lines of both diagrams, contributing a factor $\mc{D}_1+\mc{D}_1'$, but in the first case the lower resolvent crosses the lines of the first diagram and in the second case it crosses the lines of the second diagram.
+  Apart from the resolvent lines, the separate and combined diagrams are identical and share a common numerator, so we need only consider the denominators.
+  Let $\mc{D}_1,\ld,\mc{D}_n$ be the denominator factors for one diagram with operators $O_1,\ld,O_n$, ordered from bottom to top,
+  and let $\mc{D}_1',\ld,\mc{D}_{n'}'$ and $O_1',\ld,O_{n'}'$ be the denominators and operators of another diagram.
+  We proceed by induction on $n+n'=m$, starting with $m=2$ as a base case.
+  The only non-trivial possibility for $m=2$ is $n=n'=1$, in which there are two possible orderings for the combined diagram: either $O_1$ at the top or $O_1'$ is.
+  In either case, the upper resolvent line generates a denominator factor $\mc{D}_1+\mc{D}_1'$, but in the first case the factor from the lower resolvent is $\mc{D}_1'$ and in the second case it is $\mc{D}_1$.
   The sum of the denominators for these two orderings is
 $
   \fr{
@@ -1723,32 +1745,14 @@ $
     \mc{D}_1\mc{D}_1'
   }
 $
-  which confirms the proposistion for $m=2$.
-  Now, suppose it holds for $m-1$ and consider $m$. 
-  The different orderings for the combined graph can be grouped into two classes: those for which the first graph has the topmost operator, and those for which the second one does.
-  All of the terms in either class have a common factor $\fr{1}{\mc{D}_n+\mc{D}_{n'}'}$ from the topmost resolvent.
-  Factoring this out, the sum over the first class is equivalent to a sum over all orderings with the topmost operator of the first diagram removed.
-  By our inductive assumption, this evaluates to 
-  $
-    \fr{
-      1
-    }{
-      \mc{D}_1\cd \mc{D}_{n-1}\mc{D}_1'\cd\mc{D}_{n'}'
-    }
-  $.
-  Similarly, after pulling out the common factor, the sum over the second class is equivalent to a sum over all orderings with the topmost operator of the second diagram removed, which evaluates to 
-  $
-    \fr{
-      1
-    }{
-      \mc{D}_1\cd \mc{D}_{n}\mc{D}_1'\cd\mc{D}_{n'-1}'
-    }
-  $
-  by our inductive assumption.
-  Therefore, the sum over all orderings is
+  which confirms the proposition for $m=2$.
+  Now, assume the proposition for $m-1$ and consider $m$.
+  The topmost resolvent generates the same denominator factor $\mc{D}_n+\mc{D}_{n'}'$ for all orderings of the combined diagram.
+  Factoring this out, we have one set of orderings with $O_n$ as the topmost operator factor which, by our inductive assumption, add up to $\fr{1}{\mc{D}_1\cd\mc{D}_{n-1}\mc{D}_1'\cd\mc{D}_{n'}'}$, while the remaining orderings all have $O_{n'}'$ as the topmost operator and add up to $\fr{1}{\mc{D}_1\cd\mc{D}_n\mc{D}_1'\cd\mc{D}_{n'-1}'}$.
+  The total sum is therefore
 $
   \fr{1}{\mc{D}_n+\mc{D}_{n'}'}
-  \pr{
+  (
     \fr{
       1
     }{
@@ -1760,7 +1764,7 @@ $
     }{
       \mc{D}_1\cd \mc{D}_{n}\mc{D}_1'\cd\mc{D}_{n'-1}'
     }
-  }
+  )
 =
   \fr{
     1
@@ -1768,14 +1772,276 @@ $
     \mc{D}_1\cd \mc{D}_n\mc{D}_1'\cd\mc{D}_{n'}'
   }\,,
 $
-  which implies that the proposition holds for all $m$ and completes the proof for the case of two separate diagrams.
+  which proves the proposition for all $m$.
   For multiple separate parts, the proposition still follows by combining one pair at a time, since the set of final orderings is the cartesian product of the pairwise orderings.
 }
 \end{thm}
 
-\begin{cor}
+\begin{ex}\label{ex:frantz-mills-example}
+The equation ${}\ord{2}\op{C}_4=\fr{1}{2}{}\ord{1}\op{C}_2^2$ derived in \Cref{ex:second-order-wavefunction-ci-coefficients} is an example of the Frantz-Mills factorization theorem
+{\footnotesize
+\begin{align*}
+  \tfr{1}{2}
+  {}\ord{1}\op{C}_2^2
+=
+  \tfr{1}{2}
+  \pr{
+    \tfr{1}{4}
+    \fr{
+      \ol{g}_{ab}^{ij}
+    }{
+      \mc{D}_{ij}^{ab}
+    }
+    \tl{a}_{ij}^{ab}
+  }
+  \pr{
+    \tfr{1}{4}
+    \fr{
+      \ol{g}_{cd}^{kl}
+    }{
+      \mc{D}_{kl}^{cd}
+    }
+    \tl{a}_{kl}^{cd}
+  }
+=
+\diagram{
+  \interaction{2}{1g}{(0,-0.5)}{ddot}{sawtooth};
+  \draw[-<-] (1g1) to ++(-0.25,1);
+  \draw[->-] (1g1) to ++(+0.25,1);
+  \draw[-<-] (1g2) to ++(-0.25,1);
+  \draw[->-] (1g2) to ++(+0.25,1);
+  \draw[thick,flexdotted] (-0.35,0.15) to ++(1.7,0);
+}\,\,
+\diagram{
+  \interaction{2}{1g}{(0,-0.5)}{ddot}{sawtooth};
+  \draw[-<-] (1g1) to ++(-0.25,1);
+  \draw[->-] (1g1) to ++(+0.25,1);
+  \draw[-<-] (1g2) to ++(-0.25,1);
+  \draw[->-] (1g2) to ++(+0.25,1);
+  \draw[thick,flexdotted] (-0.35,0.15) to ++(1.7,0);
+}
+=
+\diagram{
+  \interaction{2}{1g}{(0,-0.5)}{ddot}{sawtooth};
+  \interaction{2}{2g}{(2,0)}{ddot}{sawtooth};
+  \draw[-<-] (1g1) to ++(-0.25,1);
+  \draw[->-] (1g1) to ++(+0.25,1);
+  \draw[-<-] (1g2) to ++(-0.25,1);
+  \draw[->-] (1g2) to ++(+0.25,1);
+  \draw[-<-] (2g1) to ++(-0.25,0.5);
+  \draw[->-] (2g1) to ++(+0.25,0.5);
+  \draw[-<-] (2g2) to ++(-0.25,0.5);
+  \draw[->-] (2g2) to ++(+0.25,0.5);
+  \draw[thick,flexdotted] (-0.4,-0.35) to ++(3.9,0);
+  \draw[thick,flexdotted] (-0.4,+0.35) to ++(3.9,0);
+}
+=
+  \pr{\tfr{1}{2}}^4
+  \fr{
+    \ol{g}_{cd}^{kl}
+    \ol{g}_{ab}^{ij}
+  }{
+    \mc{D}_{ijkl}^{abcd}
+    \mc{D}_{ij}^{ab}
+  }
+  \tl{a}_{ijkl}^{abcd}
+=
+  {}\ord{2}\op{C}_4
+\end{align*}}%
+where we have only one diagrammatically unique ordering for the combined diagram.
+If instead we had two different operators $\op{V}$ and $\op{W}$, this equation would instead read as follows.
+\begin{align*}
+&&
+\diagram{
+  \interaction{2}{1g}{(0,-0.5)}{ddot}{dashed};
+  \draw[-<-] (1g1) to ++(-0.25,1);
+  \draw[->-] (1g1) to ++(+0.25,1);
+  \draw[-<-] (1g2) to ++(-0.25,1);
+  \draw[->-] (1g2) to ++(+0.25,1);
+  \draw[thick,flexdotted] (-0.35,0.15) to ++(1.7,0);
+}\,\,
+\diagram{
+  \interaction{2}{1g}{(0,-0.5)}{ddot}{wiggly};
+  \draw[-<-] (1g1) to ++(-0.25,1);
+  \draw[->-] (1g1) to ++(+0.25,1);
+  \draw[-<-] (1g2) to ++(-0.25,1);
+  \draw[->-] (1g2) to ++(+0.25,1);
+  \draw[thick,flexdotted] (-0.35,0.15) to ++(1.7,0);
+}
+=&\
+\diagram{
+  \interaction{2}{1g}{(0,-0.5)}{ddot}{dashed};
+  \interaction{2}{2g}{(2,0)}{ddot}{wiggly};
+  \draw[-<-] (1g1) to ++(-0.25,1);
+  \draw[->-] (1g1) to ++(+0.25,1);
+  \draw[-<-] (1g2) to ++(-0.25,1);
+  \draw[->-] (1g2) to ++(+0.25,1);
+  \draw[-<-] (2g1) to ++(-0.25,0.5);
+  \draw[->-] (2g1) to ++(+0.25,0.5);
+  \draw[-<-] (2g2) to ++(-0.25,0.5);
+  \draw[->-] (2g2) to ++(+0.25,0.5);
+  \draw[thick,flexdotted] (-0.4,-0.35) to ++(3.9,0);
+  \draw[thick,flexdotted] (-0.4,+0.35) to ++(3.9,0);
+}
++
+\diagram{
+  \interaction{2}{1g}{(0,0)}{ddot}{dashed};
+  \interaction{2}{2g}{(2,-0.5)}{ddot}{wiggly};
+  \draw[-<-] (1g1) to ++(-0.25,0.5);
+  \draw[->-] (1g1) to ++(+0.25,0.5);
+  \draw[-<-] (1g2) to ++(-0.25,0.5);
+  \draw[->-] (1g2) to ++(+0.25,0.5);
+  \draw[-<-] (2g1) to ++(-0.25,1);
+  \draw[->-] (2g1) to ++(+0.25,1);
+  \draw[-<-] (2g2) to ++(-0.25,1);
+  \draw[->-] (2g2) to ++(+0.25,1);
+  \draw[thick,flexdotted] (-0.4,-0.35) to ++(3.9,0);
+  \draw[thick,flexdotted] (-0.4,+0.35) to ++(3.9,0);
+}
+\\
+&&
+\updownarrow&
+\\
+&&
+  \pr{
+    \tfr{1}{4}
+    \fr{
+      v_{ab}^{ij}
+    }{
+      \mc{D}_{ij}^{ab}
+    }
+    \tl{a}_{ij}^{ab}
+  }
+  \pr{
+    \tfr{1}{4}
+    \fr{
+      w_{cd}^{kl}
+    }{
+      \mc{D}_{kl}^{cd}
+    }
+    \tl{a}_{kl}^{cd}
+  }
+=&\
+  \pr{\tfr{1}{2}}^4
+  \fr{
+    w_{cd}^{kl}
+    v_{ab}^{ij}
+  }{
+    \mc{D}_{ijkl}^{abcd}
+  }
+  \pr{
+    \fr{
+      1
+    }{
+      \mc{D}_{ij}^{ab}
+    }
+  +
+    \fr{
+      1
+    }{
+      \mc{D}_{kl}^{cd}
+    }
+  }
+  \tl{a}_{ijkl}^{abcd}
+\end{align*}
+\end{ex}
 
+\begin{cor}
+\thmtitle{The Frantz-Mills Factorization Theorem for Insertion Diagrams}
+\thmstatement{
+  An insertion diagram equals the sum over all relative orderings in the corresponding combined diagram that keep the top operator of the inserted diagram below the upper resolvent at the point of insertion in the remainder diagram.
+}
+\thmproof{
+  Consider the Frantz-Mills Factorization Theorem for open diagrams as an equation, with the separated diagram on the left and the sum over combined diagrams on the right.
+  Notice that the equation still holds true if we attach a feature to the top of any one of the parts, provided we apply this manipulation to each term on both sides of the equation.
+  Therefore, we can ``cap'' one of the parts with an operator, add a resolvent line above that, and attach whatever features we want to the top of the other operator.
+  This turns the left-hand side into an insertion diagram, and proves the proposition.
+}
 \end{cor}
+
+\begin{ex}
+Closing one of the diagrams in \Cref{ex:frantz-mills-example} and adding a resolvent line, we get the following.
+\begin{align*}
+&&
+\diagram{
+  \interaction{2}{1g}{(0,-0.5)}{ddot}{dashed};
+  \draw[-<-] (1g1) to ++(-0.25,1);
+  \draw[->-] (1g1) to ++(+0.25,1);
+  \draw[-<-] (1g2) to ++(-0.25,1);
+  \draw[->-] (1g2) to ++(+0.25,1);
+  \draw[thick,flexdotted] (-0.35,+0.15) to ++(1.7,0);
+  \draw[thick,flexdotted] (-0.35,+0.25) to ++(1.7,0);
+}\,\,
+\diagram{
+  \interaction{2}{1g}{(0,-0.5)}{ddot}{wiggly};
+  \interaction{2}{2g}{(0,+0.5)}{ddot}{wiggly};
+  \draw[->-,bend left ] (1g1) to (2g1);
+  \draw[-<-,bend right] (1g1) to (2g1);
+  \draw[->-,bend left ] (1g2) to (2g2);
+  \draw[-<-,bend right] (1g2) to (2g2);
+  \draw[thick,flexdotted] (-0.35,0.15) to ++(1.7,0);
+}
+=&\
+\diagram{
+  \interaction{2}{1g}{(0,-0.6)}{ddot}{dashed};
+  \interaction{2}{2g}{(2,-0.25)}{ddot}{wiggly};
+  \interaction{2}{3g}{(2,+0.25)}{ddot}{wiggly};
+  \draw[-<-] (1g1) to ++(-0.25,1.1);
+  \draw[->-] (1g1) to ++(+0.25,1.1);
+  \draw[-<-] (1g2) to ++(-0.25,1.1);
+  \draw[->-] (1g2) to ++(+0.25,1.1);
+  \draw[->-,bend left ] (2g1) to (3g1);
+  \draw[-<-,bend right] (2g1) to (3g1);
+  \draw[->-,bend left ] (2g2) to (3g2);
+  \draw[-<-,bend right] (2g2) to (3g2);
+  \draw[thick,flexdotted] (-0.4,-0.4) to ++(3.9,0);
+  \draw[thick,flexdotted] (-0.4,+0.0) to ++(3.9,0);
+  \draw[thick,flexdotted] (-0.4,+0.4) to ++(3.9,0);
+}
++
+\diagram{
+  \interaction{2}{1g}{(0,-0.25)}{ddot}{dashed};
+  \interaction{2}{2g}{(2,-0.6)}{ddot}{wiggly};
+  \interaction{2}{3g}{(2,+0.25)}{ddot}{wiggly};
+  \draw[-<-] (1g1) to ++(-0.25,0.75);
+  \draw[->-] (1g1) to ++(+0.25,0.75);
+  \draw[-<-] (1g2) to ++(-0.25,0.75);
+  \draw[->-] (1g2) to ++(+0.25,0.75);
+  \draw[->-,bend left ] (2g1) to (3g1);
+  \draw[-<-,bend right] (2g1) to (3g1);
+  \draw[->-,bend left ] (2g2) to (3g2);
+  \draw[-<-,bend right] (2g2) to (3g2);
+  \draw[thick,flexdotted] (-0.4,-0.4) to ++(3.9,0);
+  \draw[thick,flexdotted] (-0.4,+0.0) to ++(3.9,0);
+  \draw[thick,flexdotted] (-0.4,+0.4) to ++(3.9,0);
+}
+\end{align*}
+\end{ex}
+
+\begin{thm}
+\thmtitle{The Linked Diagram Theorem}
+\thmstatement{
+  The $n\eth$ RSPT order wavefunction and energy contributions are given by the linked component of the principal term in the bracketing expansion.
+\begin{align*}
+&&
+  \Y\ord{n}
+=
+  \pr{
+    (R_0V_c)^n\F
+  }_{\mr{L}}
+&&
+  E\ord{n+1}
+=
+  \ip{
+    V_c
+    (R_0V_c)^n
+  }_{\mr{L}}
+\end{align*}
+  That is, the bracketed terms exactly cancel with the unlinked component of the principal term.
+}
+\thmproof{
+}
+\end{thm}
 
 
 \end{document}
