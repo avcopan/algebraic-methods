@@ -1,0 +1,103 @@
+\documentclass[11pt,fleqn]{article}
+\usepackage[cm]{fullpage}
+%%AVC PACKAGES
+\usepackage{avcgreek}
+\usepackage{avcfonts}
+\usepackage{avcmath}
+\usepackage[numberby=section]{avcthm} % 
+\usepackage{qcmacros}
+\usepackage{goldstone}
+%%MACROS FOR THIS DOCUMENT
+\numberwithin{equation}{section}
+\usepackage{titlesec}
+\titleformat{\section}{\Large\bfseries\mathversion{bold}}{\thesection.}{5pt}{}
+% remove header from TOC
+\makeatletter
+\renewcommand\tableofcontents{%
+  \@starttoc{toc}%
+}
+
+%%%DOCUMENT%%%
+\begin{document}
+
+%%TENSORS
+\appendix
+\section{}\label{sec:}
+
+\begin{prop}
+\thmstatement{
+  If $F(\bm\a)$ and $G(\bm\a)$ are generating functions related by $F(\bm\a)=\f(G(\bm\a)-G(\bm0))$ where $\f$ is a scalar function with Taylor expansion $\f(x)=\f_0+\sum_{k=1}^\infty\fr{1}{k!}\f_k\, x^k$, their generalized moments are related by
+\begin{align*}
+  f(Q)
+=
+  \sum_{k=1}^n
+  \f_k
+  \sum_{(Q_1\cd Q_k)}^{\mc{P}_k(Q)}
+  (-)^{t_{\bo{Q}}}
+  g(Q_1)\cd g(Q_k)
+\end{align*}
+}
+\thmproof{
+Denote the Taylor expansions of $F$ and $G$ as
+\begin{align*}
+&
+  F(\bm\a)
+=
+  f_0
++
+  \sum_{n=1}^\infty
+  \tfr{1}{n!}
+  \sum_{i_1\cd i_n}
+  \a_{i_1}\cd\a_{i_n}
+  f(q_{i_1}\cd q_{i_n})
+&&
+  G(\bm\a)
+=
+  g_0
++
+  \sum_{n=1}^\infty
+  \tfr{1}{n!}
+  \sum_{i_1\cd i_n}
+  \a_{i_1}\cd\a_{i_n}
+  g(q_{i_1}\cd q_{i_n})
+\end{align*}
+and define $G_n\equiv\tfr{1}{n!}\sum_{i_1\cd i_n}\a_{i_1}\cd\a_{i_n}g(q_{i_1}\cd q_{i_n})$ so that $G(\bm\a)-G(\bm0)=\sum_{n=1}^\infty G_n$.
+Then
+\begin{align*}
+  F
+=
+  \f(\ts\sum_nG_n)
+=
+  \f_0
++
+  \sum_{k=1}^\infty
+  \tfr{1}{k!}
+  \f_k
+  \pr{\ts\sum_nG_n}^k
+=
+  \f_0
++
+  \sum_{k=1}^\infty
+  \tfr{1}{k!}
+  \f_k
+  \sum_{n_1\cd n_k}
+  G_{n_1}\cd G_{n_k}
+=
+  \f_0
++
+  \sum_{n=1}^\infty
+  \sum_{k=1}^n
+  \tfr{1}{k!}
+  \f_k
+  \sum_{(n_1\cd n_k)}^{\mc{C}_k(n)}
+  G_{n_1}\cd G_{n_k}
+\end{align*}
+where the last step sorts the sum into powers of $\bm\a$.
+$\mc{C}(n)$ denotes the set of integer compositions of $n$, i.e. the set of all ordered tuples $(n_1,n_2,\cd)$ of positive integers that add up to $n$.
+$\mc{C}_k(n)\subset\mc{C}(n)$ is the set of $k$-tuple integer compositions of $n$, i.e. all $(n_1,\ld,n_k)$ of fixed length $k$ such that $n_1+\cd+n_k=n$.
+For each term in the sum
+}
+\end{prop}
+
+
+\end{document}
