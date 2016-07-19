@@ -248,7 +248,7 @@ $\F$-normal-ordering is indicated by the use of double-circle vertices, $\diagra
 \end{ntt}
 
 \begin{dfn}\label{dfn:operators-in-diagram-notation}
-\thmtitle{$m$-electron operators in Diagram notation}
+\thmtitle{$m$-electron operators in diagram notation}
 The primary building blocks of a graph are $m$-electron operators, which can be represented in two equivalent ways.
 The \textit{Goldstone representation} depicts an operator as a label attached to the corresponding excitation operator, whereas the \textit{Hugenholtz representation} depicts the operator as a single vertex with $m$ outgoing and incoming lines.
 Note that $\pr{\tfr{1}{m!}}^2\sum_{\mr{Einstein}}$ is baked into the definition (see \Cref{dfn:graph} and \Cref{ax:rules-of-interpretation}).
@@ -359,20 +359,34 @@ In practice, the symmetry of the Hugenholtz operator simplifies the enumeration 
 \end{dfn}
 \footnotetext{In the original paper [J.~Goldstone, \textit{P.~Roy.~Soc.~A} \textbf{239}, (1957)], Goldstone's diagrams were actually defined in terms of non-antisymmetrized integrals.  The \textit{antisymmetrized Goldstone diagrams} used here are sometimes called \textit{Brandow diagrams}.}
 
+
 \begin{dfn}\label{dfn:graph}
 \thmtitle{Graph}
 A \textit{graph}\footnotemark\
 is a 4-tuple $G=(O,L,h,t)$ where $O$ is a set of electron operators, $L$ is a set of lines, and $h$ and $t$ are maps from $L$ to $O$ that return the \textit{head} $h(l)\in O$ and \textit{tail end} $t(l)\in O$ of every line $l\in L$.
+The notation $l\sim l'$ is used to indicate that $l$ and $l'$ are \textit{equivalent lines}, which means that they have the same head and tail.
 Here, we allow for \textit{external lines} in which either $h(l)$ or $t(l)$ equals $e$, the \textit{free end}, which is formally considered a member of $O$.
-Lines no free end are termed \textit{internal}.
-If $l$ and $l'$ share the same tail and the same head, they are termed \textit{equivalent lines} and we write $l\sim l'$.
-If $o$ and $o'$ can be exchanged, attaching the ends of one to the other and vice versa, without altering $G$ then they are termed \textit{interchangeable operators}.
-Repeated copies of the same operator are formally distinguished as elements of $O$ and termed \textit{identical operators}, denoted $o\simeq o'$.
-If identical operators are interchangeable, they are termed \textit{equivalent}, denoted $o\sim o'$.
-See \Cref{ex:equivalent-operators}.
+Lines with no free end are termed \textit{internal}.
+A graph is termed \textit{closed} if it contains no external lines, in which case it represents a scalar-valued algebraic term.
+Otherwise, the graph is \textit{open} and represents an operator-valued algebraic term.
 The \textit{rules of interpretation} for translating $G$ into an algebraic expression are given in \Cref{ax:rules-of-interpretation}.
 \end{dfn}
 \footnotetext{In group theory jargon this is essentially a \textit{directed multigraph}, except that the vertical ordering of operators matters.}
+
+\begin{dfn}
+\thmtitle{Connected and linked graphs}
+Two lines are \textit{adjacent} if they share a non-free end.
+In a Goldstone diagram, two lines are termed \textit{Goldstone adjacent} if they end on the same single-excitation vertex of an operator.
+The broader sense of the adjacency is then called \textit{Hugenholtz adjacency}.
+A \textit{path} is a sequence of lines $(l_1,\ld,l_n)$ such that $l_i$ is adjacent to $l_{i+1}$ and no line is repeated.
+In a Goldstone diagram, a \textit{Goldstone path} is a path whose lines are Goldstone adjacent.
+Following the same nomenclature, paths in the broader sense can also be called \textit{Hugenholtz paths}.
+A \textit{Goldstone cycle} is a Goldstone path whose ends are either Goldstone adjacent or free.
+In the first case we call the Goldstone cycle a \textit{loop} and, in the second case, we call it an \textit{open cycle}.
+A graph is considered \textit{connected} if there is a Hugenholtz path connecting any two of its operators.
+A disconnected component of a graph that is closed unto itself is termed \textit{unlinked}.
+That is, provided none if its disconnected parts are closed, a \textit{disconnected} graph may still be classified as \textit{linked}.
+\end{dfn}
 
 \begin{dfn}
 \thmtitle{Summand graph}
@@ -382,11 +396,172 @@ $\Si(G)$ translates directly into an algebraic summand according to \Cref{dfn:op
 \end{dfn}
 \footnotetext{In group theory jargon this is an \textit{edge-labeled directed multigraph}.}
 
+\begin{drv}\label{drv:phase-rule-for-goldstone-cycles}
+\thmtitle{Phase rule for simplifying summand graphs with contractions}
+The summand graph of a pair of $m$-electron operators with a single particle or hole contraction has the following form in Goldstone representation
+\begin{align*}
+\diagram{
+  %top operator
+  \node[dot=white] (a1) at (0.0,+1) {};
+  \path (a1) to
+    ++(0.6,0) node (adots1) {$\cdots$} to
+    ++(0.6,0) node[dot=white] (ai) {} to 
+    ++(0.6,0) node (adots2) {$\cdots$} to
+    ++(0.6,0) node[dot=white] (am) {};
+  \path (am) to ++(+0.6,0) node[draw] (alabel) {$\bm{v}$};
+  \draw[->-] (a1) to ++(0,+0.5) node[above] {$p_1$};
+  \draw[-<-] (a1) to ++(0,-0.5) node[below] {$q_1$};
+  \draw[->-] (ai) to ++(0,+0.5) node[above] {$p_i$};
+  \draw[->-] (am) to ++(0,+0.5) node[above] {$p_m$};
+  \draw[-<-] (am) to ++(0,-0.5) node[below] {$q_m$};
+  \draw (a1) to (adots1) to (ai) to (adots2) to (am) to (alabel);
+  %bottom operator
+  \node[dot=white] (b1) at (0.6,-1) {};
+  \path (b1) to
+    ++(0.6,0) node (bdots1) {$\cdots$} to
+    ++(0.6,0) node[dot=white] (bj) {} to 
+    ++(0.6,0) node (bdots2) {$\cdots$} to
+    ++(0.6,0) node[dot=white] (bn) {};
+  \path (b1) to ++(-0.6,0) node[draw] (blabel) {$\bm{w}$};
+  \draw (blabel) to (b1) to (bdots1) to (bj) to (bdots2) to (bn);
+  \draw[->-] (b1) to ++(0,+0.5) node[above] {$r_1$};
+  \draw[-<-] (b1) to ++(0,-0.5) node[below] {$s_1$};
+  \draw[-<-] (bj) to ++(0,-0.5) node[below] {$s_j$};
+  \draw[->-] (bn) to ++(0,+0.5) node[above] {$r_n$};
+  \draw[-<-] (bn) to ++(0,-0.5) node[below] {$s_n$};
+  %connection
+  \path (ai) to node[midway,label=north east:$d$] (midpt) {} (bj);
+  \draw[->-] (bj) to[bend right=10] (midpt) to[bend left=10] (ai);
+}
+\begin{array}{c@{\ }l}
+=
+&
+  \ol{v}^{q_1\cd d\cd q_m}_{p_1\cd p_i\cd p_m}
+  \ol{w}^{s_1\cd s_j\cd s_n}_{r_1\cd d\cd r_n} \cdot
+\\[5pt]
+&
+  \no{
+    a^{p_1\cd p_i\cd p_m}_{q_1\cd d^\ptcl\cd q_m}
+    a^{r_1\cd d^\ptcl\cd r_n}_{s_1\cd s_j\cd s_n}
+  }
+\end{array}
+&&
+\diagram{
+  %top operator
+  \node[dot=white] (a1) at (0.0,+1) {};
+  \path (a1) to
+    ++(0.6,0) node (adots1) {$\cdots$} to
+    ++(0.6,0) node[dot=black] (ai) {} to 
+    ++(0.6,0) node (adots2) {$\cdots$} to
+    ++(0.6,0) node[dot=white] (am) {};
+  \path (am) to ++(+0.6,0) node[draw] (alabel) {$\bm{v}$};
+  \draw[->-] (a1) to ++(0,+0.5) node[above] {$p_1$};
+  \draw[-<-] (a1) to ++(0,-0.5) node[below] {$q_1$};
+  \draw[-<-] (ai) to ++(0,+0.5) node[above] {$q_i$};
+  \draw[->-] (am) to ++(0,+0.5) node[above] {$p_m$};
+  \draw[-<-] (am) to ++(0,-0.5) node[below] {$q_m$};
+  \draw (a1) to (adots1) to (ai) to (adots2) to (am) to (alabel);
+  %bottom operator
+  \node[dot=white] (b1) at (0.6,-1) {};
+  \path (b1) to
+    ++(0.6,0) node (bdots1) {$\cdots$} to
+    ++(0.6,0) node[dot=black] (bj) {} to 
+    ++(0.6,0) node (bdots2) {$\cdots$} to
+    ++(0.6,0) node[dot=white] (bn) {};
+  \path (b1) to ++(-0.6,0) node[draw] (blabel) {$\bm{w}$};
+  \draw (blabel) to (b1) to (bdots1) to (bj) to (bdots2) to (bn);
+  \draw[->-] (b1) to ++(0,+0.5) node[above] {$r_1$};
+  \draw[-<-] (b1) to ++(0,-0.5) node[below] {$s_1$};
+  \draw[->-] (bj) to ++(0,-0.5) node[below] {$r_j$};
+  \draw[->-] (bn) to ++(0,+0.5) node[above] {$r_n$};
+  \draw[-<-] (bn) to ++(0,-0.5) node[below] {$s_n$};
+  %connection
+  \path (ai) to node[midway,label=north east:$k$] (midpt) {} (bj);
+  \draw[-<-] (bj) to[bend right=10] (midpt) to[bend left=10] (ai);
+}
+\begin{array}{c@{\ }l}
+=
+&
+  \ol{v}^{q_1\cd q_i\cd q_m}_{p_1\cd k\cd p_m}
+  \ol{w}^{s_1\cd k\cd s_n}_{r_1\cd r_j\cd r_n} \cdot
+\\[5pt]
+&
+  \no{
+    a^{p_1\cd k^\hole\cd p_m}_{q_1\cd q_i\cd q_m}
+    a^{r_1\cd r_j\cd r_n}_{s_1\cd k^\hole\cd s_n}
+  }
+\end{array}
+\end{align*}
+where $d$ is a virtual index, $k$ is an occupied index, and we are not using implicit summation.
+Notice that $a^{p_1\cd p_n}_{q_1\cd q_n}=\no{a^{p_1}_{q_1}\cd a^{p_n}_{q_n}}$ and that moving the single-excitation operators around in the string always involves an even number of transpositions.
+This allows us to bring together the contracted pair of single-excitation operators without changing the sign of the expression.
+The contracted pair of operators can then be eliminated via
+\begin{align*}
+  \no{a^{p_i}_{d^\ptcl}a^{d^\ptcl}_{s_j}}
+=
+-
+  \no{a^{d^\ptcl p_i}_{d^\ptcl s_j}}
+=
+-
+  (-\h^d_d)
+  a^{p_i}_{s_j}
+=
+  a^{p_i}_{s_j}
+&&
+  \text{or}
+&&
+  \no{a^{k^\hole}_{q_i}a^{r_j}_{k^\hole}}
+=
+-
+  \no{a^{k^\hole r_j}_{k^\hole q_i}}
+=
+-
+  (+\g^k_k)
+  a^{r_j}_{q_i}
+=
+-
+  a^{r_j}_{q_i}
+\end{align*}
+in the case of a particle or hole contraction, respectively.
+In words, a contracted pair of operators in a summand graph can be eliminated by joining their uncontracted partners into a new single-excitation operator and multiplying by $-1$ in the case of a hole contraction.
+Applying this rule to each internal line of a Goldstone cycle, one finds that
+\begin{enumerate}
+\item
+  eliminating all contracted operators of an \textit{open cycle} leaves $(-)^h a^p_q$, where $p$ and $q$ are the indices of the free ends
+\item
+  eliminating all contracted operators of a \textit{loop} leaves $(-)^h a^{d^\ptcl}_{d^\ptcl}=(-)^h(-\h^d_d)=(-)^{h+1}$
+\end{enumerate}
+where $h$ is the total number of hole lines in the Goldstone cycle.
+Since the lines of any Goldstone graph uniquely partition into Goldstone cycles, these rules provide a quick way to resolve the operator component of any diagram into a normal-ordered product of uncontracted operators times a phase factor.
+\end{drv}
+
+\begin{cor}
+\thmtitle{Phase rule for closed graphs}
+\thmstatement{
+  After eliminating all contracted operator pairs, the sign of a closed summand graph is $(-)^{h+l}$, where $h$ is the total number of holes in the graph and $l$ is the number of loops.
+}
+\thmproof{
+  By definition, every Goldstone cycle in a closed graph is a loop.
+  Let $h_i$ be the number of holes in the $i\eth$ loop.
+  Then, by \Cref{drv:phase-rule-for-goldstone-cycles}, the fully contracted operator product evaluates to
+  $
+    \prod_{i=1}^l (-)^{h_i+1}
+  =
+    (-)^{{\sum_i}{h_i} +\, l}
+  =
+    (-)^{h+\,l}
+  $.
+}
+\end{cor}
+
 \begin{dfn}
 \thmtitle{Degeneracy}
-The \textit{line degeneracy} or simply \textit{degeneracy} of $G$ is the number of permutational symmetries in $\Si(G)$, a positive integer denoted $\mr{dg}(G)$.
-Formally, if $S=\{s_1,\ld,s_n\}$ with $s(l_i)=s_i$, then $\mr{dg}(G)$ is the number of label permutations $\Si_{\mr{\pi}}(G)=(G,S,s_\pi)$, where $\pi\in\mr{S}_n$ and $s_{\pi}(l_i)=s_{\pi(i)}$, that don't change the summand graph, $\Si_\pi(G)=\Si(G)$.
-If $G$ has no identical operators, then $\mr{dg}(G)=|L_1|!\cd|L_{m}|!$ where $L=L_1\cup\cd\cup L_{m}$ partitions $L$ into equivalent lines and $|L_i|$ denotes the number of elements in the set $L_i$.
+The \textit{line degeneracy} or simply \textit{degeneracy} of $G$ is the number of permutational symmetries in $\Si(G)$, a positive integer here denoted $\mr{dg}(G)$.
+Formally, this can be defined as follows.
+If $S=\{s_1,\ld,s_n\}$ is the label set of $\Si(G)$ and $s(l_i)=s_i$ is its label map, we can define a new summand graph $\Si_{\pi}(G)=(G, S, s_{\pi})$ with a permuted label map $s_\pi$ given by $s_{\pi}(l_i)=s_{\pi(i)}$, where $\pi$ is a permutation in $\mr{S}_n$.
+Then $\mr{dg}(G)$ is the number of $\Si_{\pi}(G)$ that are equal to $\Si(G)$.
+If $L_1\cup\cd\cup L_{m}$ partitions the line set of $G$ into equivalent lines and $|L_i|$ denotes the number of elements in $L_i$, then $\mr{dg}(G)=|L_1|!\cd|L_{m}|!$.
+The degeneracy factor becomes slightly more complicated for graphs with repeated operators, which will be considered below in \cref{subsec:repeated-operators}.
 \end{dfn}
 
 \begin{ax}\label{ax:rules-of-interpretation}
@@ -397,6 +572,7 @@ See \Cref{ex:graph}.
   \item Multiply $\Si(G)$ by $\mr{dg}(G)^{-1}$, termed the \textit{degeneracy factor}.
   \item Sum each index in $\Si(G)$ over its range.
 \end{enumerate}
+Symbolically, these rules can be stated as follows: $G=\fr{1}{\mr{dg}(G)}\sum_{\mr{Einstein}}\Si(G)$.
 \end{ax}
 
 \begin{ex}
@@ -441,7 +617,7 @@ The one- and two-electron components of $H_e$ expand into occupied/virtual block
   \tfr{1}{4}
   \ol{g}_{ij}^{kl}a^{ij}_{kl}
 \end{align*}
-Defining
+which, defining
 $
 \diagram{
   \draw (-0.5,0) node[squarex] (h) {} -- (0,0) node[dot=white] (h1) {}; 
@@ -463,7 +639,7 @@ $
 \equiv
   \textstyle\frac{1}{4}\overline{g}_{pq}^{rs}a_{rs}^{pq}
 $,
-these equations are expressed in terms of Goldstone diagrams as follows.
+can be expressed in terms of Goldstone diagrams as
 \begin{align*}
 \diagram{
   \draw (-0.5,0) node[squarex] (h) {} -- (0,0) node[dot=white] (h1) {};
@@ -573,7 +749,7 @@ these equations are expressed in terms of Goldstone diagrams as follows.
   \draw[-<-] (g1) to ++(0,+0.5);
   \draw[->-] (g2) to ++(0,-0.5);
   \draw[-<-] (g2) to ++(0,+0.5);
-}
+}\,\,.
 \end{align*}
 The degeneracy factors fall into three cases: $\{l_1,l_2\}\cup\{l_3,l_4\}\implies \mr{dg}(G)^{-1}=\tfr{1}{2\cdot2}$; $\{l_1,l_2\}\cup\{l_3\}\cup\{l_4\}\implies \mr{dg}(G)^{-1}=\tfr{1}{2\cdot1\cdot1}$; and $\{l_1\}\cup\{l_2\}\cup\{l_3\}\cup\{l_4\}\implies \mr{dg}(G)^{-1}=\tfr{1}{1\cdot1\cdot1\cdot1}$.
 In terms of Hugenholtz diagrams, these are written as follows.
@@ -690,7 +866,17 @@ In terms of Hugenholtz diagrams, these are written as follows.
   \draw[->-] (g) to ++(+0.25,-0.5);
 }
 \end{align*}
+Note that in each case the correct scalar factor is built into the definition of the diagram.
 \end{ex}
+
+\begin{dfn}
+\thmtitle{Contraction}
+Formally, a \textit{graph contraction} is a map $G\mapsto c(G)$ joining one or more compatible external lines in $G$.
+For example, $c$ might replace $l_1$ and $l_2$, which have ends $(t(l_1),h(l_1))=(o_1,e)$ and $(t(l_2),h(l_2))=(e,o_2)$, with $l_{12}$, which has ends $(t(l_{12}),h(l_{12}))=(o_1,o_2)$.
+Two contractions $c$ and $c'$ of $G$ are \textit{equivalent} if $c(G)=c'(G)$.
+The number of equivalent ways of achieving a given contraction $c$ is called its \textit{pattern degeneracy}, which is denoted $\mr{pat}(c)$.
+The complete set of inequivalent graph contractions of $G$ is here denoted $\mr{Ctr}(G)$.
+\end{dfn}
 
 \begin{samepage}
 \begin{ex}
@@ -740,7 +926,7 @@ The $\F$-normal Wick expansion of the one- and two-electron components of $H_e$ 
   \g^p_r
   \g^q_s
 \end{align*}
-In terms of Goldstone diagrams, these equations are written as
+In terms of Goldstone diagrams and Hugenholtz diagrams, these equations are written as follows.
 \begin{align*}
 \diagram{
   \draw (-0.5,0) node[squarex] (h) {} -- (0,0) node[dot=white] (h1) {};
@@ -788,7 +974,10 @@ In terms of Goldstone diagrams, these equations are written as
   \draw[-<-] (g2) arc (0:360:-0.25);
 }
 \\
-\intertext{and, in terms of Hugenholtz diagrams, they are written as follows.}
+\updownarrow\hspace{1pt}&
+&
+\updownarrow\hspace{1pt}&
+\\
 \diagram{
   \node[dot=white] (h) at (0,0) {};
   \draw[->-] (h) to ++(0,+0.5);
@@ -835,6 +1024,8 @@ In terms of Goldstone diagrams, these equations are written as
   \draw[-<-] (g) arc (0:360:-0.25);
 }
 \end{align*}
+Note that here too each degeneracy factor is exactly equal to the scalar factor in front of the corresponding algebraic term.
+This follows from the diagrammatic statement of Wick's theorem, which is given below (\Cref{thm:wicks-theorem-for-diagrams}).
 \end{ex}
 \end{samepage}
 
@@ -857,12 +1048,7 @@ The $\F$-normal Wick expansion of $H_e$ in terms of Goldstone diagrams is
   \draw[-<-] (g2) to ++(0,-0.5);
 }
 =
-  E_0
-+
-  H_{\mr{c}}
-&&
-  E_0
-=
+\underset{E_0}{\underbrace{
 \diagram{
   \draw (-0.5,0) node[squarex] (h) {} -- (0,0) node[ddot=white] (h1) {};
   \draw[-<-] (h1) arc (0:360:-0.25);
@@ -873,9 +1059,9 @@ The $\F$-normal Wick expansion of $H_e$ in terms of Goldstone diagrams is
   \draw[->-] (g1) arc (0:360:+0.25);
   \draw[-<-] (g2) arc (0:360:-0.25);
 }
-&&
-  H_{\mr{c}}
-=
+}}
++
+\underset{H_{\mr{c}}}{\underbrace{
 \diagram{
   \draw (-0.5,0) node[circlex] (f) {} -- (0,0) node[ddot=white] (f1) {};
   \draw[->-] (f1) to ++(0,+0.5);
@@ -889,55 +1075,242 @@ The $\F$-normal Wick expansion of $H_e$ in terms of Goldstone diagrams is
   \draw[-<-] (g1) to ++(0,-0.5);
   \draw[-<-] (g2) to ++(0,-0.5);
 }
-&&
-\diagram{
-  \draw (-0.5,0) node[circlex] (f) {} -- (0,0) node[ddot=white] (f1) {};
-  \draw[->-] (f1) to ++(0,+0.5);
-  \draw[-<-] (f1) to ++(0,-0.5);
-}
-\equiv
-\diagram{
-  \draw (-0.5,0) node[squarex] (h) {} -- (0,0) node[ddot=white] (h1) {};
-  \draw[->-] (h1) to ++(0,+0.5);
-  \draw[-<-] (h1) to ++(0,-0.5);
-}
-+
-\diagram{
-  \interaction{2}{g}{(0,0)}{ddot=white}{sawtooth};
-  \draw[->-] (g1) arc (0:360:+0.25);
-  \draw[->-] (g2) to ++(0,+0.5);
-  \draw[-<-] (g2) to ++(0,-0.5);
-}
+}}
 \end{align*}
-where
+  where
 $
 \diagram{
   \draw (-0.5,0) node[circlex] (f) {} -- (0,0) node[ddot=white] (f1) {};
   \draw[->-] (f1) to ++(0,+0.3);
   \draw[-<-] (f1) to ++(0,-0.3);
 }
+\equiv
+\diagram{
+  \draw (-0.5,0) node[squarex] (h) {} -- (0,0) node[ddot=white] (h1) {};
+  \draw[->-] (h1) to ++(0,+0.3);
+  \draw[-<-] (h1) to ++(0,-0.3);
+}
++
+\diagram{
+  \interaction{2}{g}{(0,0)}{ddot=white}{sawtooth};
+  \draw[->-] (g1) arc (0:360:+0.25);
+  \draw[->-] (g2) to ++(0,+0.3);
+  \draw[-<-] (g2) to ++(0,-0.3);
+}
 $
-represents the $\F$-normal-ordered Fock operator,
+is the $\F$-normal-ordered Fock operator,
 $
   f_p^q\tl{a}^p_q
+=
+  h_p^q\tl{a}^p_q
++
+  \ol{g}_{pr}^{qs}\g^r_s\tl{a}^p_q
 $.
 \end{ex}
 
+\begin{lem}\label{lem:pattern-degeneracy-no-identical-operators}
+\thmstatement{The pattern degeneracy of a contraction $c$ is $\mr{pat}(c)=\dfr{\mr{dg}(G)}{\mr{dg}(c(G))}$.
+}
+\thmproof{
+  Let $L$ be the line set of $G$ and let $L_c$ be the line set of $c(G)$.
+  If $L=L_1\cup\cd\cup L_m$ partitions $L$ into equivalent lines, let $L_{i,j}=L_{j,i}$ denote the subset of lines in $L_c$ that result from contracting lines from $L_i$ with lines from $L_j$.
+  Let $L_{i,0}$ denote the subset of lines from $L_i$ which is unchanged by $c$.
+  Then $L_c=\bigcup_{i>j} L_{i,j}=\bigcup_{i=1}^m \pr{L_{i,0}\cup L_{i,1}\cup\cd L_{i,i-1}}$ partitions $L_c$ into equivalent lines.
+  By standard counting techniques, the number of equivalent ways of partitioning $L_i$ for contraction is $|L_i|$ choose $|L_{i,0}|,|L_{i,1}|,\cd,|L_{i,m}|$, and the number of ways of forming $L_{i,j}$ from a given partition of $L_i$ and $L_j$ is $|L_{i,j}|!=|L_{j,i}|!$.
+  Therefore, the total pattern degeneracy of $c$ is
+  \begin{align*}
+    \mr{pat}(c)
+  =
+    \prod_{i=1}^m
+    {|L_i| \choose |L_{i,0}|,|L_{i,1}|,\ld,|L_{i,m}|}
+    \prod_{i=1}^m
+    \prod_{j=i+1}^m
+    |L_{i,j}|!
+  =
+    \fr{
+      |L_1|!\cd|L_m|!
+    }
+    {
+      \prod_{i=1}^m
+      |L_{i,0}|!
+      |L_{i,1}|!\cd|L_{i,i-1}|!
+    }
+  =
+    \fr{\mr{dg}(G)}{\mr{dg}(c(G))}\,.
+  \end{align*}
+}
+\end{lem}
+
+\begin{thm}\label{thm:wicks-theorem-for-diagrams}
+\thmtitle{Wick's theorem for diagrams}
+\thmstatement{
+$\ds{
+  G
+=
+  \no{G}
++
+  \sum_{c\in\mr{Ctr}(G)}
+  \no{c(G)}
+}$
+}
+\thmproof{
+  This follows by expanding $G$ as $\tfr{1}{\mr{dg}(G)}\sum_{\text{Einstein}}\Si(G)$, applying the standard algebraic Wick's theorem to the summand graph,
+  $
+    \Si(G)
+  =
+    \no{\Si(G)}
+  +
+    \sum_{c\in\mr{Ctr}(G)}
+    \mr{pat}(c)
+    \no{\Si(c(G))}
+  $, and writing $\mr{pat}(c)$ as $\fr{\mr{dg}(G)}{\mr{dg}(c(G))}$:
+\begin{align*}
+  G
+=
+  \tfr{1}{\mr{dg}(G)}
+  \sum_{\mr{Einstein}}
+  \Si(G)
+=
+  \tfr{1}{\mr{dg}(G)}
+  \sum_{\mr{Einstein}}
+  \no{\Si(G)}
++
+  \sum_{c\in\mr{Ctr}(G)}
+  \tfr{1}{\mr{dg}(c(G))}
+  \sum_{\mr{Einstein}}
+  \no{\Si(c(G))}
+=
+  \no{G}
++
+  \sum_{c\in\mr{Ctr}(G)}
+  \no{c(G)}
+\end{align*}
+  In words, any graph is equal to its normal-ordering plus the sum over all unique graph contractions.
+}
+\end{thm}
+
+\begin{rmk}
+The practical advantage of the graphical form of Wick's theorem is that there are far fewer unique graph contractions than there are algebraic contractions.
+Effectively, graphical notation makes the permutational symmetries of $m$-electron operators obvious, which tends to make them easier to manipulate.
+\end{rmk}
+
+\begin{ntt}
+\thmtitle{Vacuum line}
+Often, diagrams are used to evaluate vacuum expectation values
+$\ip{\vac|\cd|\vac}$
+or, in the case of $\F$ normal ordering,
+expectation values with respect to the Fermi vacuum
+$\ip{\F|\cd|\F}$.
+The vacuum ket is graphically depicted by drawing thick double lines
+$\diagram[top]{\path (0,-0.08) to ++(0.5,0);}$
+below the graph, and the bra is represented by thick double lines above.
+\end{ntt}
+
 \begin{dfn}
-\thmtitle{Contraction}
-A \textit{graph contraction} is a map $G\mapsto c(G)$ joining one or more compatible external lines in $G$.
-For example, $c$ might replace $l_1$ and $l_2$, which have ends $(t(l_1),h(l_1))=(o_1,e)$ and $(t(l_2),h(l_2))=(e,o_2)$, with $l_{12}$, which has ends $(t(l_{12}),h(l_{12}))=(o_1,o_2)$.
-Contractions $c$ and $c'$ of $G$ are \textit{equivalent} if $c(G)=c'(G)$.
-The number of $c'$ equivalent to $c$ is called the \textit{pattern degeneracy} of $c$, denoted $\mr{pat}(c)$.
-The complete set of inequivalent graph contractions of $G$ is here denoted $\mr{Ctr}(G)$.
+\thmtitle{Coefficient diagram}
+A \textit{coefficient diagram} is a closed graph in which one of the interaction vertices is an antisymmetrized Kronecker delta,
+$\ol{v}^{q_1'\cd q_m'}_{p_1'\cd p_m'}=\op{P}^{(p_1/\cd /p_m)}_{(q_1/\cd /q_m)}\d^{p_1}_{p_1'}\cd \d^{p_m}_{p_m'}\d^{q_1'}_{q_1}\cd \d^{q_m'}_{q_m}$.\footnote{This is equivalent to plugging in a dummy interaction vertex $\ol{v}^{q_1'\cd q_m'}_{p_1'\cd p_m'}$ and taking the derivative with respect to $\ol{v}^{q_1\cd q_m}_{p_1\cd p_m}$.}
+This is equivalent to deleting this operator and contracting the resulting open diagram with $a^{p_1\cd p_m}_{q_1\cd q_m}$, fixing the index values of the free ends.
+Graphically, this is depicted by capping the open ends
+$\diagram{\draw[->-] (0,0) to ++(0.5,0) node[smalldot] {};}$
+and labelling the annihilation lines with $p_1,\ld,p_m$ and the creation lines with $q_1,\cd,q_m$.
+Closed graphs that aren't coefficient diagrams are sometimes called \textit{energy diagrams}, and diagrams that are open on top with a vacuum ket at the bottom are sometimes called \textit{wavefunction diagrams}.
 \end{dfn}
 
+\begin{ex}
+Consider the following simple examples of coefficient diagrams
+\begin{align*}
+&&
+  \ip{\F|\tl{a}^i_a H_c|\F}
+=
+\diagram[top, bottom]{
+  \node[ddot=black] (a1) at (0.2,+0.7) {};
+  \draw (-0.8,-0.5) node[circlex] (f) {} to ++(0.5,0) node[ddot=white] (f1) {};
+  \node at (0.2,-0.5) {+};
+  \interaction{2}{g}{(0.7,-0.5)}{ddot=white}{sawtooth};
+  \draw[->-] (a1) to ++(-0.25,-0.5) node[left]  {\scriptsize$i$};
+  \draw[-<-] (a1) to ++(+0.25,-0.5) node[left]  {\scriptsize$a$};
+  \draw[->-] (f1) to ++(0,+0.5);
+  \draw[-<-] (f1) to ++(0,-0.5);
+  \draw[->-] (g1) to ++(0,+0.5);
+  \draw[-<-] (g1) to ++(0,-0.5);
+  \draw[->-] (g2) to ++(0,+0.5);
+  \draw[-<-] (g2) to ++(0,-0.5);
+}
+=
+\diagram{
+  \draw (0,-0.5) node[circlex] (f) {} to ++(0.5,0) node[ddot=white] (f1) {};
+  \draw[-<-] (f1) to ++(-0.25,+1) node[smalldot,label=north:\scriptsize$i$] {};
+  \draw[->-] (f1) to ++(+0.25,+1) node[smalldot,label=north:\scriptsize$a$] {};
+}
+=
+  f_a^i
+&&
+  \ip{\F|\tl{a}^{ij}_{ab}H_c|\F}
+=
+\diagram[top, bottom]{
+  \interaction{2}{a}{(0,+0.7)}{ddot=black}{densely dotted};
+  \draw (-0.8,-0.5) node[circlex] (f) {} to ++(0.5,0) node[ddot=white] (f1) {};
+  \node at (0.2,-0.5) {+};
+  \interaction{2}{g}{(0.7,-0.5)}{ddot=white}{sawtooth};
+  \draw[->-] (a1) to ++(-0.25,-0.5) node[left]  {\scriptsize$i$};
+  \draw[-<-] (a1) to ++(+0.25,-0.5) node[left]  {\scriptsize$a$};
+  \draw[->-] (a2) to ++(-0.25,-0.5) node[right] {\scriptsize$j$};
+  \draw[-<-] (a2) to ++(+0.25,-0.5) node[right] {\scriptsize$b$};
+  \draw[->-] (f1) to ++(0,+0.5);
+  \draw[-<-] (f1) to ++(0,-0.5);
+  \draw[->-] (g1) to ++(0,+0.5);
+  \draw[-<-] (g1) to ++(0,-0.5);
+  \draw[->-] (g2) to ++(0,+0.5);
+  \draw[-<-] (g2) to ++(0,-0.5);
+}
+=
+\diagram{
+  \interaction{2}{g}{(0,-0.5)}{ddot=black}{sawtooth};
+  \draw[-<-] (g1) to ++(-0.25,+1) node[smalldot,label=north:\scriptsize$i$] {};
+  \draw[->-] (g1) to ++(+0.25,+1) node[smalldot,label=north:\scriptsize$a$] {};
+  \draw[-<-] (g2) to ++(-0.25,+1) node[smalldot,label=north:\scriptsize$j$] {};
+  \draw[->-] (g2) to ++(+0.25,+1) node[smalldot,label=north:\scriptsize$b$] {};
+}
+=
+  \ol{g}_{ab}^{ij}
+\end{align*}
+where we have simplified the interpreted diagrams as
+$
+  \sum_{i'a'}
+  \d^i_{i'}\d^{a'}_a
+  f^{i'}_{a'}
+=
+  f^i_a
+$
+and
+$
+  \pr{\tfr{1}{2}}^2
+  \sum_{i'j'a'b'}
+  P^{(i/j)}_{(a/b)}
+  \d^{a'}_a\d^{b'}_b
+  \d^i_{i'}\d^j_{j'}
+  \ol{g}_{a'b'}^{i'j'}
+=
+  \ol{g}^{ij}_{ab}
+$.
+These are simply the second and third Slater rules in diagrammatic form.
+\end{ex}
+
+
+
+\subsection{Generalization for repeated operators}\label{subsec:repeated-operators}
 
 \begin{dfn}
-\thmtitle{Connected graph}
-A \textit{path} is a sequence of lines $(l_1,\cd,l_n)$ such that $l_i$ is adjacent to $l_{i+1}$ and all of the 
+Repeated copies of the same operator are formally distinguished as elements of $O$ and are referred to as \textit{identical operators}.
+Operators whose interaction vertices can be interchanged without altering the graph are termed \textit{interchangeable operators}.
+If two identical operators are interchangeable, they are termed \textit{equivalent}.
+\end{dfn}
 
-$G$ forms a \textit{connected graph} if there is a path between any two of its operators.
+\begin{dfn}
+If $o$ and $o'$ can be exchanged, attaching the ends of one to the other and vice versa, without altering $G$ then they are termed \textit{interchangeable operators}.
+If identical operators are interchangeable, they are termed \textit{equivalent}, denoted $o\sim o'$.
+See \Cref{ex:equivalent-operators}.
 \end{dfn}
 
 \begin{dfn}
@@ -952,67 +1325,11 @@ See \Cref{ex:equivalent-subgraphs}.
 If $O_1=\{o_1\}$ and $O_2=\{o_2\}$, then this is the same as saying that $o_1$ and $o_2$ are equivalent operators.
 \end{dfn}
 
-\begin{lem}
-\thmstatement{The pattern degeneracy of a contraction $c$ of the graph $G$ is given by $\mr{pat}(c) = \dfr{\mr{dg}(G)}{\mr{dg}(c(G))}$.}
-\thmproof{
-  First, consider $c'$ and $G'$ which equal $c$ and $G$ except that identical operators are treated as distinct.
-  If $L=L_1\cup\cd\cup L_m$ partitions $L$ into equivalent lines, let $L_{i,j}$ denote the subset of lines in $L_i$ contracted with lines from $L_j$ under $c$.
-  Let $L_{i,\mr{ext}}$ denote the (possibly empty) subset of $L_i$ which is external in $c(G)$.
-  The number of equivalent ways of partitioning $L_i$ for contraction is then ``$|L_i|$ choose $|L_{i,\mr{ext}}|,|L_{i,1}|,\cd,|L_{i,m}|$''.
-  The number of equivalent ways of contracting $L_{i,j}$ with $L_{j,i}$ is $|L_{i,j}|!=|L_{j,i}|!$.
-  Therefore, the total pattern degeneracy of $c'$ is
-  \begin{align*}
-    \mr{pat}(c')
-  =
-    \prod_{i=1}^m
-    {|L_i| \choose |L_{i,\mr{ext}}|,|L_{i,1}|,\ld,|L_{i,m}|}
-    \prod_{i=1}^m
-    \prod_{j=i+1}^m
-    |L_{i,j}|!
-  =
-    \fr{
-      |L_1|!\cd|L_m|!
-    }
-    {
-      \prod_{i=1}^m
-      |L_{i,\mr{ext}}|!
-      |L_{i,1}|!\cd|L_{i,i-1}|!
-    }
-  =
-    \fr{\mr{dg}(G')}{\mr{dg}(c'(G'))}\,.
-  \end{align*}
-}
-\end{lem}
-
-\begin{thm}
-\thmtitle{Wick's theorem for diagrams}
-\thmproof{
-\begin{align*}
-  \tfr{1}{\mr{dg}(G)}
-  \sum_{\mr{Einstein}}
-  \Si(G)
-=&\
-  \tfr{1}{\mr{dg}(G)}
-  \sum_{\mr{Einstein}}
-  \no{\Si(G)}
-+
-  \sum_{c\in\mr{Ctr}(G)}
-  \mr{pat}(c)\,
-  \tfr{1}{\mr{dg}(G)}
-  \sum_{\mr{Einstein}}
-  \no{\Si(c(G))}
-\\
-\intertext{and since $\mr{pat}(c)\,\mr{dg}(G)^{-1}=\mr{dg}(c(G))^{-1}$, this is equivalent to $G=\no{G}+\sum_{c\in\mr{Ctr}(G)}\no{c(G)}$.}
-\end{align*}
-}
-\end{thm}
-
-
 
 \newpage
-
 \appendix
-\section{Parenthetical results}
+
+\section{Examples}
 
 \begin{ex}\label{ex:graph}
 \thmtitle{Graph}
@@ -1054,15 +1371,13 @@ If $O_1=\{o_1\}$ and $O_2=\{o_2\}$, then this is the same as saying that $o_1$ a
   \fr{1}{2\cdot2\cdot3}
   \sum_{\text{Einstein}}
   \gno{t_{op}^{qr}a^{o^\hole p}_{q^\hole r}}
-  \,u_s^ta^s_t
-  \pr{
-    \gno{
-      v_{uv}^{wx}a^{u^{\hole\hole} v}_{w^\ptcl x^{\ptcl\ptcl}}
-      w_{yz}^{\a\b}
-      a^{y^\ptcl z^{\ptcl\ptcl}}_{\a^{\hole\hole} \b^{\ptcl\ptcl\ptcl}}
-      z_{\g\d\e}^{\f\h\th}
-      a^{\g\d^{\ptcl\ptcl\ptcl}\e}_{\f\h^{\hphantom{\ptcl\ptcl}}\th}
-    }
+  \,u_s^ta^s_t\,
+  \gno{
+    v_{uv}^{wx}a^{u^{\hole\hole} v}_{w^\ptcl x^{\ptcl\ptcl}}
+    w_{yz}^{\a\b}
+    a^{y^\ptcl z^{\ptcl\ptcl}}_{\a^{\hole\hole} \b^{\ptcl\ptcl\ptcl}}
+    z_{\g\d\e}^{\f\h\th}
+    a^{\g\d^{\ptcl\ptcl\ptcl}\e}_{\f\h^{\hphantom{\ptcl\ptcl}}\th}
   }
 \end{align*}
 \end{ex}
