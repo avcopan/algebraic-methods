@@ -32,7 +32,7 @@
 \begin{dfn}\label{dfn:model-hamiltonian}
 \thmtitle{Model problem}
 In perturbation theory, the \textit{model Hamiltonian} is an operator $H_0\approx H_e$ which approximates the full Hamiltonian and has eigenfunctions spanning the complete $n$-particle Fock space.
-An obvious choice in electronic structure is the diagonal one-particle component of $H_c$, which is diagonal in the determinant basis.
+An obvious choice in electronic structure is the diagonal one-particle component of $H_\mr{c}$, which is diagonal in the determinant basis.
 \begin{align*}
 &&
   H_0
@@ -41,11 +41,11 @@ An obvious choice in electronic structure is the diagonal one-particle component
   \mc{E}_{i_1\cd i_k}^{a_1\cd a_k}
   \F_{i_1\cd i_k}^{a_1\cd a_k}
 &&
-  H_c
+  H_\mr{c}
 =
   H_0
 +
-  V_c
+  V_\mr{c}
 &&
   H_0
 \equiv
@@ -69,7 +69,7 @@ An obvious choice in electronic structure is the diagonal one-particle component
 \end{align*}
 where the perurbation is
 $
-  V_c
+  V_\mr{c}
 \equiv
   f_p^q(1-\d_p^q)
   \tl{a}^p_q
@@ -155,22 +155,22 @@ $R_0H_0=-Q\implies R_0H_0\Y=-Q\Y=(P-1)\Y=\F-\Y$,
 we obtain the following recursive equation for $\Y$.
 \begin{align*}
   R_0
-  (H_0 + V_c)\Y
+  (H_0 + V_\mr{c})\Y
 =
   \F
 -
   \Y
 +
-  R_0V_c\Y
+  R_0V_\mr{c}\Y
 =
-  E_cR_0\Y
+  E_\mr{c}R_0\Y
 \implies
   \Y
 =
   \F
 +
   R_0
-  (V_c - E_c)
+  (V_\mr{c} - E_\mr{c})
   \Y
 \end{align*}
 Straightforward induction leads to
@@ -178,24 +178,24 @@ $
   \Y
 =
   \sum_{k=0}^n
-  (R_0(V_c - E_c))^k\F
+  (R_0(V_\mr{c} - E_\mr{c}))^k\F
 +
-  (R_0(V_c - E_c))^{n+1}\Y
+  (R_0(V_\mr{c} - E_\mr{c}))^{n+1}\Y
 $.
-Noting that $H_0\F=0$ and $\ip{\F|\Y}=1$, projecting the Schr\"odinger equation by $\F$ gives an expression for the correlation energy: $E_c=\ip{\F|V_c|\Y}$.
+Noting that $H_0\F=0$ and $\ip{\F|\Y}=1$, projecting the Schr\"odinger equation by $\F$ gives an expression for the correlation energy: $E_\mr{c}=\ip{\F|V_\mr{c}|\Y}$.
 Assuming the series converges, this leads to the following expressions for the wavefunction and the correlation energy.
 \begin{align}\label{eq:rspt-equations-form-1}
   \Y
 =
   \sum_{k=0}^{\infty}
-  (R_0(V_c - E_c))^k\F
+  (R_0(V_\mr{c} - E_\mr{c}))^k\F
 &&
-  E_c
+  E_\mr{c}
 =
   \sum_{k=0}^{\infty}
-  \ip{\F|V_c(R_0(V_c - E_c))^k|\F}
+  \ip{\F|V_\mr{c}(R_0(V_\mr{c} - E_\mr{c}))^k|\F}
 \end{align}
-Introducing a perturbation parameter $V_c\mapsto \la V_c$ and expanding the wavefunction and energy in a Taylor series
+Introducing a perturbation parameter $V_\mr{c}\mapsto \la V_\mr{c}$ and expanding the wavefunction and energy in a Taylor series
 \begin{align*}
   \Y(\la)
 =
@@ -205,19 +205,19 @@ Introducing a perturbation parameter $V_c\mapsto \la V_c$ and expanding the wave
   \sum_k
   \la^k \Y\ord{k}
 &&
-  E_c(\la)
+  E_\mr{c}(\la)
 =
   \sum_k
-  \fr{1}{k!}\,\la^k\pr{\pd{^kE_c}{\la^k}}_{\la=0}
+  \fr{1}{k!}\,\la^k\pr{\pd{^kE_\mr{c}}{\la^k}}_{\la=0}
 \equiv
   \sum_k
   \la^k
-  E_c\ord{k}
+  E_\mr{c}\ord{k}
 \end{align*}
 allows us to separate \Cref{eq:rspt-equations-form-1} in orders of $\la$.
 The first-order energy contribution vanishes
-$\la E_c\ord{1}=\la\ip{\F|V_c|\F}=0$
-since $V_c$ is composed of $\F$-normal operators.
+$\la E_\mr{c}\ord{1}=\la\ip{\F|V_\mr{c}|\F}=0$
+since $V_\mr{c}$ is composed of $\F$-normal operators.
 The first order wavefunction contribution is
 $
   \la
@@ -225,11 +225,11 @@ $
 =
   \la
   R_0
-  (V_c - E_c\ord{1})\F
+  (V_\mr{c} - E_\mr{c}\ord{1})\F
 =
   \la
   R_0
-  V_c
+  V_\mr{c}
   \F
 $,
 which can be directly evaluated using Wick's theorem and $\F$ normal ordering
@@ -237,7 +237,7 @@ which can be directly evaluated using Wick's theorem and $\F$ normal ordering
   \Y\ord{1}
 =
   R_0
-  V_c
+  V_\mr{c}
   \F
 =&\
   \sum_k
@@ -245,7 +245,7 @@ which can be directly evaluated using Wick's theorem and $\F$ normal ordering
   \sum_{\substack{a_1\cd a_k\\i_1\cd i_k}}
   \kt{\F_{i_1\cd i_k}^{a_1\cd a_k}}
   \fr{
-    \ip{\F|\tl{a}^{i_1\cd i_k}_{a_1\cd a_k}V_c|\F}
+    \ip{\F|\tl{a}^{i_1\cd i_k}_{a_1\cd a_k}V_\mr{c}|\F}
   }{
     \mc{D}_{i_1\cd i_k}^{a_1\cd a_k}
   }
@@ -306,13 +306,13 @@ which can be directly evaluated using Wick's theorem and $\F$ normal ordering
     f_b^b
   }
 \end{align*}
-where we have recognized that only singly and doubly excited determinants can fully contract $V_c$.
-The second-order energy contribution, $\la^2 E_c\ord{2}=\la^2\ip{\F|V_c|\Y\ord{1}}$, can be evaluated from our expression for $\Y\ord{1}$.
+where we have recognized that only singly and doubly excited determinants can fully contract $V_\mr{c}$.
+The second-order energy contribution, $\la^2 E_\mr{c}\ord{2}=\la^2\ip{\F|V_\mr{c}|\Y\ord{1}}$, can be evaluated from our expression for $\Y\ord{1}$.
 \begin{align*}
   E\ord{2}
 =
   \sum_{ia}
-  \ip{\F|V_c\tl{a}^a_i|\F}
+  \ip{\F|V_\mr{c}\tl{a}^a_i|\F}
   \fr{
     f_a^i
   }{
@@ -323,7 +323,7 @@ The second-order energy contribution, $\la^2 E_c\ord{2}=\la^2\ip{\F|V_c|\Y\ord{1
 +
   \fr{1}{4}
   \sum_{ijab}
-  \ip{\F|V_c\tl{a}^{ab}_{ij}|\F}
+  \ip{\F|V_\mr{c}\tl{a}^{ab}_{ij}|\F}
   \fr{
     \ol{g}_{ab}^{ij}
   }{
@@ -369,30 +369,30 @@ $
 =
 -
   \la^2
-  E_c\ord{2}
+  E_\mr{c}\ord{2}
   R_0\F
 +
   \la^2
-  R_0(V_c - E_c\ord{1})R_0(V_c - E_c\ord{1})\F
+  R_0(V_\mr{c} - E_\mr{c}\ord{1})R_0(V_\mr{c} - E_\mr{c}\ord{1})\F
 =
   \la^2
-  R_0V_cR_0V_c\F
+  R_0V_\mr{c}R_0V_\mr{c}\F
 $
-since $R_0\F=0$ and $E_c\ord{1}=0$.
+since $R_0\F=0$ and $E_\mr{c}\ord{1}=0$.
 The third order energy can be then obtained from $\Y\ord{2}$ as
-$\la^3 E_c\ord{3} = \la^3\ip{\F|V_c|\Y\ord{2}}$.
+$\la^3 E_\mr{c}\ord{3} = \la^3\ip{\F|V_\mr{c}|\Y\ord{2}}$.
 In this manner, one can (in principle) solve the Schr\"odinger equation recursively by alternately evaluating the wavefunction and energy contributions at increasing orders in the perturbation parameter.
 \end{dfn}
 
 \begin{drv}
-Writing the RSPT wavefunction equation as $\Y=\sum_{k=0}^{\infty}(R_0V_c - R_0 E_c)^k\F$, note that, if $R_0$ and $V_c$ were to commute, we could apply the binomial theorem to write the right-hand side as $\sum_{p=0}^k{k\choose p}(-)^p(R_0V_c)^{k-p}(R_0E_c)^p$.
+Writing the RSPT wavefunction equation as $\Y=\sum_{k=0}^{\infty}(R_0V_\mr{c} - R_0 E_\mr{c})^k\F$, note that, if $R_0$ and $V_\mr{c}$ were to commute, we could apply the binomial theorem to write the right-hand side as $\sum_{p=0}^k{k\choose p}(-)^p(R_0V_\mr{c})^{k-p}(R_0E_\mr{c})^p$.
 Since they don't commute, we have to settle for the following generalization of the binomial expansion
 \begin{align*}
-  (R_0E_c - R_0V_c)^k
+  (R_0E_\mr{c} - R_0V_\mr{c})^k
 =
   \sum_{p=0}^k
   (-)^p
-  \{R_0E_c\}^p\mr{insert}\{R_0V_c\}^{k-p}
+  \{R_0E_\mr{c}\}^p\mr{insert}\{R_0V_\mr{c}\}^{k-p}
 \end{align*}
 where $\{B_1,\ld,B_p\}\mr{insert}\{A\}^{k-p}$ denotes the sum over all ${k\choose p}$ possible ways of inserting $k-p$ copies of $A$ into the product $B_1\cd B_p$.
 For example,
@@ -420,17 +420,17 @@ This allows the wavefunction expansion to be easily grouped by orders
   \sum_{k=0}^{\infty}
   \sum_{p=0}^k
   (-)^p
-  \{R_0E_c\}^p
-  \mr{insert}\{R_0V_c\}^{k-p}
+  \{R_0E_\mr{c}\}^p
+  \mr{insert}\{R_0V_\mr{c}\}^{k-p}
   \F
 \\=&\
   \sum_{n=0}^{\infty}
   \sum_{(n_1,n_2)}^{\mc{C}_2(n)\cup\{(0,n)\}}
   \sum^{\mc{C}(n_1)}_{(r_1,\ld,r_m)}
   (-)^m
-  \{R_0E_c\ord{r_1},\ld,R_0E_c\ord{r_m}\}
+  \{R_0E_\mr{c}\ord{r_1},\ld,R_0E_\mr{c}\ord{r_m}\}
   \mr{insert}
-  \{R_0V_c\}^{n_2}
+  \{R_0V_\mr{c}\}^{n_2}
   \F
 =
   \sum_{n=0}^\infty
@@ -441,9 +441,9 @@ $\mc{C}_k(n)\subset\mc{C}(n)$ is the set of $k$-tuple integer compositions of $n
 The rearrangement follows from the fact that all possible terms of the form
 $
   (-)^k
-  \{R_0E_c\ord{n_1},\ld,R_0E_c\ord{n_k}\}
+  \{R_0E_\mr{c}\ord{n_1},\ld,R_0E_\mr{c}\ord{n_k}\}
   \mr{insert}
-  \{R_0V_c\}^{n_{k+1}}
+  \{R_0V_\mr{c}\}^{n_{k+1}}
   \F
 $
 contribute to the sum, and the composition sums group these into all possible terms of this form that are of a given order $n$ in the perturbation parameter $\la$.
@@ -458,17 +458,17 @@ The $n\eth$-order contribution to the wavefunction is given by
 \begin{align*}
   \Y\ord{n}
 =
-  (R_0V_c)^n\F
+  (R_0V_\mr{c})^n\F
 +
   \sum_{(n_1,n_2)}^{\mc{C}_2(n)}
   \sum^{\mc{C}(n_1)}_{(r_1,\ld,r_m)}
   (-)^m
-  \{R_0E_c\ord{r_1},\ld,R_0E_c\ord{r_m}\}
+  \{R_0E_\mr{c}\ord{r_1},\ld,R_0E_\mr{c}\ord{r_m}\}
   \mr{insert}
-  \{R_0V_c\}^{n_2}
+  \{R_0V_\mr{c}\}^{n_2}
   \F
 \end{align*}
-which can be evaluated as the sum of a \emph{principal term}, $(R_0V_c)^n\F$, plus all possible $m$-tuple substitutions of adjacent factors $(R_0V_c)^{r_k}$ in the principal term by $R_0E_c\ord{r_k}$ times a sign factor $(-)^m$.
+which can be evaluated as the sum of a \emph{principal term}, $(R_0V_\mr{c})^n\F$, plus all possible $m$-tuple substitutions of adjacent factors $(R_0V_\mr{c})^{r_k}$ in the principal term by $R_0E_\mr{c}\ord{r_k}$ times a sign factor $(-)^m$.
 }
 \end{lem}
 
@@ -477,194 +477,194 @@ Using the energy substitution lemma, we can directly write down the first few wa
 \begin{align*}
   \Y\ord{1}
 =&\
-  R_0V_c\F
+  R_0V_\mr{c}\F
 \\
   \Y\ord{2}
 =&\
-  R_0V_cR_0V_c\F
+  R_0V_\mr{c}R_0V_\mr{c}\F
 -
-  R_0E_c\ord{1}R_0V_c\F
+  R_0E_\mr{c}\ord{1}R_0V_\mr{c}\F
 -
-  R_0V_cR_0E_c\ord{1}\F
+  R_0V_\mr{c}R_0E_\mr{c}\ord{1}\F
 \\
   \Y\ord{3}
 =&\
-  R_0V_cR_0V_cR_0V_c\F
+  R_0V_\mr{c}R_0V_\mr{c}R_0V_\mr{c}\F
 -
-  R_0E_c\ord{2}R_0V_c\F
+  R_0E_\mr{c}\ord{2}R_0V_\mr{c}\F
 -
-  R_0V_cR_0E_c\ord{2}\F
+  R_0V_\mr{c}R_0E_\mr{c}\ord{2}\F
 +
-  R_0E_c\ord{1}R_0E_c\ord{1}R_0V_c\F
+  R_0E_\mr{c}\ord{1}R_0E_\mr{c}\ord{1}R_0V_\mr{c}\F
 +
-  R_0E_c\ord{1}R_0V_cR_0E_c\ord{1}\F
+  R_0E_\mr{c}\ord{1}R_0V_\mr{c}R_0E_\mr{c}\ord{1}\F
 \\&\
 +
-  R_0V_cR_0E_c\ord{1}R_0E_c\ord{1}\F
+  R_0V_\mr{c}R_0E_\mr{c}\ord{1}R_0E_\mr{c}\ord{1}\F
 -
-  R_0E_c\ord{1}R_0V_cR_0V_c\F
+  R_0E_\mr{c}\ord{1}R_0V_\mr{c}R_0V_\mr{c}\F
 -
-  R_0V_cR_0E_c\ord{1}R_0V_c\F
+  R_0V_\mr{c}R_0E_\mr{c}\ord{1}R_0V_\mr{c}\F
 -
-  R_0V_cR_0V_cR_0E_c\ord{1}\F
+  R_0V_\mr{c}R_0V_\mr{c}R_0E_\mr{c}\ord{1}\F
 \end{align*}
 where we have directly evaluated the formula of \Cref{lem:energy-substitution-lemma} without simplifying.
-These expressions can be simplified by recognizing that $E_c\ord{1}=0$ and that any term with an energy factor next to $\F$ vanishes since $R_0\F=0$.
+These expressions can be simplified by recognizing that $E_\mr{c}\ord{1}=0$ and that any term with an energy factor next to $\F$ vanishes since $R_0\F=0$.
 Omitting these terms, the wavefunction contributions can be simplified as follows.
 \begin{align*}
   \Y\ord{1}
 =&\
-  R_0V_c\F
+  R_0V_\mr{c}\F
 \\
   \Y\ord{2}
 =&\
-  R_0V_cR_0V_c\F
+  R_0V_\mr{c}R_0V_\mr{c}\F
 \\
   \Y\ord{3}
 =&\
-  R_0V_cR_0V_cR_0V_c\F
+  R_0V_\mr{c}R_0V_\mr{c}R_0V_\mr{c}\F
 -
-  R_0E_c\ord{2}R_0V_c\F
+  R_0E_\mr{c}\ord{2}R_0V_\mr{c}\F
 \\
   \Y\ord{4}
 =&\
-  R_0V_cR_0V_cR_0V_cR_0V_c\F
+  R_0V_\mr{c}R_0V_\mr{c}R_0V_\mr{c}R_0V_\mr{c}\F
 -
-  R_0E_c\ord{3}R_0V_c\F
+  R_0E_\mr{c}\ord{3}R_0V_\mr{c}\F
 -
-  R_0E_c\ord{2}R_0V_cR_0V_c\F
+  R_0E_\mr{c}\ord{2}R_0V_\mr{c}R_0V_\mr{c}\F
 -
-  R_0V_cR_0E_c\ord{2}R_0V_c\F
+  R_0V_\mr{c}R_0E_\mr{c}\ord{2}R_0V_\mr{c}\F
 \\
   \Y\ord{5}
 =&\
-  R_0V_cR_0V_cR_0V_cR_0V_cR_0V_c\F
+  R_0V_\mr{c}R_0V_\mr{c}R_0V_\mr{c}R_0V_\mr{c}R_0V_\mr{c}\F
 -
-  R_0E_c\ord{4}R_0V_c\F
+  R_0E_\mr{c}\ord{4}R_0V_\mr{c}\F
 +
-  R_0E_c\ord{2}R_0E_c\ord{2}R_0V_c\F
+  R_0E_\mr{c}\ord{2}R_0E_\mr{c}\ord{2}R_0V_\mr{c}\F
 -
-  R_0E_c\ord{3}R_0V_cR_0V_c\F
+  R_0E_\mr{c}\ord{3}R_0V_\mr{c}R_0V_\mr{c}\F
 \\-&\
-  R_0V_cR_0E_c\ord{3}R_0V_c\F
+  R_0V_\mr{c}R_0E_\mr{c}\ord{3}R_0V_\mr{c}\F
 -
-  R_0E_c\ord{2}R_0V_cR_0V_cR_0V_c\F
+  R_0E_\mr{c}\ord{2}R_0V_\mr{c}R_0V_\mr{c}R_0V_\mr{c}\F
 -
-  R_0V_cR_0E_c\ord{2}R_0V_cR_0V_c\F
+  R_0V_\mr{c}R_0E_\mr{c}\ord{2}R_0V_\mr{c}R_0V_\mr{c}\F
 -
-  R_0V_cR_0V_cR_0E_c\ord{2}R_0V_c\F
+  R_0V_\mr{c}R_0V_\mr{c}R_0E_\mr{c}\ord{2}R_0V_\mr{c}\F
 \end{align*}
-Projecting these equations by $\br{\F}V_c$ then yields $E_c\ord{2}$, $E_c\ord{3}$, $E_c\ord{4}$, $E_c\ord{5}$, and $E_c\ord{6}$.
+Projecting these equations by $\br{\F}V_\mr{c}$ then yields $E_\mr{c}\ord{2}$, $E_\mr{c}\ord{3}$, $E_\mr{c}\ord{4}$, $E_\mr{c}\ord{5}$, and $E_\mr{c}\ord{6}$.
 \end{ex}
 
 \begin{thm}
 \thmtitle{The Bracketing Theorem}
 \thmstatement{
-The $n\eth$-order contribution to the wavefunction consists of a principal term $(R_0V_c)^n\F=R_0V_c\cd R_0V_c\F$ plus the sum over all possible ways of inserting one or more pairs of brackets $\ip{\cd}\equiv\ip{\F|\cd|\F}$ into the principal term, $R_0V_c\cd R_0\ip{V_c\cd R_0V_c}\cd R_0V_c\F$, allowing nested brackets.
+The $n\eth$-order contribution to the wavefunction consists of a principal term $(R_0V_\mr{c})^n\F=R_0V_\mr{c}\cd R_0V_\mr{c}\F$ plus the sum over all possible ways of inserting one or more pairs of brackets $\ip{\cd}\equiv\ip{\F|\cd|\F}$ into the principal term, $R_0V_\mr{c}\cd R_0\ip{V_\mr{c}\cd R_0V_\mr{c}}\cd R_0V_\mr{c}\F$, allowing nested brackets.
 Each of these terms gets a phase factor $(-)^k$ where $k$ is the total number of brackets.
 }
 \thmproof{
-  This obviously holds for $\Y\ord{1}$ since $\Y\ord{1}=R_0V_c\F$ and there are no possible bracketings.
+  This obviously holds for $\Y\ord{1}$ since $\Y\ord{1}=R_0V_\mr{c}\F$ and there are no possible bracketings.
   Assume it holds up to $n-1$ and consider $n$.
-  By the substitution lemma, $\Y\ord{n}$ equals a principal term $R_0V_c\cd R_0V_c\F$ plus all unique substitutions of factors $(R_0V_c)^{r_1},\ld,(R_0V_c)^{r_m}$ in the principal term with energy factors $R_0E_c\ord{r_1},\ld,R_0E_c\ord{r_m}$, weighted by a sign $(-)^m$.
-  But, by our inductive assumption, the substituted energies $E_c\ord{r_k}=\ip{\F|V_c|\Y\ord{r_k}}$ are sums of a principal term $\ip{V_cR_0V_c\cd R_0V_c}$ plus all possible bracketings, with the appropriate sign factor, which shows that $\Y\ord{n}$ is the sum over all nested bracketings and completes the proof.
+  By the substitution lemma, $\Y\ord{n}$ equals a principal term $R_0V_\mr{c}\cd R_0V_\mr{c}\F$ plus all unique substitutions of factors $(R_0V_\mr{c})^{r_1},\ld,(R_0V_\mr{c})^{r_m}$ in the principal term with energy factors $R_0E_\mr{c}\ord{r_1},\ld,R_0E_\mr{c}\ord{r_m}$, weighted by a sign $(-)^m$.
+  But, by our inductive assumption, the substituted energies $E_\mr{c}\ord{r_k}=\ip{\F|V_\mr{c}|\Y\ord{r_k}}$ are sums of a principal term $\ip{V_\mr{c}R_0V_\mr{c}\cd R_0V_\mr{c}}$ plus all possible bracketings, with the appropriate sign factor, which shows that $\Y\ord{n}$ is the sum over all nested bracketings and completes the proof.
 }
 \end{thm}
 
 \begin{ex}
-Noting that bracketings of the form $R_0\ip{V_c}$ vanish because $\ip{V}_c=E_c\ord{1}=0$, and that any bracketing including the last factor vanishes because $R_0\ip{V_c\cd R_0V_c}\F=\ip{V_c\cd R_0V_c}R_0\F=0$, we can write down the bracketing theorem expansion for the first few contributions to the wavefunction as follows.
+Noting that bracketings of the form $R_0\ip{V_\mr{c}}$ vanish because $\ip{V}_c=E_\mr{c}\ord{1}=0$, and that any bracketing including the last factor vanishes because $R_0\ip{V_\mr{c}\cd R_0V_\mr{c}}\F=\ip{V_\mr{c}\cd R_0V_\mr{c}}R_0\F=0$, we can write down the bracketing theorem expansion for the first few contributions to the wavefunction as follows.
 \begin{align*}
   \Y\ord{1}
 =&\
-  R_0V_c\F
+  R_0V_\mr{c}\F
 \\
   \Y\ord{2}
 =&\
-  R_0V_cR_0V_c\F
+  R_0V_\mr{c}R_0V_\mr{c}\F
 \\
   \Y\ord{3}
 =&\
-  R_0V_cR_0V_cR_0V_c\F
+  R_0V_\mr{c}R_0V_\mr{c}R_0V_\mr{c}\F
 -
-  R_0\ip{V_cR_0V_c}R_0V_c\F
+  R_0\ip{V_\mr{c}R_0V_\mr{c}}R_0V_\mr{c}\F
 \\
   \Y\ord{4}
 =&\
-  R_0V_cR_0V_cR_0V_cR_0V_c\F
+  R_0V_\mr{c}R_0V_\mr{c}R_0V_\mr{c}R_0V_\mr{c}\F
 -
-  R_0\ip{V_cR_0V_c}R_0V_cR_0V_c\F
+  R_0\ip{V_\mr{c}R_0V_\mr{c}}R_0V_\mr{c}R_0V_\mr{c}\F
 -
-  R_0V_cR_0\ip{V_cR_0V_c}R_0V_c\F
+  R_0V_\mr{c}R_0\ip{V_\mr{c}R_0V_\mr{c}}R_0V_\mr{c}\F
 -
-  R_0\ip{V_cR_0V_cR_0V_c}R_0V_c\F
+  R_0\ip{V_\mr{c}R_0V_\mr{c}R_0V_\mr{c}}R_0V_\mr{c}\F
 \\
   \Y\ord{5}
 =&\
-  R_0V_cR_0V_cR_0V_cR_0V_cR_0V_c\F
+  R_0V_\mr{c}R_0V_\mr{c}R_0V_\mr{c}R_0V_\mr{c}R_0V_\mr{c}\F
 -
-  R_0\ip{V_cR_0V_c}R_0V_cR_0V_cR_0V_c\F
+  R_0\ip{V_\mr{c}R_0V_\mr{c}}R_0V_\mr{c}R_0V_\mr{c}R_0V_\mr{c}\F
 -
-  R_0V_cR_0\ip{V_cR_0V_c}R_0V_cR_0V_c\F
+  R_0V_\mr{c}R_0\ip{V_\mr{c}R_0V_\mr{c}}R_0V_\mr{c}R_0V_\mr{c}\F
 \\&\
 -
-  R_0V_cR_0V_cR_0\ip{V_cR_0V_c}R_0V_c\F
+  R_0V_\mr{c}R_0V_\mr{c}R_0\ip{V_\mr{c}R_0V_\mr{c}}R_0V_\mr{c}\F
 +
-  R_0\ip{V_cR_0V_c}R_0\ip{V_cR_0V_c}R_0V_c\F
+  R_0\ip{V_\mr{c}R_0V_\mr{c}}R_0\ip{V_\mr{c}R_0V_\mr{c}}R_0V_\mr{c}\F
 -
-  R_0\ip{V_cR_0V_cR_0V_c}R_0V_cR_0V_c\F
+  R_0\ip{V_\mr{c}R_0V_\mr{c}R_0V_\mr{c}}R_0V_\mr{c}R_0V_\mr{c}\F
 \\&\
 -
-  R_0V_cR_0\ip{V_cR_0V_cR_0V_c}R_0V_c\F
+  R_0V_\mr{c}R_0\ip{V_\mr{c}R_0V_\mr{c}R_0V_\mr{c}}R_0V_\mr{c}\F
 -
-  R_0\ip{V_cR_0V_cR_0V_cR_0V_c}R_0V_c\F
+  R_0\ip{V_\mr{c}R_0V_\mr{c}R_0V_\mr{c}R_0V_\mr{c}}R_0V_\mr{c}\F
 +
-  R_0\ip{V_cR_0\ip{V_cR_0V_c}R_0V_c}R_0V_c\F
+  R_0\ip{V_\mr{c}R_0\ip{V_\mr{c}R_0V_\mr{c}}R_0V_\mr{c}}R_0V_\mr{c}\F
 \end{align*}
 The bracketing expansions for the corresponding energies are as follows.
 \begin{align*}
-  E_c\ord{2}
+  E_\mr{c}\ord{2}
 =&\
-  \ip{V_cR_0V_c}
+  \ip{V_\mr{c}R_0V_\mr{c}}
 \\
-  E_c\ord{3}
+  E_\mr{c}\ord{3}
 =&\
-  \ip{V_cR_0V_cR_0V_c}
+  \ip{V_\mr{c}R_0V_\mr{c}R_0V_\mr{c}}
 \\
-  E_c\ord{3}
+  E_\mr{c}\ord{3}
 =&\
-  \ip{V_cR_0V_cR_0V_cR_0V_c}
+  \ip{V_\mr{c}R_0V_\mr{c}R_0V_\mr{c}R_0V_\mr{c}}
 -
-  \ip{V_cR_0\ip{V_cR_0V_c}R_0V_c}
+  \ip{V_\mr{c}R_0\ip{V_\mr{c}R_0V_\mr{c}}R_0V_\mr{c}}
 \\
-  E_c\ord{4}
+  E_\mr{c}\ord{4}
 =&\
-  \ip{V_cR_0V_cR_0V_cR_0V_cR_0V_c}
+  \ip{V_\mr{c}R_0V_\mr{c}R_0V_\mr{c}R_0V_\mr{c}R_0V_\mr{c}}
 -
-  \ip{V_cR_0\ip{V_cR_0V_c}R_0V_cR_0V_c}
+  \ip{V_\mr{c}R_0\ip{V_\mr{c}R_0V_\mr{c}}R_0V_\mr{c}R_0V_\mr{c}}
 -
-  \ip{V_cR_0V_cR_0\ip{V_cR_0V_c}R_0V_c}
+  \ip{V_\mr{c}R_0V_\mr{c}R_0\ip{V_\mr{c}R_0V_\mr{c}}R_0V_\mr{c}}
 -
-  \ip{V_cR_0\ip{V_cR_0V_cR_0V_c}R_0V_c}
+  \ip{V_\mr{c}R_0\ip{V_\mr{c}R_0V_\mr{c}R_0V_\mr{c}}R_0V_\mr{c}}
 \\
-  E_c\ord{5}
+  E_\mr{c}\ord{5}
 =&\
-  \ip{V_cR_0V_cR_0V_cR_0V_cR_0V_cR_0V_c}
+  \ip{V_\mr{c}R_0V_\mr{c}R_0V_\mr{c}R_0V_\mr{c}R_0V_\mr{c}R_0V_\mr{c}}
 -
-  \ip{V_cR_0\ip{V_cR_0V_c}R_0V_cR_0V_cR_0V_c}
+  \ip{V_\mr{c}R_0\ip{V_\mr{c}R_0V_\mr{c}}R_0V_\mr{c}R_0V_\mr{c}R_0V_\mr{c}}
 -
-  \ip{V_cR_0V_cR_0\ip{V_cR_0V_c}R_0V_cR_0V_c}
+  \ip{V_\mr{c}R_0V_\mr{c}R_0\ip{V_\mr{c}R_0V_\mr{c}}R_0V_\mr{c}R_0V_\mr{c}}
 \\-&\
-  \ip{V_cR_0V_cR_0V_cR_0\ip{V_cR_0V_c}R_0V_c}
+  \ip{V_\mr{c}R_0V_\mr{c}R_0V_\mr{c}R_0\ip{V_\mr{c}R_0V_\mr{c}}R_0V_\mr{c}}
 +
-  \ip{V_cR_0\ip{V_cR_0V_c}R_0\ip{V_cR_0V_c}R_0V_c}
+  \ip{V_\mr{c}R_0\ip{V_\mr{c}R_0V_\mr{c}}R_0\ip{V_\mr{c}R_0V_\mr{c}}R_0V_\mr{c}}
 -
-  \ip{V_cR_0\ip{V_cR_0V_cR_0V_c}R_0V_cR_0V_c}
+  \ip{V_\mr{c}R_0\ip{V_\mr{c}R_0V_\mr{c}R_0V_\mr{c}}R_0V_\mr{c}R_0V_\mr{c}}
 \\-&\
-  \ip{V_cR_0V_cR_0\ip{V_cR_0V_cR_0V_c}R_0V_c}
+  \ip{V_\mr{c}R_0V_\mr{c}R_0\ip{V_\mr{c}R_0V_\mr{c}R_0V_\mr{c}}R_0V_\mr{c}}
 -
-  \ip{V_cR_0\ip{V_cR_0V_cR_0V_cR_0V_c}R_0V_c}
+  \ip{V_\mr{c}R_0\ip{V_\mr{c}R_0V_\mr{c}R_0V_\mr{c}R_0V_\mr{c}}R_0V_\mr{c}}
 +
-  \ip{V_cR_0\ip{V_cR_0\ip{V_cR_0V_c}R_0V_c}R_0V_c}
+  \ip{V_\mr{c}R_0\ip{V_\mr{c}R_0\ip{V_\mr{c}R_0V_\mr{c}}R_0V_\mr{c}}R_0V_\mr{c}}
 \end{align*}
 \end{ex}
 
@@ -673,23 +673,23 @@ Individual terms in the perturbation expansion are readily evaluated using Wick'
 Using resolution of the identity in the orthogonal space, the general structure of a principal term is as follows.
 {\footnotesize
 \begin{align*}
-  (R_0V_c)^n\kt{\F}
+  (R_0V_\mr{c})^n\kt{\F}
 =
   Q
-  (R_0V_c)^n\kt{\F}
+  (R_0V_\mr{c})^n\kt{\F}
 =
   \sum_k
   \kt{\F_k}
-  \ip{\F_k|(R_0V_c)^n|\F}
+  \ip{\F_k|(R_0V_\mr{c})^n|\F}
 =
   \sum_k
   \kt{\F_k}
   \sum_{k_1\cd k_n}
   \fr{
-    \ip{\F_k    |V_c|\F_{k_1}}
-    \ip{\F_{k_1}|V_c|\F_{k_2}}
+    \ip{\F_k    |V_\mr{c}|\F_{k_1}}
+    \ip{\F_{k_1}|V_\mr{c}|\F_{k_2}}
     \ip{\F_{k_2}|\cd|\F_{k_n}}
-    \ip{\F_{k_n}|V_c|\F}
+    \ip{\F_{k_n}|V_\mr{c}|\F}
   }{
     \mc{D}_{k_1}\mc{D}_{k_2}\cd\mc{D}_{k_n}
   }
@@ -728,7 +728,7 @@ By orthonormality of the determinant basis, the squared resolvent equals
 which is of course equal to $(H_0^2)^{-1}$ restricted to the orthogonal space, $R_0^2H_0^2=Q$.
 Consequently, every wavefunction contribution is proportional to a term of the following generic form
 \begin{align*}
-  R_0^{p_1}V_cR_0^{p_2}V_c\cd R_0^{p_n}V_c
+  R_0^{p_1}V_\mr{c}R_0^{p_2}V_\mr{c}\cd R_0^{p_n}V_\mr{c}
   \kt{\F}
 =
   \sum_k
@@ -736,12 +736,12 @@ Consequently, every wavefunction contribution is proportional to a term of the f
   \ip{\F|
     \tl{a}_k\dg
     R_0^{p_1}
-    V_c
+    V_\mr{c}
     R_0^{p_2}
-    V_c
+    V_\mr{c}
     \cd
     R_0^{p_n}
-    V_c
+    V_\mr{c}
   |\F}
 &&
   R_0^p
@@ -753,12 +753,12 @@ which can be evaluated by determining all complete $\F$-normal contractions of
 $
   \tl{a}_k\dg
   R_0^{p_1}
-  V_c
+  V_\mr{c}
   R_0^{p_2}
-  V_c
+  V_\mr{c}
   \cd
   R_0^{p_n}
-  V_c
+  V_\mr{c}
 $,
 where $\tl{a}_k\dg$ is a de-excitation operator
 $\tl{a}_k\dg\in\{\tl{a}^{i_1\cd i_n}_{a_1\cd a_n}\,|\,\substack{i_1<\cd<i_n,\\a_1<\cd<a_n}\}$.
@@ -1016,14 +1016,14 @@ The reduced Wick theorem of \Cref{prop:reduced-wick-thm} can be used to evaluate
 \end{align*}
 in order to derive the second- and third-order energy contributions
 \begin{align*}
-  E_c\ord{2}
+  E_\mr{c}\ord{2}
 =&\
-  \ip{V_cR_0V_c}
+  \ip{V_\mr{c}R_0V_\mr{c}}
 =
   \gno{\ol{\ol{
-    V_c
+    V_\mr{c}
     \hspace{2pt}\resolventline{\tiny\ \ $R_0$}\hspace{2pt}
-    V_c
+    V_\mr{c}
   }}}
 =
   \pr{\tfr{1}{4}}^2
@@ -1045,16 +1045,16 @@ in order to derive the second- and third-order energy contributions
     \mc{D}_{ij}^{ab}
   }
 \\[5pt]
-  E_c\ord{3}
+  E_\mr{c}\ord{3}
 =&\
-  \ip{V_cR_0V_cR_0V_c}
+  \ip{V_\mr{c}R_0V_\mr{c}R_0V_\mr{c}}
 =
   \gno{\ol{\ol{
-    V_c
+    V_\mr{c}
     \hspace{2pt}\resolventline{\tiny\ \ $R_0$}\hspace{2pt}
-    V_c
+    V_\mr{c}
     \hspace{2pt}\resolventline{\tiny\ \ $R_0$}\hspace{2pt}
-    V_c
+    V_\mr{c}
   }}}
 =
   \pr{\tfr{1}{4}}^3
@@ -1102,11 +1102,11 @@ in order to derive the second- and third-order energy contributions
   }
 \end{align*}
 where we have used implicit summation (over all indices) to keep the expressions relatively compact.
-Here, we have assumed a canonical Hartree-Fock (RHF or UHF) reference so that the one-particle perturbation vanishes $f_p^q(1-\d_p^q)=0$ and $V_c=\tfr{1}{4}\ol{g}_{pq}^{rs}\tl{a}^{pq}_{rs}$.
+Here, we have assumed a canonical Hartree-Fock (RHF or UHF) reference so that the one-particle perturbation vanishes $f_p^q(1-\d_p^q)=0$ and $V_\mr{c}=\tfr{1}{4}\ol{g}_{pq}^{rs}\tl{a}^{pq}_{rs}$.
 Non-canonical Hartree-Fock (such as ROHF) has the same second-order contribution, but introduces two additional terms at third order.
 In Hugenholtz diagram notation, this looks as follows.
 \begin{align*}
-  E_c\ord{2}
+  E_\mr{c}\ord{2}
 =
 \diagram[top,bottom]{
   \node[ddot=white] (g1) at (0,+0.4) {};
@@ -1132,7 +1132,7 @@ In Hugenholtz diagram notation, this looks as follows.
   \draw[-<-=0.6] (0,0) [partial ellipse=-90:90:0.5cm and 0.5cm];
 }
 &&
-  E_c\ord{3}
+  E_\mr{c}\ord{3}
 =
 \diagram[top,bottom]{
   \node[ddot=white] (g1) at (0,+0.8) {};
@@ -1221,24 +1221,24 @@ At first order in the wavefunction, only doubles contributions are non-vanishing
 \begin{align*}
   {}\ord{1}c_a^i
 =&\
-  \ip{\tl{a}_a^iR_0V_c}
+  \ip{\tl{a}_a^iR_0V_\mr{c}}
 =
   \gno{\ol{\ol{
     \tl{a}_a^i
     \hspace{2pt}\resolventline{\tiny\ \ $R_0$}\hspace{2pt}
-    V_c
+    V_\mr{c}
   }}}
 =
   0
 &
   {}\ord{1}c_{ab}^{ij}
 =&\
-  \ip{\tl{a}^{ij}_{ab}R_0V_c}
+  \ip{\tl{a}^{ij}_{ab}R_0V_\mr{c}}
 =
   \gno{\ol{\ol{
     \tl{a}^{ij}_{ab}
     \hspace{2pt}\resolventline{\tiny\ \ $R_0$}\hspace{2pt}
-    V_c
+    V_\mr{c}
   }}}
 =
 \diagram{
@@ -1264,9 +1264,9 @@ At second order in the wavefunction, singles, triples, and disconnected quadrupl
   \gno{\ol{\ol{
     \tl{a}_a^i
     \hspace{2pt}\resolventline{\tiny\ \ $R_0$}\hspace{2pt}
-    V_c
+    V_\mr{c}
     \hspace{2pt}\resolventline{\tiny\ \ $R_0$}\hspace{2pt}
-    V_c
+    V_\mr{c}
   }}}
 =&\
 \diagram{
@@ -1340,9 +1340,9 @@ At second order in the wavefunction, singles, triples, and disconnected quadrupl
   \gno{\ol{\ol{
     \tl{a}_{ab}^{ij}
     \hspace{2pt}\resolventline{\tiny\ \ $R_0$}\hspace{2pt}
-    V_c
+    V_\mr{c}
     \hspace{2pt}\resolventline{\tiny\ \ $R_0$}\hspace{2pt}
-    V_c
+    V_\mr{c}
   }}}
 =&\
 \diagram{
@@ -1461,9 +1461,9 @@ At second order in the wavefunction, singles, triples, and disconnected quadrupl
   \gno{\ol{\ol{
     \tl{a}_{abc}^{ijk}
     \hspace{2pt}\resolventline{\tiny\ \ $R_0$}\hspace{2pt}
-    V_c
+    V_\mr{c}
     \hspace{2pt}\resolventline{\tiny\ \ $R_0$}\hspace{2pt}
-    V_c
+    V_\mr{c}
   }}}
 =&\
 \diagram{
@@ -1543,9 +1543,9 @@ At second order in the wavefunction, singles, triples, and disconnected quadrupl
   \gno{\ol{\ol{
     \tl{a}_{abcd}^{ijkl}
     \hspace{2pt}\resolventline{\tiny\ \ $R_0$}\hspace{2pt}
-    V_c
+    V_\mr{c}
     \hspace{2pt}\resolventline{\tiny\ \ $R_0$}\hspace{2pt}
-    V_c
+    V_\mr{c}
   }}}
 =&\
 \diagram{
@@ -1679,20 +1679,20 @@ Insertion diagrams have the form
   \underset{
     \text{insertion diagram}
   }{\underbrace{
-    \cd R_0\ip{V_c\cd R_0V_c}R_0V_c\cd 
+    \cd R_0\ip{V_\mr{c}\cd R_0V_\mr{c}}R_0V_\mr{c}\cd 
   }}
 =
   \underset{
     \textit{remainder diagram}
   }{\underbrace{
     \pr{
-      \cd R_0R_0V_c\cd
+      \cd R_0R_0V_\mr{c}\cd
     }
   }}\hspace{5pt}
   \underset{
     \textit{inserted diagram}
   }{\underbrace{
-    \ip{V_c\cd R_0V_c}
+    \ip{V_\mr{c}\cd R_0V_\mr{c}}
   }}
 \end{align*}
 where the \textit{inserted diagram} is closed and the \textit{remainder diagram} may be closed or open, with a squared resolvent at the point of insertion.
@@ -2024,20 +2024,20 @@ The remaining parts of the combined diagram will be referred to as the \textit{r
   \Y\ord{n}
 =
   \pr{
-    (R_0V_c)^n\F
+    (R_0V_\mr{c})^n\F
   }_{\mr{L}}
 &&
   E\ord{n+1}
 =
   \ip{
-    V_c
-    (R_0V_c)^n
+    V_\mr{c}
+    (R_0V_\mr{c})^n
   }_{\mr{L}}
 \end{align*}
   That is, the bracketed terms exactly cancel with the unlinked component of the principal term.
 }
 \thmproof{
-  If $\Y\ord{n}$ is linked then every unlinked contribution to $V_c\Y\ord{n}$ has an open part and vanishes in the energy expression $E\ord{n+1}=\ip{\F|V_c|\Y\ord{n}}=\ip{\F|V_c|\Y\ord{n}}_{\mr{L}}$.
+  If $\Y\ord{n}$ is linked then every unlinked contribution to $V_\mr{c}\Y\ord{n}$ has an open part and vanishes in the energy expression $E\ord{n+1}=\ip{\F|V_\mr{c}|\Y\ord{n}}=\ip{\F|V_\mr{c}|\Y\ord{n}}_{\mr{L}}$.
   Therefore, we restrict our attention to the wavefunction.
   We proceed by induction on the maximum allowed nesting depth $k$ in the bracketing expansion.
   If $k=0$ we have only the principal component.
@@ -2046,12 +2046,12 @@ The remaining parts of the combined diagram will be referred to as the \textit{r
   This implies that we could place brackets around those vertices without killing the term, which is a contradiction.
   Therefore, the proposition holds for $k=0$.  
   Now, suppose the proposition holds up to $k-1$ and consider $k$.
-  By the energy substitution lemma, we have a sum over all possible $m$-tuple substitutions of adjacent factors $(R_0V_c)^{r}$ in the principale term by $R_0E_c^{(r)}$ times a sign factor $({-})^m$ for the number of substitutions.
-  By our inductive assumption, each substituted energy $E_c\ord{r}$ equals $\ip{V_c(R_0V_c)\ord{r-1}}_{\mr{L}}$.
+  By the energy substitution lemma, we have a sum over all possible $m$-tuple substitutions of adjacent factors $(R_0V_\mr{c})^{r}$ in the principale term by $R_0E_\mr{c}^{(r)}$ times a sign factor $({-})^m$ for the number of substitutions.
+  By our inductive assumption, each substituted energy $E_\mr{c}\ord{r}$ equals $\ip{V_\mr{c}(R_0V_\mr{c})\ord{r-1}}_{\mr{L}}$.
   Then the following lemma proves that these linked bracketings cancel with the unlinked contributions to the principal term, proving the result to all orders.
   \begin{lem}
   \thmstatement{
-    Restricting the bracketing expansion of $\Y\ord{n}$ to non-nested insertions and keeping only the linked contributions to each bracket $\ip{\cd}\mapsto\ip{\cd}_{\mr{L}}$ gives the linked component of the principal term, $((R_0V_c)^n\F)_{\mr{L}}$.
+    Restricting the bracketing expansion of $\Y\ord{n}$ to non-nested insertions and keeping only the linked contributions to each bracket $\ip{\cd}\mapsto\ip{\cd}_{\mr{L}}$ gives the linked component of the principal term, $((R_0V_\mr{c})^n\F)_{\mr{L}}$.
 }
   \thmproof{
     Suppose the expansion allows at most $k$ brackets.

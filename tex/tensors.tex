@@ -1,0 +1,276 @@
+\documentclass[11pt,fleqn]{article}
+\usepackage[cm]{fullpage}
+%%AVC PACKAGES
+\usepackage{avcgreek}
+\usepackage{avcfonts}
+\usepackage{avcmath}
+\usepackage{avcthm} % 
+\usepackage{qcmacros}
+\usepackage{goldstone}
+%%MACROS FOR THIS DOCUMENT
+\usepackage{titlesec}
+\titleformat{\section}{\Large\bfseries\mathversion{bold}}{\thesection.}{5pt}{}
+% remove header from TOC
+\makeatletter
+\renewcommand\tableofcontents{%
+  \@starttoc{toc}%
+}
+\makeatother
+
+%%%DOCUMENT%%%
+\begin{document}
+
+%%TENSORS
+\section*{Tensors}
+
+\begin{dfn}\label{covariance-contravariance-invariance}
+\thmtitle{Covariance, contravariance, invariance}
+Let \f\ be an arbitrary linear function of a vector space $V$ and consider a change of basis $\{e_1,\cd,e_n\}\rightarrow\{\tl{e}_1,\cd,\tl{e}_n\}$ defined by $\tl{e}_j = \sum_ie_i\,[\bo{T}]_{ij}$ where $\bo{T}$ is an invertible matrix.
+If \f\ obeys the same transformation law as the basis elements, it is a \textit{covariant} quantity.
+If it obeys the opposite transformation law, it is a \textit{contravariant} quatntity.
+\begin{align}
+&&
+  \f(\tl{e}_j)=\sum_i\f(e_i)\,[\bo{T}]_{ij}
+\sp\text{\textit{(covariant)}}
+&&
+  \f(\tl{e}_i)=\sum_j[\bo{T}^{-1}]_{ij}\,\f(e_j)
+\sp\text{\textit{(contravariant)}}
+\end{align}
+\textit{Covariant} quantities are typically denoted with subscript indices, $\f_i=\f(e_i)$, whereas \textit{contravariant} quantities are denoted with superscript indices, $\f^i=\f(e_i)$.
+Abstract quantities such as vectors and operators are called \textit{invariant}, since they do not depend on the choice of basis.
+\end{dfn}
+
+\begin{ex}\label{vector-coordinates-are-contravariant}
+\thmtitle{Vector coordinates are contravariant}
+Let $\{v_i\}$ be the coordinates of a vector $v$ in the basis $\{e_i\}$, and let $\{\tl{v}_j\}$ be its coordinates in $\{\tl{e}_j=\sum_ie_i\,[\bo{T}]_{ij}\}$.
+Then the invariance of $v$ implies that the coordinates are contravariant:
+\begin{align*}
+  \sum_ie_iv_i=v=\sum_j\tl{e}_j\tl{v}_j
+=
+  \sum_ie_i\sum_j[\bo{T}]_{ij}\tl{v}_j
+\implies
+  v_i
+=
+  \sum_j[\bo{T}]_{ij}\tl{v}_j
+\implies
+  \tl{v}_j
+=
+  \sum_i[\bo{T}^{-1}]_{ji}v_i
+\end{align*}
+Therefore, vector coordinates should be written with superscript indices $v_i\mapsto v^i$.
+\end{ex}
+
+\begin{dfn}
+\thmtitle{Linear functional}
+A \textit{linear functional} $f:V\rightarrow\mb{C}$ is a scalar-valued function on $V$ that satisfies $f(v+w)=f(v)+f(w)$ and $f(cv)=cf(v)$ for all $c\in\mb{C}$ and all $v,w\in V$.
+The \textit{null functional} is given by $f_0(v)=0\ \forall v\in V$.
+\end{dfn}
+
+\begin{dfn}
+\thmtitle{Dual space $V^*$}
+The \textit{dual space} of $V$, denoted $V^*$, is the space of linear functionals on $V$, which itself forms a vector space with respect to vector addition $(f+g)\in V^*$ and scalar multiplication $(cf)\in V^*$ defined by
+\begin{align}
+&&
+  (f+g)(v)
+\equiv
+  f(v) + g(v)
+&&
+  (cf)(v)
+\equiv
+  cf(v)
+\end{align}
+for all $f,g\in V^*$, $v\in V$, and $c\in\mb{C}$.
+Its dimension is $\dim V^*=\dim V$, which follows from \Cref{canonical-dual-basis}.
+\end{dfn}
+
+\begin{prop}\label{canonical-dual-basis}
+\thmtitle{The canonical dual basis}
+\thmstatement{If $\{e_1,\cd,e_n\}$ is a basis for $V$ then $\{e^1,\cd,e^n\}\subset V^*$, defined by $e^i(e_j)=\d^i_j$, is a basis for $V^*$.
+This ``canonical dual basis'' transforms contravariantly relative to $\{e_1,\cd,e_n\}$. }
+\thmproof{
+  First, note that $e^j(v)=e^j(\sum_ie_iv^i)=\sum_ie^j(e_i)v^i=v^j$ for any $v\in V$.
+  Therefore, $f(v)=f(\sum_ie_iv^i)=\sum_if(e_i)v^i=\sum_if(e_i)e^i(v)$ holds for all $f\in V^*$ and all $v\in V$, which implies that $f=\sum_if(e_i)e^i$.
+  This shows that $\spn\{e^1,\cd,e^n\}=V^*$.
+  Second, assume there exist $c_j\in\mb{C}$ such that $\sum_jc_je^j=f_0$, where $f_0$ is the null functional.
+  Then $0=f_0(e_i)=\sum_jc_je^j(e_i)=c_i$ and all of the coefficients must be zero, showing that $\{e^1,\cd,e^n\}$ is linearly independent.
+  Since both sets have $n$ elements, $\dim V=\dim V^*$.
+  Since $v^j=e^j(v)$, the dual basis is contravariant.
+}
+\end{prop}
+
+\begin{rmk}
+If $\ip{\cdot|\cdot}$ is an inner product on $V$ and $\bo{S}$ is the matrix of overlaps, $\ip{e_i|e_j}=[\bo{S}]_{ij}$, then the canonical dual basis is given by $e^i(\cdot)=\sum_j[\bo{S}^{-1}]_{ij}\,\ip{e_j|\cdot}$, which simplifies to $e^i(\cdot)=\ip{e_i|\cdot}$ when $\{e_1,\cd,e_n\}$ is orthonormal.
+\end{rmk}
+
+\begin{dfn}
+\thmtitle{Linear operator}
+A \textit{linear operator} $\op{T}:V\rightarrow V$ is a vector-valued function on $V$ that satisfies $\op{T}(v+w)=\op{T}v + \op{T}w$ and $\op{T}(cv)=c\op{T}v$.
+The \textit{identity operator} is given by $\op{1}v=v$ and the \textit{null operator} is given by $\op{0}v=v$.
+\end{dfn}
+
+\begin{prop}\label{resolution-of-the-identity}
+\thmtitle{Resolution of the identity}
+\thmstatement{Given a basis $\{e_i\}$, the identity operator can be expressed as $\op{1}=\sum_ie_ie^i$.}
+\thmproof{
+  $\op{1}(v)=v=\sum_ie_iv^i=\sum_ie_ie^i(v)$ holds for all $v\in V$ (see \Cref{canonical-dual-basis}), so $\op{1}=\sum_ie_ie^i$.
+}
+\end{prop}
+
+\begin{rmk}
+Using \Cref{resolution-of-the-identity}, we can identify the matrix of a linear operator, $\op{T}e_j=\sum_ie_i\,[\bo{T}]_{ij}$, with $[\bo{T}]_{ij}=e^i(\op{T}e_j)$.
+Therefore, the row index of $\bo{T}$ should be written as a superscript index, $[\bo{T}]_{ij}\mapsto[\bo{T}]^i_j$.
+Using two resolutions of the identity, $\op{T}$ can be expressed as $\op{T}=\sum_{ij}[\bo{T}]_j^ie_ie^j$, which identifies $\bo{T}$ as its coordinates in $V\times V^*=\spn\{e_ie^j\}$.
+\end{rmk}
+
+\begin{rmk}
+The formula for matrix multiplication also follows from \Cref{resolution-of-the-identity}:
+the matrix of $\op{T}\op{T}'$ is $e^i(\op{T}\op{T}'e_j)=\sum_ke^i(\op{T}e_k)e^k(\op{T}'e_j)=\sum_k[\bo{T}]^i_k[\bo{T}']^k_j$.
+\end{rmk}
+
+\begin{dfn}\label{direct-sum-v-oplus-v'}
+\thmtitle{Direct sum $V\oplus V'$}
+A \textit{direct sum} of vector spaces $V$ and $V'$ is $V\oplus V'\equiv\{v\oplus v'\,|\,v\in V,\,v'\in V'\}$, a new vector space with vector addition and scalar multiplication defined by
+\begin{align}
+&&
+  v_1\oplus v_1'
++
+  v_2\oplus v_2'
+=
+  (v_1 + v_2)
+\oplus
+  (v_1' + v_2')
+&&
+  c(v\oplus v')
+=
+  cv\oplus cv'\,.
+\end{align}
+If $\{e_i\}$ and $\{e_{i'}'\}$ are bases for $V$ and $V'$ then $\{e_i\oplus0'\}\cup\{0\oplus e_{i'}'\}$ is a basis for $V\oplus V'$, which has dimension $\dim V+\dim V'$.
+\end{dfn}
+
+\begin{dfn}\label{tensor-product-v-otimes-v'}
+\thmtitle{Tensor product $V\otimes V'$}
+A \textit{tensor product} of vector spaces $V$ and $V'$ is $V\otimes V'\equiv\{\sum v\otimes v'\,|\,v\in V,\,v'\in V'\}$, a new vector space with vector addition and scalar multiplication defined by
+\begin{align}
+&&
+  v_1\otimes v'
++
+  v_2\otimes v'
+=
+  (v_1 + v_2)\otimes v'
+&&
+  v\otimes v_1'
++
+  v\otimes v_2'
+=
+  v\otimes(v_1' + v_2')
+&&
+  c(v\otimes v')
+=
+  (cv)\otimes v'
+=
+  v\otimes(cv')
+\end{align}
+If $\{e_i\}$ and $\{e_{i'}'\}$ are bases for $V$ and $V'$ then $\{e_i\otimes e_{i'}'\}$ is a basis for $V\otimes V'$, which has dimension $\dim V\cdot\,\dim V'$.
+\end{dfn}
+
+\begin{rmk}
+Since the sum $S+S'$ of two mutually orthogonal subspaces $S, S\subseteq V$ is isomorphic to their direct sum, $S\oplus S'$ and $S+S'$ are used interchangeably in this context.
+The reverse is also true.
+The direct sum of two distinct vector spaces $V\oplus V'$ contains copies of $V$ and $V'$ as mutually orthogonal subspaces, namely $V\simeq V\oplus0'$ and $V'\simeq 0\oplus V'$.
+\end{rmk}
+
+\begin{dfn}
+\thmtitle{Direct sums and tensor products of inner product spaces}
+If $V$ and $V'$ are inner product spaces, then $V\oplus V'$ and $V\otimes V'$ are also inner product spaces with respect to the following inner products.
+\begin{align}
+&&
+  \ip{v\oplus v'|w\oplus w'}_{V\oplus V'}
+\equiv
+  \ip{v|w}_V
++
+  \ip{v'|w'}_{V'}
+&&
+  \ip{v\otimes v'|w\otimes w'}_{V\otimes V'}
+\equiv
+  \ip{v|w}_V
+\cdot
+  \ip{v'|w'}_{V'}
+\end{align}
+\end{dfn}
+
+\begin{dfn}\label{tensor}
+\thmtitle{Tensor}
+A \textit{tensor} is a vector in a tensor product space.
+An \textit{n\eth order tensor} lives in a product of $n$ vector spaces, $V_1\otimes\cdots\otimes V_n$.
+A \textit{type-(m,n) tensor on $V$} lives in $\underset{\text{$m$ times}}{V\otimes\cdots\otimes V}\otimes \underset{\text{$n$ times}}{V^*\otimes\cdots \otimes V^*}$, denoted $T_n^m(V)$.
+\end{dfn}
+
+\begin{ex}
+$T_0^0(V)$ is the scalar field \mb{C},
+$T_0^1(V)$ is the vector space itself, $T_1^0(V)$ is the dual space $V^*$, and $T_1^1(V)$ is (up to isomorphism) the space of linear operators $V\otimes V^*\simeq V\times V^*$.
+\end{ex}
+
+\begin{rmk}
+A member $t$ of $T_n^m(V)$ can be expanded in the basis $\{e_1,\cd,e_n\}$ as follows.
+\begin{align}
+&&
+  t
+=
+  \sum_{\substack{i_1\cdots i_m\\j_1\cdots j_n}}
+  t_{j_1\cdots j_n}^{i_1\cdots i_m}
+  e_{i_1}\otimes\cdots\otimes e_{i_m}\otimes e^{j_1}\otimes\cdots\otimes e^{j_n}
+\end{align}
+Its coordinate array $\bo{t}=[t^{i_1\cdots i_m}_{j_1\cdots j_n}]$ is indexed by $m$ contravariant indices and $n$ covariant indices.
+\end{rmk}
+
+\begin{rmk}
+Just as people often use the term ``vector'' to refer to the basis-dependent coordinate array $v^i$ rather than $v$ itself, more often than not the word ``tensor'' refers to the coordinate array $t^{i_1\cdots i_m}_{j_1\cdots j_n}$ rather than the abstract quantity $t$.
+\end{rmk}
+
+\begin{dfn}
+\thmtitle{Tensor product $t\otimes t'$}
+The \textit{tensor product} of $t\in T_n^m(V)$ and $t'\in T_{n'}^{m'}(V)$ is $t\otimes t'\in T_{n+n'}^{m+m'}(V)$ with coordinate array $[\bo{t}\otimes \bo{t}']_{j_1\cd j_{n+n'}}^{i_1\cd i_{m+m'}} = t_{j_1\cd j_n}^{i_1\cd i_m}t_{j_{n+1}\cd j_{n+n'}}^{i_{m+1}\cd i_{m+m'}}$.
+This generalizes the \textit{matrix Kronecker product}.
+\end{dfn}
+
+\begin{dfn}
+\thmtitle{Tensor contraction}
+A \textit{(p,q) tensor contraction} is a map $\tr_{p,q}:T_n^m(V)\rightarrow T_{n-1}^{m-1}(V)$ given by tracing the $p\eth$ element in $V$ with the $q\eth$ element in $V^*$:
+\begin{align}
+&&
+  \tr_{p,q}\pr{
+    e_{i_1}\otimes\cd\otimes e_{i_p}\otimes\cd\otimes e^{j_q}\otimes\cd\otimes e^{j_n}
+  }
+=
+  \d_{i_p}^{j_q}\,
+  e_{i_1}\otimes\cd\otimes \cancel{e_{i_p}}\otimes\cd\otimes 
+  \cancel{e^{j_q}}\otimes\cd\otimes e^{j_n}
+\end{align}
+The coordinate array of $\tr_{p,q}(t)$ is $[\tr_{p,q}(\bo{t})]^{i_1\cd \cancel{i_p}\cd i_m}_{j_1\cd \cancel{j_q}\cd j_m}=\sum_{i_p,j_q}\d_{i_p}^{j_q}\,t^{i_1\cd i_m}_{j_1\cd j_m}$, generalizing the \textit{matrix trace}, $\tr(M)=\sum_i M_i^i$.
+\end{dfn}
+
+\begin{dfn}
+\thmtitle{Cross-contraction}
+A \textit{cross-contraction} traces a lower index on one tensor with an upper index on another, $\tr_{p,q'}:T_n^m(V)\otimes T_{n'}^{m'}(V)\rightarrow T^{m}_{n-1}(V)\otimes T^{m'-1}_{n'}$, generalizing the \textit{matrix product} $\tr_{1,1'}(M\otimes M')=\sum_k M^i_kM^k_j$.
+\end{dfn}
+
+\begin{ntt}\label{einstein-summation}
+\thmtitle{Einstein summation convention}
+In the \textit{Einstein summation convention} any index which appears twice in a product, once as a covariant index and once as a contravariant one, is implicitly summed over: $\sum_i a_i b^i\mapsto a_ib^i$.
+For most purposes, this rule suffices to dispense with summation symbols altogether.
+The basis expansion of a vector now takes the form $v=e_iv^i$, that of a tensor takes the form $t = t_{j_1\cd j_n}^{i_1\cd i_m}e_{i_1}\otimes\cd\otimes e_{i_m}\otimes e^{j_1}\otimes\cd\otimes e^{j_n}$, and resolution of the identity can be written as $\op{1}=e_ie^i$.
+The choice of symbol for a \textit{contracted index} is is arbitrary, wherease each \textit{free \emph{(uncontracted)} index} symbol must appear once in every term on the right- and left-hand sides of an equation, always with the same co- or contra-variance.
+\end{ntt}
+
+\begin{ex}
+In Einstein notation, the matrix expression $\bo{C}=\bo{A}\bo{B}$ is written as $C^i_j=A^i_kB^k_j$.
+\end{ex}
+
+\begin{ex}
+The expression
+$a_{ij}^{kl}=\tfr{1}{2}b_{ij}^{vx}c_{vx}^{kl}+\tfr{1}{6}d_{ijv}^{xyz}e_{xyz}^{klv}$ is a balanced equation with free indices $\substack{kl\\ij}$.
+Each term is an element of $T_2^2(V)$, so the addition $(+)$ and assignment $(=)$ operations are well-defined.
+\end{ex}
+
+
+\end{document}
